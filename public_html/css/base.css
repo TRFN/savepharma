@@ -1,0 +1,312 @@
+/* 
+// Table of content
+// -----------------------------------------------------------------------------
+// - 1. Base
+// - 2. Typography
+// - 3. Helpers
+*/
+/* -----------------------------------------------------------------------------
+// 1. Base 
+// ----------------------------------------------------------------------------- */
+img {
+  max-width: 100%; }
+
+#preloader {
+  position: fixed;
+  background-color: #fff;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 999; }
+
+.spinner {
+  position: relative;
+  top: 30%;
+  width: 40px;
+  height: 40px;
+  margin: 100px auto;
+  background-color: #11b8d7;
+  border-radius: 100%;
+  -webkit-animation: sk-scaleout 1.0s infinite ease-in-out;
+  animation: sk-scaleout 1.0s infinite ease-in-out; }
+
+@-webkit-keyframes sk-scaleout {
+  0% {
+    -webkit-transform: scale(0); }
+  100% {
+    -webkit-transform: scale(1);
+    opacity: 0; } }
+@keyframes sk-scaleout {
+  0% {
+    -webkit-transform: scale(0);
+    transform: scale(0); }
+  100% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    opacity: 0; } }
+/* -----------------------------------------------------------------------------
+// 2. Typography
+// ----------------------------------------------------------------------------- */
+body {
+  color: #9c9c9c;
+  font-family: "Open Sans", Helvetica, Arial, sans-serif; }
+
+p {
+  font-size: 14px;
+  line-height: 24px;
+  letter-spacing: .5px; }
+  p a {
+    color: #11b8d7;
+    letter-spacing: .5px; }
+    p a:hover, p a:focus {
+      color: #181818; }
+
+i,
+.italic {
+  font-style: italic; }
+
+strong,
+b {
+  color: #181818;
+  font-weight: 600; }
+
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+  font-family: "Gabriela", Helvetica, Arial, sans-serif;
+  color: #181818;
+  font-weight: 300; }
+
+h1, .h1 {
+  font-size: 36px; }
+
+h2, .h2 {
+  font-size: 30px; }
+
+h3, .h3 {
+  font-size: 24px; }
+
+h4, .h4 {
+  font-size: 18px; }
+
+h5, .h5 {
+  font-size: 14px; }
+
+h6, .h6 {
+  font-size: 12px; }
+
+::selection {
+  background-color: #11b8d7;
+  color: #fff; }
+
+::-moz-selection {
+  background-color: #11b8d7;
+  color: #fff; }
+
+.selected {
+  background-color: #11b8d7;
+  color: #fff; }
+
+mark,
+.mark {
+  padding: 3px;
+  color: #fff;
+  background-color: #4b4b4b; }
+
+.dropcap::first-letter {
+  float: left;
+  margin-right: 15px;
+  padding: 15px 18px;
+  font-size: 24px;
+  border-radius: 100%;
+  font-family: "Gabriela", Helvetica, Arial, sans-serif;
+  background-color: #11b8d7;
+  color: #fff; }
+
+.dropcap-square::first-letter {
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px; }
+
+.dropcap-fancy::first-letter {
+  background-color: transparent;
+  color: #181818;
+  font-weight: 700;
+  font-size: 28px; }
+
+blockquote {
+  position: relative;
+  margin: 15px 0;
+  padding: 40px 50px;
+  border-left: none;
+  border-radius: 5px;
+  background-color: #fff;
+  font-family: "Gabriela", Helvetica, Arial, sans-serif;
+  font-size: 20px;
+  line-height: 28px;
+  color: #11b8d7; }
+
+.blockquote-bordered {
+  border: 1px solid #f1f1f1;
+  border-top: 3px solid #11b8d7;
+  background: transparent;
+  color: #4b4b4b; }
+  .blockquote-bordered:before {
+    color: #fff;
+    background-color: #11b8d7; }
+  .blockquote-bordered cite {
+    color: #11b8d7; }
+
+.list {
+  padding: 0;
+  list-style: none; }
+  .list li {
+    margin-bottom: 15px; }
+    .list li:before {
+      font-family: 'FontAwesome';
+      color: #11b8d7;
+      margin-right: 10px; }
+
+.list-chevron-circle li:before {
+  content: '\f138'; }
+
+.list-caret li:before {
+  content: '\f0da'; }
+
+.list-sun li:before {
+  content: '\f185'; }
+
+.list-star li:before {
+  content: '\f005';
+  font-size: 12px; }
+
+.list-dotted li:before {
+  content: '\f111';
+  font-size: 8px;
+  position: relative;
+  top: -2px; }
+
+.list-check-circle li:before {
+  content: '\f058'; }
+
+.list-arrow li:before {
+  content: '\f178';
+  font-size: 10px; }
+
+ol.list {
+  counter-reset: li; }
+  ol.list li {
+    position: relative;
+    margin-left: 22px;
+    padding-left: 8px;
+    list-style: none; }
+    ol.list li:before {
+      content: counter(li);
+      counter-increment: li;
+      position: absolute;
+      left: -25px;
+      width: 22px;
+      margin-right: 8px;
+      padding: 4px;
+      font-size: 10px;
+      color: #9c9c9c;
+      background-color: #fff;
+      border-radius: 100%;
+      text-align: center; }
+  ol.list.list-ordered li {
+    list-style-type: upper-alpha; }
+    ol.list.list-ordered li:before {
+      content: none; }
+
+.pagination > li:first-child > a, .pagination > li:last-child > a {
+  border-radius: 0; }
+.pagination > li.active a,
+.pagination > li.active a:hover {
+  background-color: #11b8d7;
+  border-color: #11b8d7;
+  color: #fff; }
+.pagination > li a {
+  border-radius: 0;
+  color: #e5e5e5;
+  border: 1px solid #e5e5e5;
+  margin: 0 5px;
+  -webkit-transition: all 0.5s;
+  -moz-transition: all 0.5s;
+  -ms-transition: all 0.5s;
+  -o-transition: all 0.5s;
+  transition: all 0.5s; }
+  .pagination > li a i {
+    font-size: 14px; }
+  .pagination > li a:hover {
+    background-color: #11b8d7;
+    border-color: #11b8d7;
+    color: #fff; }
+
+/* -----------------------------------------------------------------------------
+// 3. Helpers 
+// ----------------------------------------------------------------------------- */
+.space {
+  padding: 100px 0; }
+  .space-margin {
+    margin: 100px 0; }
+  .space-dark {
+    background-color: #f8f2ed; }
+  .space-top {
+    margin-top: 50px; }
+    .space-top-sm {
+      margin-top: 20px; }
+    .space-top-md {
+      margin-top: 35px; }
+  .space-bottom {
+    margin-bottom: 50px; }
+    .space-bottom-sm {
+      margin-bottom: 20px; }
+    .space-bottom-md {
+      margin-bottom: 35px; }
+
+.no-space {
+  padding: 0;
+  margin: 0; }
+  .no-space-bottom {
+    margin-bottom: 0;
+    padding-bottom: 0; }
+  .no-space-top {
+    margin-top: 0;
+    padding-top: 0; }
+  .no-space-right {
+    margin-right: 0;
+    padding-right: 0; }
+  .no-space-left {
+    margin-left: 0;
+    padding-left: 0; }
+
+@media (max-width: 992px) {
+  .space-mb {
+    margin-bottom: 40px; } }
+.text-left {
+  text-align: left; }
+
+.text-right {
+  text-align: right; }
+
+.text-center {
+  text-align: center; }
+
+.text-justify {
+  text-align: justify; }
+
+.text-nowrap {
+  white-space: nowrap; }
+
+.text-lowercase {
+  text-transform: lowercase; }
+
+.text-uppercase {
+  text-transform: uppercase; }
+
+.text-capitalize {
+  text-transform: capitalize; }
+
+/*# sourceMappingURL=base.css.map */
