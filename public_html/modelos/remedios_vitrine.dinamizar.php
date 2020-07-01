@@ -43,7 +43,7 @@
         <?php
         $estabelecimentos = array();
         foreach( $ctx->sessao->listar() as $conta ){
-            if((int)$conta["tipo"] == 1){
+            if((int)$conta["tipo"] == 1 && (int)$conta["id"] != (int)$ctx->sessao->uid()){
                 $estabelecimentos[] = (int)$conta["id"];
             }
         }

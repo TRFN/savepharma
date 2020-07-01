@@ -467,7 +467,8 @@ _forms.cfg("editar_perfil", {
                 "pontos",
                 "vinculo",
                 "senha",
-                "confsenha"
+                "confsenha",
+                "crf"
             ),
             "
                 var errotam = (function(t,r,f,n){

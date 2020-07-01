@@ -55,6 +55,13 @@
 				<span class="col-md-8 col-md-offset-2 help-block text-left">Preencha somente se quiser modificar sua senha</span>
 			</div>
 			<div class="form-group row">
+				<label for="example-text-input" class="col-md-2 col-sm-12">CRF</label>
+				<div class="col-md-4 col-sm-12">
+					<input class="form-control m-input" type="text" name="crf" value="">
+				</div>
+				<span class="col-md-6 col-sm-12 help-block text-left">Preencha se você for um Farmaceutico</span>
+			</div>
+			<div class="form-group row">
 				<?php
 					if((int)$u["tipo"] == 0 && $ctx->pagina_atual()=="editar_perfil"):
 						$paginas = $ctx->subpaginas();
