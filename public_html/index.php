@@ -30,6 +30,8 @@
     $ctx->adcpag("editar_medicamento");
     $ctx->adcpag("medicamentos");
 
+    $ctx->adcpag("relatorios");
+
     # DEFINIÇÃO DE PARÂMETROS GLOBAIS DINÂMICOS
 
     $ctx->dinamizar->definir("head");

@@ -100,7 +100,7 @@ window._forms = ({
             },250);
         }
         e.hide();
-        try {template = atob(e.attr("template"))}catch(e){/*console.warn(e);*/template=""}
+        try {template = atob(e.attr("template"))}catch(e){console.warn(e);template=""}
         typeof rewrite == 'undefined' && (rewrite=0);
         !!rewrite&&(e.html(""));
         for( i in content ){
@@ -108,7 +108,7 @@ window._forms = ({
                 lines[i] = "<tr class='false0' style='display: none;'><td>" + $('<div>').append($(template)
                                             .find('[href^="/editar_"]').attr("onclick","history.back()").clone()
                                             ).html().toLowerCase().split(/[^a-z <>=/_().:;"]/).join('_')+"</td></tr>";
-                console.log(lines[i]);
+                // console.log(lines[i]);
             } else {
                 lines[i] = template;
                 for( j in content[i] ){
@@ -117,7 +117,7 @@ window._forms = ({
             }
         }
         e.append(lines.join(""));
-        e.find("td[data-translate]").each(function(){
+        e.find("[data-translate]").each(function(){
             var data = $(this).data("translate"), dado = $(this).text(), e;
             switch(data.metodo){
                 case "vetor":
@@ -140,7 +140,7 @@ window._forms = ({
                             id = data.id;
 
                         $.post(location.href, {"estado": chave, "id": parseInt(id), "valor": estado},function(data){
-							console.log(data);
+							// console.log(data);
 						});
                     });
                     $(this).html("");
