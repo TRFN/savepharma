@@ -23,7 +23,7 @@
                                             <br />
                                             <span style="color: #333; font-size: 12px; line-height: -1px;">Nesta seção você pode visualizar, alterar ou cadastrar medicamentos no sistema.
                                             <br />
-                                            <a class="btn btn-dark dinamizar" style="font-size: 12px;margin-top: 32px;" href="/medicamentos">Acessar esta seção</a>
+                                            <a class="btn btn-dark" style="font-size: 12px;margin-top: 32px;" href="/medicamentos">Acessar</a>
                                             </span>
                                         </h2>
                                     </div>
@@ -39,7 +39,7 @@
                                             <br />
                                             <span style="color: #333; font-size: 12px; line-height: -1px;">Seção destinada aos relatorios/balanço, além de vencimentos e afins.
                                             <br />
-                                            <a class="btn btn-dark dinamizar" style="font-size: 12px;margin-top: 32px;" href="/relatorios">Acessar esta seção</a>
+                                            <a class="btn btn-dark" style="font-size: 12px;margin-top: 32px;" href="/relatorios">Acessar</a>
                                             </span>
                                         </h2>
                                     </div>

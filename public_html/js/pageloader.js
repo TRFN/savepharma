@@ -33,6 +33,46 @@ window.getpage = (function(){
 
 window.updates = [];
 
+/* Atualizar relatorios */
+
+updates.push(function(data){
+	var sis_pontos = data[3],
+		transacoes = sis_pontos.transacoes,
+		i, transacao, myid, user, tabela = [], op;
+
+	for( i in data[0] ){
+		user = data[0][i];
+		(!user.__apagado__ && user.sessaoatual=="sim") && (myid = user.id);
+	}
+
+	for( i in transacoes ){
+		transacao = transacoes[i];
+
+		tabela.push({
+			origem: parseInt(transacao[0]) == myid ? parseInt(transacao[2]):parseInt(transacao[0]),
+			medicamento: (parseInt(transacao[0])+1)*(parseInt(transacao[1])+1),
+			valor: parseInt(transacao[0]) == myid ? Math.abs(transacao[4]):Math.abs(transacao[3]),
+			status: (op=!transacao[5] ? (parseInt(transacao[0]) == myid ? 0:1):(transacao[5])),
+			button: (function(btn){
+				switch(parseInt(btn)){
+					case 0:  return "primary"; break;
+					case 1:  return "success"; break;
+					case 2:  return "warning"; break;
+					case 3:  return "danger";  break;
+					default: return "info";    break;
+				}
+			})(op),
+			cor: (op=(parseInt(transacao[parseInt(transacao[0])==myid?4:3])>0)) ? "#11a222":"#f72211",
+			dir: op ? "plus":"minus",
+			textostatus: parseInt(transacao[0])==myid ? "Emprestou":"Pegou emprestado",
+			est1: parseInt(transacao[0]),
+			est2: parseInt(transacao[2])
+		});
+	}
+
+	_forms.tableset("#pag_relatorios",tabela,true);
+});
+
 window.update = (function(lds){
     (typeof lds == "undefined" || lds) && loading_effect();
     $.post("/conectado", function(data){
