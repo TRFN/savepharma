@@ -3,6 +3,8 @@
         $u = $ctx->sessao->usuario();
         $contasnomes = array();
         $remedios = array();
+        $nomesremedios = array();
+
         foreach( $ctx->sessao->listar() as $conta ){
             $contasnomes[(int)$conta["id"]] = $conta["nome"];
         }
@@ -15,7 +17,11 @@
 		// exit(print_r($estabelecimentos,true));
         foreach(todosremedios($estabelecimentos) as $grupo){
             foreach($grupo["data"] as $remedio){
-                $remedios[((int)$remedio["id"]+1)*(1+(int)$grupo["vinculo"])] = $remedio["nome"];
+                if(!isset($remedios[(int)$grupo["vinculo"]])){
+					$remedios[(int)$grupo["vinculo"]] = [];
+				}
+				$remedios[(int)$grupo["vinculo"]][(int)$remedio["id"]] = count($nomesremedios);
+				$nomesremedios[] = $remedio["nome"];
             }
         }
     ?>
@@ -26,6 +32,32 @@
             <body class="contact-page">
                 <?php $ctx->dinamizar->inserir("menu",$ctx); endif; ?>
                 <section class="contact space paginas" id="pag_relatorios">
+					<div class="row">
+						<div class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-xs-12 col-lg-8 col-lg-offset-2">
+							<h2 style="color: #1178f7;">Relatório Resumido</h2>
+							<?php function badge($cor, $icone, $style, $titulo, $classe, $txt="",$size="3"){ ?>
+							<div style="padding: 16px;" class="col-md-4 col-sm-6 col-xs-12 col-lg-3 col-xl-3">
+								<center>
+									<fieldset style="min-height: 240px;border: 2px solid;color: <?=$cor;?>;border-radius: 8px;">
+										<legend style="background-color: transparent;width: <?=(string)((int)$size*22);?>px;border: 0px solid;border-radius: 8px;color: <?=$cor;?>;">
+											<i class="<?=$style;?> <?=$style;?>-<?=$icone;?> <?=$style;?>-<?=$size;?>x"></i>
+										</legend>
+										<h2 style="color: <?=$cor;?>; font-family: monospace;"><?=$titulo;?></h2>
+										<div style="color: <?=$cor;?>; font-family: monospace; font-size: 28px;">
+											<span id="<?=$classe;?>"><i class="la fa-spin la-refresh"></i></span><?=$txt;?>
+										</div>
+									</fieldset>
+								</center>
+							</div>
+						<?php } ?>
+
+						<?php badge("#22aa55", "plug",       "la", "Ganhou",    "ganhou", "&nbsp;pts<br /><br /><br />"); ?>
+						<?php badge("#cc2211", "legal",      "la", "Gastou",    "perdeu", "&nbsp;pts<br /><br /><br />"); ?>
+						<?php badge("#1178f7", "level-up",   "la", "Emprestou", "emprestou",    "<br /><small>Remedio(s)</small><br /><br />"); ?>
+						<?php badge("purple",  "level-down", "la", "Pegou",     "pegou",        "<br /><small>Remedio(s)</small><br /><br />"); ?>
+
+						</div>
+					</div>
                     <div class="row">
 						<div class="col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-10 col-xs-offset-1 col-lg-6 col-lg-offset-3">
 							<h2 style="color: #1178f7;">Transações</h2>
@@ -65,11 +97,17 @@
 											<tbody>
 												<template><tr class="medicamento%id%">
 													<td class="text-left hidden-xs" data-translate='{"origem":<?=json_encode($contasnomes);?>, "metodo":"vetor"}'>%origem%</td>
-													<td class="text-left" data-translate='{"origem":<?=json_encode($remedios);?>, "metodo":"vetor"}'>%medicamento%</td>
+													<td class="text-left" data-translate='{"origem":<?=json_encode($nomesremedios);?>, "metodo":"vetor"}'>%medicamento%</td>
 													<td class="text-left"><i class="fa fa-%dir%"></i>&nbsp;%valor% pts</td>
 													<td class="text-left hidden-xs"><span><i class="fa fa-%dir% text-center" style="padding: 7px 8px; background-color: %cor%; border-radius: 100%; display: inline-block; color: #fff; margin: 4px;"></i>&nbsp;<span class="text-center" style="font-size: 12px; font-weight: bold;">%textostatus%</span></td>
 													<td class="text-center">
-                                                        <a style="padding: 4px 8px; font-size: 16px; margin: 0px 1vw;" onclick="mudarStatus(%est1%,%est2%,%status%)" class="btn btn-%button% btn-sm"><span style="font-size: 10px; font-weight: bold;" data-translate='{"origem":["Medicação Enviada","Recebi a medicação","Medicação Devolvida","Recebi a devolução","Completo"], "metodo":"vetor"}'>%status%</span></a>
+														<form method="post">
+															<input type="hidden" name="est1" value="%est1%" />
+															<input type="hidden" name="est2" value="%est2%" />
+															<input type="hidden" name="status" value="%status%" />
+
+															<button type=submit style="padding: 4px 8px; font-size: 16px; margin: 0px 1vw;" class="btn btn-%button% btn-sm"><span style="font-size: 10px; font-weight: bold;" data-translate='{"origem":["Enviado","Recebido","Devolvida","Devolução","Excluir"], "metodo":"vetor"}'>%status%</span></button>
+														</form>
                                                     </td>
 												</tr></template>
 												<td>&bull;&bull;&bull;</td>
@@ -85,6 +123,9 @@
 						</div>
 					</div>
                 </section>
+				<script>
+					window.idsremedios = <?=json_encode($remedios);?>;
+				</script>
                 <?php if(!isset($_POST["ajax"])): ?>
                 <?php $ctx->dinamizar->inserir("footer",$ctx); ?>
             </body>

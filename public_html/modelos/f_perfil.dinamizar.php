@@ -14,7 +14,7 @@
 				</div>
 			</div>
 			<div class="form-group row">
-				<label for="example-text-input" class="col-md-2 col-sm-12">Nome</label>
+				<label for="example-text-input" class="titulonome col-md-2 col-sm-12">Nome</label>
 				<div class="col-md-4 col-sm-12">
 					<input class="form-control m-input" type="text" name="nome" value="">
 				</div>

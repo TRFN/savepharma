@@ -22,7 +22,7 @@
                     <div style="color: #7811f7;text-decoration: underline;text-shadow: 0 0 1px #000; font-family: 'Open Sans',Verdana;font-size: 26px;" class="hidden-sm hidden-xs col-md-4 text-center">
                         <?=$textopontos;?>
                     </div>
-                    <div style="color: #fff; background-color: #333; width: 100%; height: 24px; position: fixed; display: block; left: 0; bottom: 0; font-family: 'Open Sans',Verdana;font-size: 14px;" class="hidden-md hidden-lg hidden-xl text-center">
+                    <div style="color: #fff; background-color: #333; width: 100%; padding: 8px; position: fixed; display: block; left: 0; bottom: 0; font-family: 'Open Sans',Verdana;font-size: 18px;" class="hidden-md hidden-lg hidden-xl text-center">
                         <?=$textopontos;?>
                     </div>
                     <button class="toggle" type="button" style="border: 2px solid;border-radius: 100%;padding: 2px 10px;color: #1178f7;">
