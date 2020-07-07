@@ -96,10 +96,25 @@ setTimeout(function(){
 
 	updates.push(function(data){
 		$("label.titulonome").html(
-			e=(_forms.get('editar_perfil', ["tipo"]).tipo == "1" && getpage()=="editar_perfil")
+			(e=(_forms.get('editar_perfil', ["tipo"]).tipo == "1" && getpage()=="editar_perfil"))
 					? "Estabelecimento"
 					: "Nome"
 		);
+
+		$("#definir24h")[e?"show":"hide"]();
+		$("#crfdata")[_forms.get('editar_perfil', ["tipo"]).tipo == "2"?"show":"hide"]();
+
+		var nf = 0;
+		for(i in data[0]){
+			if(!data[0][i].__apagado__){
+				nf++;
+				if(data[0][i].sessaoatual == "sim" && data[0][i].tipo=="1"){
+					e = true;
+				}
+			}
+		}
+
+		e&&($("#botao-novo-perfil")[(nf=nf<5)?"show":"hide"](),$("#botao-np-desativado")[nf?"hide":"show"]());
 	});
 	update(false);
 },1000);

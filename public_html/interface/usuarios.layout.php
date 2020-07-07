@@ -13,21 +13,26 @@
 							<p>Nesta página você pode selecionar um usuário, modificar ou criar um novo. Tenha muita atenção a adição de usuários, bem como gestão de níveis de acesso.</p>
 						</div>
                         <div style="padding-left: 0px;padding-right: 0px;" class="panel panel-primary col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-10 col-xs-offset-1 col-xl-6 col-xl-offset-3">
-							<div class="panel-heading"> 
+							<div class="panel-heading">
 								&nbsp;
-							</div> 
+							</div>
 							<div class="panel-body">
 								<div>
 									<div class="row align-items-center">
 										<?php pesquisar_tabela(); ?>
 										<div class="col-md-2 col-sm-8 col-xs-6"></div>
 										<div class="col-md-4 col-sm-4 col-xs-6 text-center">
-											<a class="btn btn-success text-center dinamizar" href="/adicionar_perfil">
+											<a id="botao-novo-perfil" class="btn btn-success text-center dinamizar" href="/adicionar_perfil">
 												<span>
 													<i class="fa fa-plus"></i> Novo<span class="hidden-sm hidden-xs"> Perfil</span>
-												</span> 
+												</span>
 											</a>
-										</div> 
+											<a id="botao-np-desativado" class="btn btn-danger text-center" href="#" onclick="msgbox('Limite excedido','Desculpe, mas você só pode cadastrar até 4 farmaceuticos em seu estabelecimento.','error');return false">
+												<span>
+													<i class="fa fa-ban"></i> Novo<span class="hidden-sm hidden-xs"> Perfil</span>
+												</span>
+											</a>
+										</div>
 									</div>
 								</div>
 								<br />
@@ -44,7 +49,7 @@
 												</tr>
 											</thead>
 											<tbody>
-												<template><tr class="perfil%id%"> 
+												<template><tr class="perfil%id%">
 													<td class="text-left">%nome%</td>
 													<td class="text-left hidden-xs">%email%</td>
 													<td class="text-left hidden-xs" data-translate='{"origem":["Administrador", "Estabelecimento", "Farmaceutico"], "metodo":"vetor"}'>%tipo%</td>

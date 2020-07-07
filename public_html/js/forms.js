@@ -529,8 +529,9 @@ _forms.cfg("editar_perfil", {
         ) .
 
         form_ext("perfil", array(
-            "defaults" => array("'nao'"),
+            "defaults" => array("'nao'","'nao'"),
             "ativo" => $switch_ext,
+            "est24h" => $switch_ext,
             "vinculo" => tabela2select("usuarios","nome")
         ))
     );
