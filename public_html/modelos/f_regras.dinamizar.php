@@ -24,7 +24,7 @@
 					<input data-switch="true" type="checkbox" class="switch_ativo">
 				</div>
 			</div>
-			<label class="help-block">Determine a regra do prazo de validade do remédio para aplicação</label>
+			<label class="help-block">Determine a regra do prazo de validade do produto para aplicação</label>
 			<div class="form-group row">
 				<div class="col-md-4 col-sm-12 col-xs-12">
 					<label class="help-block">(Regra) do prazo</label>

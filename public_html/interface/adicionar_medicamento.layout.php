@@ -8,8 +8,8 @@
                 <section class="contact space paginas" id="pag_<?=$ctx->pagina_atual();?>">
                     <div class="row">
 						<div class="col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-10 col-xs-offset-1 col-lg-6 col-lg-offset-3">
-							<h2 style="color: #1178f7;">Adicionar Medicamento</h2>
-							<p>Nesta página você pode adicionar uma novo medicamento para o sistema</p>
+							<h2 style="color: #1178f7;">Adicionar Produto</h2>
+							<p>Nesta página você pode adicionar um novo Produto ao sistema</p>
 						</div>
                         <?php $ctx->dinamizar->inserir("f_medicamentos",$ctx); ?>
 					</div>

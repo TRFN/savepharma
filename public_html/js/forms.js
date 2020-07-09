@@ -468,7 +468,9 @@ _forms.cfg("editar_perfil", {
                 "vinculo",
                 "senha",
                 "confsenha",
-                "crf"
+                "crf",
+                "cpf",
+                "cnpj"
             ),
             "
                 var errotam = (function(t,r,f,n){
@@ -622,7 +624,8 @@ _forms.cfg("editar_medicamento", {
                 "nome",
                 "marca",
                 "validade",
-                "prazo"
+                "prazo",
+                "lote"
             ),
             "
                 var errotam = (function(t,r,f,n){
@@ -666,7 +669,7 @@ _forms.cfg("editar_medicamento", {
 			array("",""),
             "2",
             "medicamentos",
-            "Medicamento adicionado com sucesso!",
+            "Produto adicionado com sucesso!",
             "Pronto, a medicamento foi modificado!"
         ) .
 
@@ -700,13 +703,25 @@ function renderizar_formularios(){
         }
     });
 
-    $("input[name=pontos1],input[name=pontos2]").inputmask('decimal', {
+    $("input[name=pontos1],input[name=pontos2],input[name=cpf],input[name=cnpj]").inputmask('decimal', {
                 'alias': 'numeric',
                 'groupSeparator': '.',
                 'autoGroup': true,
                 'digits': 0,
                 'radixPoint': ",",
                 'digitsOptional': true,
+                'allowMinus': false,
+                'prefix': '',
+                'placeholder': ''
+    });
+
+    $("input[name=cpf],input[name=cnpj]").inputmask('decimal', {
+                'alias': 'numeric',
+                'groupSeparator': '',
+                'autoGroup': false,
+                'digits': 0,
+                'radixPoint': "",
+                'digitsOptional': false,
                 'allowMinus': false,
                 'prefix': '',
                 'placeholder': ''

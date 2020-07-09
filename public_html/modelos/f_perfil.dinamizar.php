@@ -55,17 +55,24 @@
 				<span class="col-md-8 col-md-offset-2 help-block text-left">Preencha somente se quiser modificar sua senha</span>
 			</div>
 			<div class="form-group row" id="crfdata">
+				<label for="example-text-input" class="col-md-2 col-sm-12">CPF</label>
+				<div class="col-md-4 col-sm-12">
+					<input class="form-control m-input" type="text" name="cpf" value="">
+				</div>
 				<label for="example-text-input" class="col-md-2 col-sm-12">CRF</label>
 				<div class="col-md-4 col-sm-12">
 					<input class="form-control m-input" type="text" name="crf" value="">
 				</div>
-				<span class="col-md-6 col-sm-12 help-block text-left">Preencha se você for um Farmaceutico</span>
 			</div>
 			<div class="form-group row">
 				<?php
 					if((int)$u["tipo"] == 1):
 				?>
 					<div id="definir24h">
+						<label for="example-text-input" class="col-md-2 col-sm-12">CNPJ</label>
+						<div class="col-md-4 col-sm-12">
+							<input class="form-control m-input" type="text" name="cnpj" value="">
+						</div>
 						<label for="example-text-input" class="col-md-2 col-sm-12">Funciona 24H?</label>
 						<div class="col-md-4 col-sm-12">
 							<input data-switch="true" type="checkbox" class="switch_est24h">

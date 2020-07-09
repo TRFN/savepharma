@@ -234,8 +234,8 @@ window.processar_transacao = (function(a){
 		switch(parseInt(data)){
 			case 0:  msgbox("","Transação realizada com sucesso!"); break;
 			case 1:  msgbox("","Transação não realizada por falta de saldo!","error"); break;
-			case 2:  msgbox("","Este medicamento pertence ao seu próprio estabelecimento, portanto, você não poderá pega-lo emprestado.","info"); break;
-			case 3:  msgbox("","Desculpe, mas este medicamento foi desativado pelo estabelecimento...","warning"); break;
+			case 2:  msgbox("","Este produto pertence ao seu próprio estabelecimento, portanto, você não poderá pega-lo emprestado.","info"); break;
+			case 3:  msgbox("","Desculpe, mas este produto foi desativado pelo estabelecimento...","warning"); break;
 			default: msgbox("","Ocorreu algum erro interno. Tente novamente...","warning"); break;
 		}
 	});

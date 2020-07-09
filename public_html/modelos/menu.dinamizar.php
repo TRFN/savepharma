@@ -12,9 +12,9 @@
                         <span style="color: #1178f7;font-family: 'Open Sans',Verdana;font-size: 26px;"><i class="fa fa-hospital-o"></i>&nbsp;&nbsp;&nbsp;SavePharma</span>
                     </div>
                     <?php
-                        if((string)$u["tipo"] == 1):
+                        if((int)$u["tipo"] !== 0):
                             $pnt = new sistemapontos();
-                            $pnt->estabelecimentoId($ctx->sessao->uid());
+                            $pnt->estabelecimentoId($u[(int)$u["tipo"]==1?"id":"vinculo"]);
                             $pontos = $pnt->ler("pontos");
                             $textopontos = "Pontos disponíveis: <span id='pontosatualizar'>{$pontos}</span>";
                         endif;

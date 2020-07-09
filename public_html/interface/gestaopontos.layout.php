@@ -10,7 +10,7 @@
                     <div class="row">
 						<div class="col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-10 col-xs-offset-1 col-lg-6 col-lg-offset-3">
 							<h2 style="color: #1178f7;">Gestão de Pontos</h2>
-							<p>Nesta página você pode selecionar uma regra, modificar ou criar uma nova. Tenha muita atenção a adição de regras, bem como na gestão do que for estabelecido. As regras interferem diretamente na pontuação dos medicamentos.</p>
+							<p>Nesta página você pode selecionar uma regra, modificar ou criar uma nova. Tenha muita atenção a adição de regras, bem como na gestão do que for estabelecido. As regras interferem diretamente na pontuação dos pontos.</p>
 						</div>
                         <div style="padding-left: 0px;padding-right: 0px;" class="panel panel-primary col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-10 col-xs-offset-1 col-xl-6 col-xl-offset-3">
 							<div class="panel-heading">

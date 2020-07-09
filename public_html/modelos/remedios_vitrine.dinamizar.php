@@ -2,8 +2,8 @@
     function remedios_vitrine($ctx){
         ?><div class="row" id="vitrine" style="min-height: 579px;">
             <div class="col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-10 col-xs-offset-1 col-lg-8 col-lg-offset-2">
-                <h2 style="color: #1178f7;">Medicamentos Disponíveis</h2>
-                <p>Visualize todos os medicamentos que você pode adquirir a partir dos seus pontos.</p>
+                <h2 style="color: #1178f7;">Produtos Disponíveis</h2>
+                <p>Visualize todos os produtos que você pode adquirir a partir dos seus pontos.</p>
                 <br />
             </div>
             <div style="clear: both;"></div>
@@ -36,8 +36,8 @@
             <div style="clear: both;"></div>
             <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-10 col-xs-offset-1 col-lg-4 col-lg-offset-4 nao-encontrado" style="display:none; font-size: 18px;">
                 <br />
-                <p style="color: #1178f7; font-weight: bolder;">Medicamento não localizado</p>
-                <p>Desculpe, mas o medicamento solicitado não pôde ser encontrado. Tente pesquisar novamente utilizando outros termos.</p>
+                <p style="color: #1178f7; font-weight: bolder;">Produto não localizado</p>
+                <p>Desculpe, mas o produto solicitado não pôde ser encontrado. Tente pesquisar novamente utilizando outros termos.</p>
                 <br />
             </div>
         <?php
@@ -91,13 +91,13 @@
                                 ' class="btn btn-success">Adquirir</a>
                             <?php elseif(!$exp3): ?>
                             </div><a href="javascript:;" class="btn btn-default" disabled>Indisponível</a>
-                                <p><small class="text-muted" style="font-size: 11px;">* <strong>Motivo</strong>: Medicamento desativado pelo estabelecimento.</small></p>
+                                <p><small class="text-muted" style="font-size: 11px;">* <strong>Motivo</strong>: Produto desativado pelo estabelecimento.</small></p>
                             <?php elseif(!$exp1 && $exp2): ?>
                             </div><a href="javascript:;" class="btn btn-default" disabled>Indisponível</a>
-                                <p><small class="text-muted" style="font-size: 11px;">* <strong>Motivo</strong>: Medicamento com menos de 1 mês para vencimento.</small></p>
+                                <p><small class="text-muted" style="font-size: 11px;">* <strong>Motivo</strong>: Produto com menos de 1 mês para vencimento.</small></p>
                             <?php else: ?>
                                 </div><a href="javascript:;" class="btn btn-default" disabled>Indisponível</a>
-                                <p><small class="text-muted" style="font-size: 11px;">* <strong>Motivo</strong>: Medicamento com prazo de devolução excedido.</small></p>
+                                <p><small class="text-muted" style="font-size: 11px;">* <strong>Motivo</strong>: Produto com prazo de devolução excedido.</small></p>
                             <?php endif; ?>
                         </div>
                     </div>

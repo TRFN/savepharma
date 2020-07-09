@@ -5,11 +5,15 @@
 		</div>
 
 		<div class="panel-body">
-			<label class="help-block">Dados do medicamento</label>
+			<label class="help-block">Dados do produto</label>
 			<div class="form-group row">
-				<div class="col-md-8 col-md-offset-2 col-sm-12">
-					<label class="help-block">Nome do medicamento</label>
+				<div class="col-md-7 col-sm-12">
+					<label class="help-block">Nome do produto</label>
 					<input class="form-control m-input" type="text" name="nome" value="">
+				</div>
+				<div class="col-md-5 col-sm-12">
+					<label class="help-block">Lote</label>
+					<input class="form-control m-input" type="text" name="lote" value="">
 				</div>
 			</div>
 			<div class="form-group row">
@@ -27,7 +31,7 @@
 					<center><input class="form-control m-input" type="date" style="max-width: 170px!important;" name="prazo" value="<?=date("Y-m-d");?>"></center>
 				</div>
 			</div>
-			<label class="help-block">A opção abaixo deve estar habilitada somente se realmente houver disponibilidade do medicamento.</label>
+			<label class="help-block">A opção abaixo deve estar habilitada somente se realmente houver disponibilidade do produto.</label>
 			<div class="form-group row">
 				<div class="col-md-6 col-xs-12">
 					<div class="form-group">
@@ -40,7 +44,7 @@
 				<div class="col-md-6 col-xs-12">
 					<div class="form-group m-form__group">
 						<div>
-							<label class="help-block">Faça o upload do comprovante fiscal do medicamento.</label>
+							<label class="help-block">Faça o upload do comprovante fiscal do produto.</label>
 							<div class="col-lg-12 col-md-9 col-sm-12">
 								<div class="dropzone" style="border: 4px dashed #888;" id="dz<?=$ctx->pagina_atual()=="adicionar_medicamento"?"a":"e";?>-medicamento">
 									<div class="dz-message needsclick">

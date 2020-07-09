@@ -19,9 +19,9 @@
                             <div class="col-md-6">
                                 <div class="info-box" style="background-color: transparent;margin-bottom: 24px; border:2px solid #4412af;padding: 18px 50px;">
                                     <div class="align">
-                                        <h2 style="color: #4412af; font-family: 'Open Sans';">Medicamentos
+                                        <h2 style="color: #4412af; font-family: 'Open Sans';">Produtos
                                             <br />
-                                            <span style="color: #333; font-size: 12px; line-height: -1px;">Nesta seção você pode visualizar, alterar ou cadastrar medicamentos no sistema.
+                                            <span style="color: #333; font-size: 12px; line-height: -1px;">Nesta seção você pode visualizar, alterar ou cadastrar podutos no sistema.
                                             <br />
                                             <a class="btn btn-dark" style="font-size: 12px;margin-top: 32px;" href="/medicamentos">Acessar</a>
                                             </span>
@@ -61,7 +61,7 @@
                         </div>
                     </div>
                 <?php endif;endif; ?>
-                <?php if((int)$u["tipo"]==1): ?>
+                <?php if((int)$u["tipo"]!==0): ?>
                     <div class="container" id="vitrine">
                         <?php $ctx->dinamizar->inserir("remedios_vitrine",$ctx); ?>
                     </div>

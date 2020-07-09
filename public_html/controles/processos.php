@@ -344,38 +344,24 @@
 
                 case 1:
                     $medicamentos->estabelecimentoId((int)$ctx->sessao->uid());
+                    $myid = (int)$ctx->sessao->uid();
                     $update[2] = $medicamentos->ler();
                     $update[2] = $update[2]["data"];
                 break;
 
                 case 2:
                     $medicamentos->estabelecimentoId((int)$u["vinculo"]);
+                    $myid = (int)$u["vinculo"];
                     $update[2] = $medicamentos->ler();
                     $update[2] = $update[2]["data"];
                 break;
             }
 
             $pnt = new sistemapontos();
-            // switch((int)$u["tipo"]){
-            //     case 0:
-            //         $update[2] = array();
-            //     break;
-            //
-            //     case 1:
-            //         $medicamentos->estabelecimentoId((int)$ctx->sessao->uid());
-            //         $update[2] = $medicamentos->ler();
-            //         $update[2] = $update[2]["data"];
-            //     break;
-            //
-            //     case 2:
-            //         $medicamentos->estabelecimentoId((int)$u["vinculo"]);
-            //         $update[2] = $medicamentos->ler();
-            //         $update[2] = $update[2]["data"];
-            //     break;
-            // }
-            $pnt->estabelecimentoId((int)$ctx->sessao->uid());
 
-            $update[3] = (int)$u["tipo"] == 1?$pnt->ler():array();
+            $pnt->estabelecimentoId($myid);
+
+            $update[3] = (int)$u["tipo"] !== 0?$pnt->ler():array();
 
             header("Content-Type: application/json");
             exit($ctx->sessao->conectado()?json_encode($update):'[{"ativo":"desconectado"}]');

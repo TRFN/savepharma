@@ -53,8 +53,8 @@
 
 						<?php badge("#22aa55", "plug",       "la", "Ganhou",    "ganhou", "&nbsp;pts<br /><br /><br />"); ?>
 						<?php badge("#cc2211", "legal",      "la", "Gastou",    "perdeu", "&nbsp;pts<br /><br /><br />"); ?>
-						<?php badge("#1178f7", "level-up",   "la", "Emprestou", "emprestou",    "<br /><small>Remedio(s)</small><br /><br />"); ?>
-						<?php badge("purple",  "level-down", "la", "Pegou",     "pegou",        "<br /><small>Remedio(s)</small><br /><br />"); ?>
+						<?php badge("#1178f7", "level-up",   "la", "Emprestou", "emprestou",    "<br /><small>Produto(s)</small><br /><br />"); ?>
+						<?php badge("purple",  "level-down", "la", "Pegou",     "pegou",        "<br /><small>Produto(s)</small><br /><br />"); ?>
 
 						</div>
 					</div>
@@ -75,7 +75,7 @@
 										<div class="col-md-4 col-sm-4 col-xs-6 text-center">
 											<!--a class="btn btn-success text-center dinamizar" href="/adicionar_medicamento">
 												<span>
-													<i class="fa fa-plus"></i> Novo<span class="hidden-sm hidden-xs"> Medicamento</span>
+													<i class="fa fa-plus"></i> Novo<span class="hidden-sm hidden-xs"> Produto</span>
 												</span>
 											</a-->
 										</div>
@@ -88,7 +88,7 @@
 											<thead class="thead-dark">
 												<tr>
 													<th style="width: 100px;max-width: 20%;" class="hidden-xs">Estabelecimento</th>
-													<th style="width: 100px;max-width: 20%;">Medicamento</th>
+													<th style="width: 100px;max-width: 20%;">Produto</th>
 													<th style="width: 100px;max-width: 10%;" class="text-left">Pontos</th>
 													<th style="width: 100px;max-width: 15%;" class="text-left hidden-xs">Operação</th>
 													<th class="text-center" style="width: 100px;max-width: 35%;">Mudar Status</th>
