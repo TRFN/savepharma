@@ -1,0 +1,27 @@
+{
+    "contem": {
+        "instagram": {
+            "layout": "partes/redesocial-sobrenos",
+            "vars": {
+                "animacao": "bounceInUp",
+                "icone": "instagram",
+                "cor": "#222",
+                "titulo": "Conheça nosso @Instagram Oficial",
+                "desc": "%link%",
+                "link": "https://www.instagram.com/jd.eletrica/"
+            }
+        },
+        "facebook": {
+            "layout": "partes/redesocial-sobrenos",
+            "vars": {
+                "animacao": "bounceInRight",
+                "icone": "facebook",
+                "cor": "#45b",
+                "titulo": "Visite nossa página no Facebook",
+                "desc": "%link%",
+                "link": "https://www.facebook.com/"
+            }
+        }
+    },
+    "montagem": ["instagram","facebook"]
+}

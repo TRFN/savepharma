@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<base href="/" />
+<title>%titulo%</title>
+<link rel="icon" type="image/png" href="favicon.png" />
+<link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="js/jquery.min.js"></script>
+<!-- Custom Theme files -->
+<!--theme-style-->
+<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+<link href="css/owl.carousel.css" rel="stylesheet">
+<!--//theme-style-->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="%titulo%" />
+<meta name="author" content="https://tulionascimento.com.br/" />
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<!--fonts-->
+<link href='//fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900' rel='stylesheet' type='text/css'>
+<script type="text/javascript" src="js/move-top.js"></script>
+<script type="text/javascript" src="js/easing.js"></script>
+<!-- slide -->
+</head>
+<body>
+    <!--header-->
+	%menu%
+	<!---->
+    %layout%
+	<!---->
+	%footer%
+    <script type="text/javascript">
+        $(document).ready(function() {
+            /*
+            var defaults = {
+                containerID: 'toTop', // fading element id
+                containerHoverID: 'toTopHover', // fading element hover id
+                scrollSpeed: 1200,
+                easingType: 'linear'
+            };
+            */
+
+            $().UItoTop({ easingType: 'easeOutQuart' });
+
+        });
+    </script>
+    <script src="js/owl.carousel.js"></script>
+    <script>
+        $(document).ready(function() {
+          $("#owl-demo1").owlCarousel({
+            items : 1,
+            lazyLoad : true,
+            autoPlay : true,
+            navigation : true,
+            navigationText :  true,
+            pagination : false,
+          });
+        });
+
+        window.addEventListener("resize", function(){$(".top-nav ul")[$("body").width() <= 768?"hide":"show"]();},true);
+      </script>
+</body>
+</html>

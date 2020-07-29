@@ -1,0 +1,66 @@
+
+
+<div class="content-bottom">
+	<div class="container" style="font-size: calc( 5px + .6vw )">
+		<h3>Acessar o Sistema</h3>
+		<p>Insira seus dados abaixo para efetuar o login no sistema</p>
+	</div>
+	<i> </i>
+</div>
+
+<!-- content -->
+
+<div class="footer">
+    <div class="container">
+        <div class="footer-top">
+            <!--div class="col-md-5 footer-left">
+                <p>Acesso ao Sistema</p>
+                <p class="foot">Insira seu email e senha para acessar a plataforma.</p>
+            </div-->
+            <div class="%maxcol-8-10-12% submit">
+                <!--form id="login" action="javascript:processar_login();" method="post" class="row">
+                    <input type="text" style="color: #333; font-weight: bold;" class="col-md-4 col-xs-12" value="Email Cadastrado" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Email Cadastrado';}">
+                    <input type="password" style="color: #333; font-weight: bold;" class="col-md-4 col-xs-12" value="Senha" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Senha';}">
+                    <input type="submit" value="Entrar" class="col-md-2 col-xs-12">
+                    <div class="clearfix"> </div>
+                </form-->
+                <center><form action="https://app.savepharma.com.br/login" method="post"><input style="float: none; text-transform: uppercase;" type="submit" value="Clique Aqui Para Acessar o Sistema" /></form></center>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+        <p class="footer-class">Copyright &copy; SavePharma %anoatual%<span class="hidden-sm hidden-xs"> - Todos os direitos reservados. </span><br />
+            <a href="https://tulionascimento.com.br/" target="_blank" style="color: #aaa;">Projetado por Túlio Nascimento</a>
+        </p>
+    </div>
+    <a href="#" id="toTop" style="display: block;"> <span id="toTopHover" style="opacity: 1;"> </span></a>
+</div>
+
+<!--script>
+    function processar_login(){
+    	var $_POST = [(a=$("form#login[action] input"))[0].value,a[1].value];
+
+    	if(!/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test($_POST[0])){
+    		alert("Email inválido");
+    		return false;
+    	}
+
+    	if($_POST[1].length == 0){
+    		alert("Insira a senha");
+    		return false;
+    	}
+
+    	$.post("https://app.savepharma.com.br/login/processar", {email: $_POST[0],password: $_POST[1]}, function(data){
+    			switch(String(data)){
+    				case "0":
+    					alert("Usuário e/ou senha inválidos. Tente novamente.");
+    				break;
+    				case "1":
+    					window.top.location.href='https://app.savepharma.com.br/home';
+    				break;
+    				case "2":
+    					alert("Desculpe, mas sua conta está desativada. Entre em contato com algum administrador do sistema e solicite a reativação.");
+    				break;
+    			}
+    		});
+    }
+</script-->

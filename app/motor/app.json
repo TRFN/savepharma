@@ -1,0 +1,26 @@
+{
+    "versao": "1.0.0.0",
+    "https": false,
+    "404": "homepage",
+    "paginas": {
+        "homepage": {
+            "caminho": ["/"],
+            "layout": "paginas/index",
+            "modelo": "estrutura/template",
+            "scripts": [],
+            "styles": [],
+            "controle": "principal",
+            "type": "text/html",
+            "persistente": false,
+            "minify": false,
+            "incluir": {
+                "menu": "elementos/menu",
+                "footer": "elementos/footer",
+                "slidehome": "elementos/slide-home"
+            },
+            "variaveis": {
+                "titulo": "SavePharma | Pagina Inicial"
+            }
+        }
+    }
+}

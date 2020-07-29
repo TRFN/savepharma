@@ -1,0 +1,106 @@
+{
+    "contem": {
+        "trabalho1": {
+            "layout": "partes/trabalho",
+            "vars": {
+                "animacao": "bounceInDown",
+                "legenda": "Coletor Solar",
+                "imagem": "imagens/placafotovoltaica.jpg"
+            }
+        },
+        "trabalho2": {
+            "layout": "partes/trabalho",
+            "vars": {
+                "animacao": "bounceInLeft",
+                "legenda": "Quadro de comando",
+                "imagem": "imagens/quadroeletrico1.jpg"
+            }
+        },
+        "trabalho3": {
+            "layout": "partes/trabalho",
+            "vars": {
+                "animacao": "bounceInRight",
+                "legenda": "Quadro de comando",
+                "imagem": "imagens/quadroeletrico2.jpg"
+            }
+        },
+        "trabalho4": {
+            "layout": "partes/trabalho",
+            "vars": {
+                "animacao": "bounceInUp",
+                "legenda": "Quadro de comando",
+                "imagem": "imagens/quadroeletrico3.jpg"
+            }
+        },
+        "trabalho5": {
+            "layout": "partes/trabalho",
+            "vars": {
+                "animacao": "bounceInRight",
+                "legenda": "Quadro de comando",
+                "imagem": "imagens/quadroeletrico4.jpg"
+            }
+        },
+        "trabalho6": {
+            "layout": "partes/trabalho",
+            "vars": {
+                "animacao": "bounceInLeft",
+                "legenda": "Módulo fotovoltaico",
+                "imagem": "imagens/solar1.jpg"
+            }
+        },
+        "trabalho7": {
+            "layout": "partes/trabalho",
+            "vars": {
+                "animacao": "bounceInDown",
+                "legenda": "Módulo fotovoltaico",
+                "imagem": "imagens/solar2.jpg"
+            }
+        },
+        "trabalho8": {
+            "layout": "partes/trabalho",
+            "vars": {
+                "animacao": "bounceInUp",
+                "legenda": "Módulo fotovoltaico",
+                "imagem": "imagens/solar3.jpg"
+            }
+        },
+        "trabalho9": {
+            "layout": "partes/trabalho",
+            "vars": {
+                "animacao": "bounceInLeft",
+                "legenda": "Módulo fotovoltaico",
+                "imagem": "imagens/solar4.jpg"
+            }
+        },
+        "trabalho10": {
+            "layout": "partes/trabalho",
+            "vars": {
+                "animacao": "bounceInDown",
+                "legenda": "Bomba de Recalque",
+                "imagem": "imagens/recalque1.jpg"
+            }
+        },
+        "trabalho11": {
+            "layout": "partes/trabalho",
+            "vars": {
+                "animacao": "bounceInRight",
+                "legenda": "Bomba de Recalque",
+                "imagem": "imagens/recalque2.jpg"
+            }
+        },
+        "trabalho12": {
+            "layout": "partes/trabalho",
+            "vars": {
+                "animacao": "bounceInLeft",
+                "legenda": "Bomba de Recalque",
+                "imagem": "imagens/recalque3.jpg"
+            }
+        }
+    },
+    "montagem": [
+        "trabalho6","trabalho1","trabalho7",
+        "trabalho8","trabalho9","trabalho2",
+        "trabalho3","trabalho4","trabalho5",
+        "trabalho10","trabalho11","trabalho12"
+    ]
+}

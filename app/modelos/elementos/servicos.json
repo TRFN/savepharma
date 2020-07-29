@@ -1,0 +1,45 @@
+{
+    "contem": {
+        "servico1": {
+            "layout": "partes/servicos",
+            "vars": {
+                "animacao": "bounceInRight",
+                "titulo": "Paineis Elétricos",
+                "texto": "Instalação e manutenção em painéis elétricos.",
+                "cor": "#4a3",
+                "icone": "thumbs-up"
+            }
+        },
+        "servico2": {
+            "layout": "partes/servicos",
+            "vars": {
+                "animacao": "bounceInLeft",
+                "titulo": "Instalações Elétricas",
+                "texto": "Sistemas Elétricos prediais e Residênciais",
+                "cor": "#45b",
+                "icone": "bolt"
+            }
+        },
+        "servico3": {
+            "layout": "partes/servicos",
+            "vars": {
+                "animacao": "bounceInUp",
+                "titulo": "Energia Fotovoltaico",
+                "texto": "Instalação e manutenção de módulo fotovoltaico",
+                "cor": "%cortema%",
+                "icone": "sun-o"
+            }
+        },
+        "servico4": {
+            "layout": "partes/servicos",
+            "vars": {
+                "animacao": "bounceInDown",
+                "titulo": "Infraestrutura",
+                "texto": "Elaboração e manutenção de infraestruturas",
+                "cor": "#333",
+                "icone": "building"
+            }
+        }
+    },
+    "montagem": ["servico1","servico2","servico3","servico4"]
+}

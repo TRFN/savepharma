@@ -3,12 +3,12 @@ RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
 
-RewriteRule (.*) index.php [L]
+RewriteRule (.*) index.php?_urldir_=$1 [L]
 
 <IfModule mod_headers.c>
  Header unset ETag
 </IfModule>
-FileETag None
+FileETag None 
 <IfModule mod_expires.c>
  ExpiresActive on
  ExpiresDefault "access plus 1 month"
