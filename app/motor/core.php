@@ -18,10 +18,13 @@
             spl_autoload_register("my_autoload");
         }
 
-        private function appLoad(){
-            $this->app = json_decode(file_get_contents(__DIR__ . "/app.json"));
+        private function appLoad($app="app"){
+            $this->app = json_decode(file_get_contents(__DIR__ . "/{$app}.json"));
             if($this->app->https && $_SERVER["HTTPS"] != "on"){
                 header("Location: https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]);
+                exit();
+            } elseif(!$this->app->https && $_SERVER["HTTPS"] == "on"){
+                header("Location: http://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]);
                 exit();
             }
             $this->app->appDir = dirname(__DIR__);
@@ -37,10 +40,9 @@
         private function loadPage($index){
             $pagina = $this->app->paginas->{"$index"};
             $exec = false;
-
             if($pagina->controle){
                 include_once "{$this->app->appDir}/controles/{$pagina->controle}.php";
-                $exec = "ctrl_{$pagina->controle}";
+                $exec = "ctrl_" . preg_replace("/\//","_",$pagina->controle);
             }
 
             $this->regVar("layout", $pagina->layout
@@ -150,6 +152,14 @@
                 }
             }
 
+            if(!$ready){
+                if(file_exists($this->app->appDir . "/motor/" . ($napp = explode("/",$this->app->page)[1]) . ".json")){
+                    $this->appLoad($napp);
+                    $this->render();
+                    $ready = 2;
+                }
+            }
+
             if(!$ready) {
                 header("HTTP/1.0 404 Not Found");
                 if(!$this->app->{"404"}){
@@ -161,7 +171,7 @@
                     $this->loadPage($this->app->{"404"});
                     $this->makePage();
                 }
-            } else {
+            } elseif($ready != 2) {
                 $this->makePage();
             }
         }
