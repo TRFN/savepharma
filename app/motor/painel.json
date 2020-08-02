@@ -1,0 +1,24 @@
+{
+    "versao": "1.0.0.0",
+    "https": false,
+    "404": "home",
+    "paginas": {
+        "home": {
+            "caminho": ["/painel/","/painel"],
+            "layout": "painel/paginas/index",
+            "modelo": "painel/template",
+            "scripts": [],
+            "styles": [],
+            "controle": false,
+            "type": "text/html",
+            "persistente": false,
+            "minify": false,
+            "incluir": {
+                "menu": "painel/elementos/menu"
+            },
+            "variaveis": {
+                "titulo": "Painel - Início"
+            }
+        }
+    }
+}

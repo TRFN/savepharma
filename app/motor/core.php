@@ -125,34 +125,34 @@
         }
 
         private function render(){
-            $ready = false;
+            $ready = 0;
             $caminhos = array();
             foreach($this->app->paginas as $index => $pagina){
                 foreach($pagina->caminho as $caminho){
                     $caminhos[$caminho] = $index;
                     if(($caminho == $this->app->page || "{$caminho}/" == $this->app->page) && !$ready){
-                        $ready = true;
+                        $ready = 1;
                         $this->loadPage($index);
                     }
                 }
             }
-            if(!$ready) {
+            if($ready==0) {
                 $match = 0;
                 foreach($caminhos as $url => $id){
                     $url  = explode("/", $url);
                     $page = explode("/", $this->app->page);
                     if(($exp=$this->compare($url,$page,false)) > $match && $this->app->paginas->{$id}->persistente){
-                        $ready = true;
+                        $ready = 1;
                         $match = $exp;
                         $index = $id;
                     }
                 }
-                if($ready){
+                if($ready==1){
                     $this->loadPage($index);
                 }
             }
 
-            if(!$ready){
+            if($ready==0){
                 if(file_exists($this->app->appDir . "/motor/" . ($napp = explode("/",$this->app->page)[1]) . ".json")){
                     $this->appLoad($napp);
                     $this->render();
@@ -160,7 +160,7 @@
                 }
             }
 
-            if(!$ready) {
+            if($ready==0) {
                 header("HTTP/1.0 404 Not Found");
                 if(!$this->app->{"404"}){
                     header("Content-Type: text/plain");
