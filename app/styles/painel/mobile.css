@@ -1,0 +1,96 @@
+.navbar-brand:after {
+    content: " SavePharma"
+}
+
+.navbar-header .links {
+    transition: right 600ms ease;
+    position: fixed;
+    top: 0;
+    right: -80vw;
+    width: 60vw;
+    height: 100vh;
+    padding: 0;
+    list-style: none;
+    background-color: #337ab7!important;
+    z-index: 1000;
+}
+
+.navbar-header .links i, .navbar-header .links .arrow {
+    display: none;
+}
+
+.navbar-header .links a {
+    background-color: transparent!important;
+    color: #337ab7!important;
+    width: 100%;
+    text-align: center;
+    display: inline-block;
+}
+
+.navbar-header .links > li:not(.title) {
+    padding: 8px!important;
+    border: 2px solid #fff;
+    border-radius: 4px;
+    width: 80%!important;
+    margin: 6px auto;
+    font-weight: bold;
+    border: 2px solid #ddd;
+    margin: 8px auto;
+    background-color: #fff;
+    border-radius: 8px;
+}
+
+.navbar-header .links > li:not(.title) > ul > li {
+    border: 2px solid #114a97!important;
+    margin: 8px auto;
+    background-color: #337ab7!important;
+    border-radius: 8px;
+}
+
+.navbar-header .links > li:not(.title) > ul > li > a {
+    color: #fff!important;
+}
+
+.navbar-header .links li.title {
+    width: 100%!important;
+    font-size: 40px;
+    text-align: center;
+    margin-bottom: 16px;
+    color: #fff;
+}
+
+.navbar-header .links li ul {
+    display: none;
+}
+
+.navbar-header .links li:hover ul {
+    display: block;
+}
+
+@media screen and (max-width: 768px) {
+    nav a {
+        color: #337ab7!important;
+    }
+
+    .navbar-header:hover .links {
+        right: 0;
+    }
+
+    nav #side-menu {
+        display: none!important;
+    }
+
+    .navbar-brand:after {
+        content: ""
+    }
+
+    .navbar-brand i:before{
+        content: "\f0c9";
+        font-size: 28px;
+    }
+
+    nav {
+        background-color: #f8f8f8!important;
+    }
+
+}

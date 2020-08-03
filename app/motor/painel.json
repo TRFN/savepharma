@@ -8,7 +8,7 @@
             "layout": "painel/paginas/index",
             "modelo": "painel/template",
             "scripts": [],
-            "styles": [],
+            "styles": ["painel/mobile"],
             "controle": false,
             "type": "text/html",
             "persistente": false,

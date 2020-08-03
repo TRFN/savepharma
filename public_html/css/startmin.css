@@ -659,27 +659,3 @@ table.dataTable thead .sorting:after {
     color: #fff; /* active text color */
     background-color: #a94442; /* active bg color */
 }
-.navbar-brand:after {
-    content: " SavePharma"
-}
-@media screen and (max-width: 768px) {
-    nav a {
-        color: #337ab7!important;
-    }
-
-    .navbar-brand:after {
-        content: ""
-    }
-
-    .navbar-brand i:before{
-        content: "\f0c9";
-        position: fixed;
-        font-size: 40px;
-        top: 8px;
-    }
-
-    nav {
-        background-color: #f8f8f8!important;
-    }
-
-}
