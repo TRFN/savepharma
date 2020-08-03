@@ -1,6 +1,4 @@
 <?php
-    /* Refazer sistema de DB */
-
     class database {
         private $dados = array();
         private $dir = null;
@@ -56,7 +54,11 @@
         }
 
         public function escrever($chave, $valor){
-            $this->dados[$chave] = $valor;
+            if($chave==-1){
+                $this->dados[] = $valor;
+            } else {
+                $this->dados[$chave] = $valor;
+            }
         }
 
         public function ler($chave="*",$obj=false,$reload=false){
@@ -68,7 +70,6 @@
 
         public function gravar(){
             $dados = serialize($this->dados);
-            echo "$this->dir/{$this->database}.db";
             $saida = file_put_contents("$this->dir/{$this->database}.db",$this->senha==-1?$dados:$this->codificar($dados,$this->senha));
             $this->atualizar();
             return $saida;

@@ -4,12 +4,12 @@
     "404": "home",
     "paginas": {
         "home": {
-            "caminho": ["/painel/","/painel"],
+            "caminho": ["/painel/","/painel","/painel/home","/painel/home/"],
             "layout": "painel/paginas/index",
             "modelo": "painel/template",
             "scripts": [],
             "styles": ["painel/mobile"],
-            "controle": false,
+            "controle": "painel",
             "type": "text/html",
             "persistente": false,
             "minify": false,
@@ -18,6 +18,40 @@
             },
             "variaveis": {
                 "titulo": "Painel - Início"
+            }
+        },
+        "login": {
+            "caminho": ["/painel/login","/painel/login/"],
+            "layout": "painel/paginas/login",
+            "modelo": false,
+            "scripts": [],
+            "styles": [],
+            "controle": "login",
+            "type": "text/html",
+            "persistente": false,
+            "minify": false,
+            "incluir": {
+
+            },
+            "variaveis": {
+
+            }
+        },
+        "logout": {
+            "caminho": ["/painel/logout","/painel/logout/"],
+            "layout": false,
+            "modelo": false,
+            "scripts": [],
+            "styles": [],
+            "controle": "logout",
+            "type": "text/html",
+            "persistente": false,
+            "minify": false,
+            "incluir": {
+
+            },
+            "variaveis": {
+
             }
         }
     }
