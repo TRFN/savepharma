@@ -1,5 +1,5 @@
 {
-    "versao": "1.0.0.0",
+    "versao": "desenvolvimento",
     "https": false,
     "404": "home",
     "paginas": {
@@ -14,10 +14,10 @@
             "persistente": false,
             "minify": false,
             "incluir": {
-                "menu": "painel/elementos/menu"
+                "menu_admin": "painel/elementos/menu/menu_admin"
             },
             "variaveis": {
-                "titulo": "Painel - Início"
+                "titulo": "Início"
             }
         },
         "login": {
@@ -52,6 +52,24 @@
             },
             "variaveis": {
 
+            }
+        },
+        "adicionar usuario": {
+            "caminho": ["/painel/adicionar-usuario","/painel/adicionar-usuario/"],
+            "layout": "painel/paginas/usuarios/adicionar",
+            "modelo": "painel/template",
+            "scripts": [],
+            "styles": ["painel/mobile"],
+            "controle": ["painel","formularios/adicionar_usuario"],
+            "type": "text/html",
+            "persistente": false,
+            "minify": false,
+            "incluir": {
+                "menu_admin": "painel/elementos/menu/menu_admin",
+                "formulario": "painel/elementos/formularios/adicionar_usuario"
+            },
+            "variaveis": {
+                "titulo": "Adicionar Usuário"
             }
         }
     }

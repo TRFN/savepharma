@@ -1,0 +1,73 @@
+{
+    "contem": {
+        "campo1": {
+            "layout": "painel/partes/formularios/input",
+            "vars": {
+                "valorpadrao": "%input-%id%%",
+
+                "classes": "",
+                "tamanho": "col-md-6",
+                "titulo": "Nome do usuário",
+                "tipo": "text",
+                "id": "nome",
+                "ajuda": ""
+            }
+        },
+        "campo2": {
+            "layout": "painel/partes/formularios/input",
+            "vars": {
+                "valorpadrao": "%input-%id%%",
+
+                "classes": "",
+                "tamanho": "col-md-6",
+                "titulo": "Email",
+                "tipo": "email",
+                "id": "email",
+                "ajuda": ""
+            }
+        },
+        "campo3": {
+            "layout": "painel/partes/formularios/input",
+            "vars": {
+                "valorpadrao": "%input-%id%%",
+
+                "classes": "",
+                "tamanho": "col-md-4",
+                "titulo": "Senha",
+                "tipo": "password",
+                "id": "senha",
+                "ajuda": ""
+            }
+        },
+        "campo4": {
+            "layout": "painel/partes/formularios/input",
+            "vars": {
+                "valorpadrao": "%input-%id%%",
+
+                "classes": "",
+                "tamanho": "col-md-4",
+                "titulo": "Confirme a Senha",
+                "tipo": "password",
+                "id": "senhaconf",
+                "ajuda": ""
+            }
+        },
+        "campo5": {
+            "layout": "painel/partes/formularios/select/2",
+            "vars": {
+                "valorpadrao": "%input-%id%%",
+
+                "classes": "",
+                "tamanho": "col-md-4",
+                "titulo": "Nível de Acesso",
+                "id": "nivelacesso",
+                "ajuda": "",
+                "op-texto-1": "Administrador",
+                "op-valor-1": "admin",
+                "op-texto-2": "Gerente",
+                "op-valor-2": "gerente"
+            }
+        }
+    },
+    "montagem": ["campo1","campo2","campo3","campo4","campo5"]
+}

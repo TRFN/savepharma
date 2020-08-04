@@ -1,6 +1,6 @@
 <?php
     function ctrl_login($ctx){
-        $sessao = new sessoes("contas-painel",true);
+        $sessao = new sessoes("contas-painel", $ctx->app->versao == "desenvolvimento");
 
         // $sessao->criar_conta(array(
         //     "email" => "tulio.nasc95@gmail.com",

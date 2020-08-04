@@ -39,10 +39,17 @@
 
         private function loadPage($index){
             $pagina = $this->app->paginas->{"$index"};
-            $exec = false;
-            if($pagina->controle){
+
+            $exec = array();
+
+            if(is_string($pagina->controle)){
                 include_once "{$this->app->appDir}/controles/{$pagina->controle}.php";
-                $exec = "ctrl_" . preg_replace("/\//","_",$pagina->controle);
+                $exec[] = "ctrl_" . preg_replace("/\//","_",$pagina->controle);
+            } elseif(is_array($pagina->controle)){
+                foreach($pagina->controle as $controle){
+                    include_once "{$this->app->appDir}/controles/{$controle}.php";
+                    $exec[] = "ctrl_" . preg_replace("/\//","_",$controle);
+                }
             }
 
             $this->regVar("layout", $pagina->layout
@@ -110,8 +117,10 @@
 
             $this->app->contentType = $pagina->type;
 
-            if($exec){
-                $exec($this);
+            if(count($exec) > 0){
+                foreach($exec as $_exec){
+                    $_exec($this);
+                }
             }
         }
 
@@ -180,6 +189,20 @@
 
         public function regVar($var, $val){
             $this->app->vars[(string)$var] = (string)$val;
+        }
+
+        public function regVarPersistent($var, $val){
+            $this->regVar($var, $val);
+
+            $vars_backup = $this->app->vars;
+
+            $this->app->vars = array();
+
+            $this->regVar($var, $val);
+
+            foreach($vars_backup as $_var => $_val){
+                $this->regVar($_var, $_val);
+            }
         }
 
         public function compare($arrA, $arrB, $exact=true){

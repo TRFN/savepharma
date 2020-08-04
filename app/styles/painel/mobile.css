@@ -1,5 +1,5 @@
 .navbar-brand:after {
-    content: " SavePharma"
+    content: " %titulo-logo%"
 }
 
 .navbar-header .links {
