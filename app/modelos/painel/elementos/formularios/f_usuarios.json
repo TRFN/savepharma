@@ -53,7 +53,7 @@
             }
         },
         "campo5": {
-            "layout": "painel/partes/formularios/select/2",
+            "layout": "painel/partes/formularios/select",
             "vars": {
                 "valorpadrao": "%input-%id%%",
 
@@ -62,12 +62,37 @@
                 "titulo": "Nível de Acesso",
                 "id": "nivelacesso",
                 "ajuda": "",
-                "op-texto-1": "Administrador",
-                "op-valor-1": "admin",
-                "op-texto-2": "Gerente",
-                "op-valor-2": "gerente"
+                "dados": {
+                    "admin": "Administrador",
+                    "gerente":"Gerente/proprietário",
+                    "farmaceutico":"Farmaceutico"
+                }
+            }
+        },
+        "campo6": {
+            "layout": "painel/partes/formularios/select",
+            "vars": {
+                "valorpadrao": "%input-%id%%",
+
+                "classes": "",
+                "tamanho": "col-md-6",
+                "titulo": "Gerente de qual estabelecimento?",
+                "id": "vinculo",
+                "ajuda": "",
+                "dados": "%estabelecimentos%"
+            }
+        },
+        "botao1": {
+            "layout": "painel/partes/formularios/button",
+            "vars": {
+                "classes": "",
+                "tamanho": "col-md-2 col-md-offset-5",
+                "escala": "md",
+                "estilo": "success",
+                "texto": "%textosubmit%",
+                "acao": "alert('cadastro');"
             }
         }
     },
-    "montagem": ["campo1","campo2","campo3","campo4","campo5"]
+    "montagem": ["campo1","campo2","campo3","campo4","campo5","campo6","botao1"]
 }

@@ -6,7 +6,7 @@
                 "classes": "",
                 "icone": "dashboard",
                 "texto": "Início",
-                "link": "/painel"
+                "link": "/painel/home"
             }
         },
         "menu2": {

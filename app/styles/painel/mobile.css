@@ -1,5 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300&display=swap');
+
+html, body, * {
+    font-family: 'Roboto', sans-serif;
+}
+
 .navbar-brand:after {
     content: " %titulo-logo%"
+}
+
+.chosen-container .chosen-results li.highlighted {
+    background: #337ab7!important;
+    color: #fff!important;
+    transition: background-color 400ms ease, color 300ms ease;
+}
+
+.chosen-container .chosen-results li {
+    padding: 10px;
+    font-size: 14px;
+    font-weight: bold;
 }
 
 .navbar-header .links {
@@ -20,11 +38,38 @@
 }
 
 .navbar-header .links a {
-    background-color: transparent!important;
-    color: #337ab7!important;
+    background-color: transparent;
+    color: #337ab7;
     width: 100%;
     text-align: center;
     display: inline-block;
+}
+
+.sidebar ul li a {
+    color: #337ab7;
+    background-color: transparent;
+    letter-spacing: 0.035rem;
+    transition: background-color 400ms ease, color 300ms ease;
+}
+
+.sidebar ul li.active a, .sidebar ul li a:hover, .sidebar ul li a:active, .sidebar ul li.active, .sidebar ul li a.active {
+    background-color: #337ab7;
+    color: #fff;
+}
+
+.sidebar ul li ul li a, .sidebar ul li.active ul li a {
+    background-color: #f8f8f8;
+    color: #337ab7;
+}
+
+.sidebar ul li ul li a.active {
+    color: #fff;
+    background-color: #555;
+}
+
+.sidebar ul li ul li a:hover {
+    color: #555;
+    background-color: #f8f8f8;
 }
 
 .navbar-header .links > li:not(.title) {

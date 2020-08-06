@@ -66,7 +66,7 @@
             "minify": false,
             "incluir": {
                 "menu_admin": "painel/elementos/menu/menu_admin",
-                "formulario": "painel/elementos/formularios/adicionar_usuario"
+                "formulario": "painel/elementos/formularios/f_usuarios"
             },
             "variaveis": {
                 "titulo": "Adicionar Usuário"

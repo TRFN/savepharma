@@ -1,0 +1,16 @@
+<div class="form-group %tamanho%">
+    <label>%titulo%</label>
+    <select style="border-radius: 0px;" class="form-control %classes%" name="%id%" id="%id%">
+
+    </select>
+    <p class="help-block">%ajuda%</p>
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded",function(){
+        dados = %dados%;
+        for( i in dados ){
+            $("#%id%").append("<option value='" + i + "'>" + dados[i] + "</option>");
+        }
+        $("#%id%").val("%valorpadrao%").trigger("chosen:updated");
+    },false);
+</script>

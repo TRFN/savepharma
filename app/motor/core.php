@@ -81,6 +81,9 @@
                             $e_layout = file_get_contents("{$this->app->appDir}/layouts/{$elemento["layout"]}.html");
 
                             foreach($elemento["vars"] as $var=>$value){
+                                if(is_object($value) || is_array($value)){
+                                    $value = json_encode($value);
+                                }
                                 $e_layout = implode($value,explode("%{$var}%",$e_layout));
                             }
 
