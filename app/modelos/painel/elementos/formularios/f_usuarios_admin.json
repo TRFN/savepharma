@@ -62,6 +62,7 @@
                 "titulo": "Nível de Acesso",
                 "id": "nivelacesso",
                 "ajuda": "",
+                "onchange":"if(this.value=='admin'){$('#vinculo').prop('disabled',true).trigger('chosen:updated');$('.dinamico-tipo').text('Opção desabilitada para este tipo de conta').css({color:'#888'});} else {$('.dinamico-tipo').text($(this).find('option[value=' + this.value + ']').text() + ' de qual estabelecimento?').css({color:'#333'});$('#vinculo').prop('disabled', false).trigger('chosen:updated');}",
                 "dados": {
                     "admin": "Administrador",
                     "gerente":"Gerente/proprietário",
@@ -76,23 +77,37 @@
 
                 "classes": "",
                 "tamanho": "col-md-6",
-                "titulo": "Gerente de qual estabelecimento?",
+                "titulo": "<span class='dinamico-tipo' style='transition: color 600ms ease;'>Gerente/proprietário de qual estabelecimento?</span>",
                 "id": "vinculo",
                 "ajuda": "",
                 "dados": "%estabelecimentos%"
+            }
+        },
+        "campo7": {
+            "layout": "painel/partes/formularios/empty",
+            "vars": {
+                "tamanho": "col-md-4",
+                "conteudo": "&nbsp;"
+            }
+        },
+        "campo8": {
+            "layout": "painel/partes/formularios/empty",
+            "vars": {
+                "tamanho": "col-md-2",
+                "conteudo": "&nbsp;"
             }
         },
         "botao1": {
             "layout": "painel/partes/formularios/button",
             "vars": {
                 "classes": "",
-                "tamanho": "col-md-2 col-md-offset-5",
+                "tamanho": "col-md-2",
                 "escala": "md",
                 "estilo": "success",
                 "texto": "%textosubmit%",
-                "acao": "alert('cadastro');"
+                "acao": "$(this).closest('form').submit()"
             }
         }
     },
-    "montagem": ["campo1","campo2","campo3","campo4","campo5","campo6","botao1"]
+    "montagem": ["campo1","campo2","campo3","campo4","campo5","campo6","campo7","botao1"]
 }

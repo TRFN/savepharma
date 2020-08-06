@@ -1,0 +1,4 @@
+{
+    "contem": "painel/elementos/formularios/f_usuarios_admin",
+    "montagem": ["campo1","campo2","campo3","campo4","campo8","botao1"]
+}

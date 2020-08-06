@@ -15,10 +15,22 @@
                 "classes": "",
                 "icone": "users",
                 "texto": "Usuários",
-                "sub_texto1": "Adicionar Usuário",
-                "sub_texto2": "Gerir usuários",
-                "link1": "/painel/adicionar-usuario",
-                "link2": "/painel/gerir-usuarios"
+                "sub_texto1": "Adicionar Conta",
+                "sub_texto2": "Gerir Contas",
+                "link1": "/painel/contas/adicionar",
+                "link2": "/painel/contas/gerir"
+            }
+        },
+        "menu8": {
+            "layout": "painel/partes/menu/sub2",
+            "vars": {
+                "classes": "",
+                "icone": "user",
+                "texto": "Farmaceuticos",
+                "sub_texto1": "Adicionar Farmaceutico",
+                "sub_texto2": "Gerir Farmaceuticos",
+                "link1": "/painel/contas/adicionar",
+                "link2": "/painel/contas/gerir"
             }
         },
         "menu3": {
@@ -61,6 +73,15 @@
                 "icone": "globe",
                 "texto": "Textos do site",
                 "link": "/painel/admin-site"
+            }
+        },
+        "menu7": {
+            "layout": "painel/partes/menu/unico",
+            "vars": {
+                "classes": "",
+                "icone": "shopping-basket",
+                "texto": "Meu Estabelecimento",
+                "link": "/painel/gerenciar-meu-estabelecimento"
             }
         }
     },

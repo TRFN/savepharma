@@ -31,6 +31,8 @@
             $this->app->publicDir = dirname($this->app->appDir) . "/public_html";
             $this->app->page = $_SERVER['REQUEST_URI'];
             $this->app->vars = array();
+            $this->urlParams = explode("/", $this->app->page);
+            array_shift($this->urlParams);
         }
 
         private function minifyCode($input){
@@ -74,6 +76,11 @@
                     $json = file_get_contents($json);
                     $json = json_decode($json,true);
                     $finalcontent = "";
+                    if(is_string($json["contem"])){
+                        $json["contem"] = file_get_contents("{$this->app->appDir}/modelos/{$json["contem"]}.json");
+                        $json["contem"] = json_decode($json["contem"],true);
+                        $json["contem"] = $json["contem"]["contem"];
+                    }
                     foreach($json["montagem"] as $busca){
                         $elemento = isset($json["contem"][$busca])?$json["contem"][$busca]:-1;
 
@@ -200,6 +207,8 @@
             $vars_backup = $this->app->vars;
 
             $this->app->vars = array();
+
+            $this->regVar("layout", $vars_backup["layout"]);
 
             $this->regVar($var, $val);
 

@@ -14,7 +14,10 @@
 
         // Gestão da conexão
 
+        $tipo_acesso = "gerente";
+
         $ctx->regVar("email-conectado", $sessao->conexao()->email);
-        $ctx->regVarPersistent("menu-carregamento", "%menu_admin%");
+        $ctx->regVarPersistent("menu-carregamento", "%menu_{$tipo_acesso}%");
+        $ctx->regVarPersistent("tipo-acesso",$tipo_acesso);
     }
 ?>
