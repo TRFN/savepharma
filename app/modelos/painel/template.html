@@ -38,8 +38,8 @@
         <style>%stylecode%; @keyframes identifier {} </style>
     </head>
     <body>
-        <i style="margin: calc(50vh - 64px) auto; display: block; font-size: 128px; text-shadow: 0px 0px 2px 2px #337ab7; color: #337ab7;" class="fa fa-fw fa-pulse fa-spinner"></i>
-        <div id="wrapper" style="display: none;">
+        <!--i style="margin: calc(50vh - 64px) auto; display: block; font-size: 128px; text-shadow: 0px 0px 2px 2px #337ab7; color: #337ab7;" class="fa fa-fw fa-pulse fa-spinner"></i-->
+        <div id="wrapper">
 
             <!-- Navigation -->
             <nav style="background-color: #337ab7;" class="navbar navbar-fixed-top" role="navigation">
@@ -47,7 +47,7 @@
                     <a class="navbar-brand" style="font-size: calc(1vw + 12px); color: #fff; background-color: transparent;" href="javascript:;"> <i class="fa fa-%icone-logo%"></i>&nbsp;</a>
                     <ul class="links">
                         <li class="title"> <span class="fa fa-%icone-logo%"></span> &nbsp; %titulo-logo% </li>
-                        %menu-%tipo-acesso%%
+                        %menu_%tipo-acesso%%
                     </ul>
                 </div>
 
@@ -61,7 +61,7 @@
                             <i class="fa fa-user fa-fw"></i> %email-conectado% <b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu dropdown-user">
-                            <li><a href="javascript:;"><i class="fa fa-cog fa-fw"></i> Alterar Dados</a>
+                            <li><a href="/painel/contas/gerir/u/%meuid%"><i class="fa fa-cog fa-fw"></i> Alterar Dados</a>
                             </li>
                             <li class="divider"></li>
                             <li><a href="/painel/logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
@@ -85,7 +85,7 @@
                                 </div>
                                 <!-- /input-group -->
                             </li>
-                            %menu-carregamento%
+                            %menu_%tipo-acesso%%
                         </ul>
                     </div>
                 </div>
@@ -151,8 +151,7 @@
 
             $("._ca:not(.%tipo-acesso%)").remove();
 
-            setTimeout("$('#wrapper').fadeIn();$('body > i').fadeOut().promise().done(function(){$(this).remove();});",1000);
+            $(".form-group %input-error%").closest(".form-group").addClass("has-error");
         </script>
-
     </body>
 </html>

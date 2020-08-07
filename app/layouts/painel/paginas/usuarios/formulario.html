@@ -11,6 +11,9 @@
                     %f_%tipo-acesso%%
                 </form>
             </div>
+            <div class="panel-footer text-center" style="font-size: 12px; font-weight: bold; min-height: 32px; color: #c45;">
+                %mensagem-erro% %debug%
+            </div>
             <!-- /.panel-body -->
         </div>
         <!-- /.panel -->
@@ -18,3 +21,15 @@
     <!-- /.col-lg-12 -->
 </div>
 <!-- /.row -->
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        setInterval(() => {
+            if($("#nivelacesso")[0].value=='admin'){
+                $('#vinculo').prop('disabled',true).trigger('chosen:updated');
+                $('.dinamico-tipo').text('Opção desabilitada para este tipo de conta').css({color:'#888'});
+            } else {
+                $('.dinamico-tipo').text($("#nivelacesso").find('option[value=' + $("#nivelacesso")[0].value + ']').text() + ' de qual estabelecimento?').css({color:'#333'});$('#vinculo').prop('disabled', false).trigger('chosen:updated');
+            }
+        }, 400);
+    }, !1);
+</script>

@@ -1,8 +1,8 @@
 <?php
     function ctrl_painel($ctx){
-        $sessao = new sessoes("contas-painel", $ctx->app->versao == "desenvolvimento");
+        $ctx->sessao = new sessoes("contas-painel", $ctx->app->versao == "desenvolvimento");
 
-        if(!$sessao->conectado()){
+        if(!$ctx->sessao->conectado()){
             header("Location: /painel/login");
             exit();
         }
@@ -14,10 +14,11 @@
 
         // Gestão da conexão
 
-        $tipo_acesso = "gerente";
-
-        $ctx->regVar("email-conectado", $sessao->conexao()->email);
+        $ctx->regVar("input-error", "_none_");
+        $ctx->regVar("debug", "");
+        $ctx->regVar("email-conectado", $ctx->sessao->conexao()->email);
+        $ctx->regVar("meuid", $ctx->sessao->conexao()->id);
         $ctx->regVarPersistent("menu-carregamento", "%menu_{$tipo_acesso}%");
-        $ctx->regVarPersistent("tipo-acesso",$tipo_acesso);
+        $ctx->regVarPersistent("tipo-acesso", $ctx->sessao->conexao()->nivelacesso);
     }
 ?>

@@ -99,7 +99,7 @@
             "modelo": "painel/template",
             "scripts": [],
             "styles": ["painel/mobile"],
-            "controle": ["painel","formularios/adicionar_usuario"],
+            "controle": ["painel","formularios/editar_usuario"],
             "type": "text/html",
             "persistente": true,
             "minify": false,

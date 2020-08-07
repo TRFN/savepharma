@@ -122,8 +122,8 @@
                 if($dados !== "0"){
                     unset($dados[$this->u_pass]);
                     unset($dados["hash"]);
-                    $contas["id"] = $id;
-                    $contas[$id] = $dados;
+                    $dados["id"] = $id;
+                    $contas[] = $dados;
                 }
             }
 

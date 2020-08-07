@@ -11,7 +11,17 @@
             $ctx->regVar("mensagem-erro","");
             $ctx->regVar("email","");
         } else {
+
             if(!$sessao->login($_POST)){
+                if($sessao->erros->login=="conexao_existente"){
+                    $sessao->logout();
+                    $erro = !$sessao->login($_POST);
+                } else {
+                    $erro = true;
+                }
+            }
+
+            if($erro){
                 $ctx->regVar("mensagem-erro",'<i class="fa fa-exclamation-triangle"></i>&nbsp;&nbsp;Usuario e/ou senha incorreto(s). Tente novamente.');
                 $ctx->regVar("email",$_POST["email"]);
             } else {

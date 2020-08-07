@@ -62,7 +62,6 @@
                 "titulo": "Nível de Acesso",
                 "id": "nivelacesso",
                 "ajuda": "",
-                "onchange":"if(this.value=='admin'){$('#vinculo').prop('disabled',true).trigger('chosen:updated');$('.dinamico-tipo').text('Opção desabilitada para este tipo de conta').css({color:'#888'});} else {$('.dinamico-tipo').text($(this).find('option[value=' + this.value + ']').text() + ' de qual estabelecimento?').css({color:'#333'});$('#vinculo').prop('disabled', false).trigger('chosen:updated');}",
                 "dados": {
                     "admin": "Administrador",
                     "gerente":"Gerente/proprietário",
@@ -86,14 +85,14 @@
         "campo7": {
             "layout": "painel/partes/formularios/empty",
             "vars": {
-                "tamanho": "col-md-4",
+                "tamanho": "col-md-2",
                 "conteudo": "&nbsp;"
             }
         },
         "campo8": {
             "layout": "painel/partes/formularios/empty",
             "vars": {
-                "tamanho": "col-md-2",
+                "tamanho": "col-md-0",
                 "conteudo": "&nbsp;"
             }
         },
@@ -101,7 +100,7 @@
             "layout": "painel/partes/formularios/button",
             "vars": {
                 "classes": "",
-                "tamanho": "col-md-2",
+                "tamanho": "col-md-4",
                 "escala": "md",
                 "estilo": "success",
                 "texto": "%textosubmit%",
