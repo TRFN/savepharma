@@ -62,8 +62,8 @@
                 "texto": "Estabelecimentos",
                 "sub_texto1": "Adicionar Estabelecimento",
                 "sub_texto2": "Gerir Estabelecimentos",
-                "link1": "/painel/adicionar-estabelecimento",
-                "link2": "/painel/gerir-estabelecimentos"
+                "link1": "/painel/estabelecimentos/adicionar",
+                "link2": "/painel/estabelecimentos/gerir"
             }
         },
         "menu6": {

@@ -2,6 +2,19 @@
     "versao": "desenvolvimento",
     "https": false,
     "404": "home",
+    "minify": "true",
+    "vars": {
+        "layout": "",
+        "stylecode": "",
+        "scriptcode": "",
+        "cortema": "51, 122, 183",
+        "titulo-logo": "SavePharma",
+        "icone-logo": "hospital-o",
+        "input-error": "_none_",
+        "debug": "",
+        "mensagem-aviso": "",
+        "mensagem-erro": ""
+    },
     "paginas": {
         "home": {
             "caminho": ["/painel/","/painel","/painel/home","/painel/home/"],
@@ -11,11 +24,12 @@
             "styles": ["painel/mobile"],
             "controle": "painel",
             "type": "text/html",
-            "persistente": false,
+            "persistente": true,
             "minify": false,
             "incluir": {
                 "menu_admin": "painel/elementos/menu/menu_admin",
-                "menu_gerente": "painel/elementos/menu/menu_gerente"
+                "menu_gerente": "painel/elementos/menu/menu_gerente",
+                "tabela_produtos": "painel/fragmentos/tabela"
             },
             "variaveis": {
                 "titulo": "Início"
@@ -26,7 +40,7 @@
             "layout": "painel/paginas/login",
             "modelo": false,
             "scripts": [],
-            "styles": [],
+            "styles": ["painel/mobile"],
             "controle": "login",
             "type": "text/html",
             "persistente": false,
@@ -57,11 +71,11 @@
         },
         "adicionar usuario": {
             "caminho": ["/painel/contas/adicionar","/painel/contas/adicionar/"],
-            "layout": "painel/paginas/usuarios/formulario",
+            "layout": "painel/paginas/formulario",
             "modelo": "painel/template",
-            "scripts": [],
+            "scripts": ["painel/formularios","painel/contas/helper"],
             "styles": ["painel/mobile"],
-            "controle": ["painel","formularios/adicionar_usuario"],
+            "controle": ["painel","contas/adicionar"],
             "type": "text/html",
             "persistente": false,
             "minify": false,
@@ -76,12 +90,12 @@
             }
         },
         "gerir usuarios": {
-            "caminho": ["/painel/contas/gerir","/painel/contas/gerir/"],
-            "layout": "painel/paginas/usuarios/listar",
+            "caminho": ["/painel/contas/gerir","/painel/contas/gerir/","/painel/contas/gerir/apagado","/painel/contas/gerir/apagado/"],
+            "layout": "painel/paginas/tabelas",
             "modelo": "painel/template",
-            "scripts": [],
+            "scripts": ["painel/tabelas","painel/mensagens"],
             "styles": ["painel/mobile"],
-            "controle": ["painel","formularios/adicionar_usuario"],
+            "controle": ["painel","contas/listar"],
             "type": "text/html",
             "persistente": false,
             "minify": false,
@@ -95,11 +109,11 @@
         },
         "editar usuario": {
             "caminho": ["/painel/contas/gerir/u","/painel/contas/gerir/u/"],
-            "layout": "painel/paginas/usuarios/formulario",
+            "layout": "painel/paginas/formulario",
             "modelo": "painel/template",
-            "scripts": [],
+            "scripts": ["painel/formularios","painel/contas/helper"],
             "styles": ["painel/mobile"],
-            "controle": ["painel","formularios/editar_usuario"],
+            "controle": ["painel","contas/editar"],
             "type": "text/html",
             "persistente": true,
             "minify": false,
@@ -111,6 +125,70 @@
             },
             "variaveis": {
                 "titulo": "Modificar Conta"
+            }
+        },
+
+        "adicionar estabelecimento": {
+            "caminho": ["/painel/estabelecimentos/adicionar","/painel/estabelecimentos/adicionar/"],
+            "layout": "painel/paginas/formulario",
+            "modelo": "painel/template",
+            "scripts": ["painel/formularios"],
+            "styles": ["painel/mobile"],
+            "controle": ["painel","estabelecimentos/adicionar"],
+            "type": "text/html",
+            "persistente": false,
+            "minify": true,
+            "incluir": {
+                "menu_admin": "painel/elementos/menu/menu_admin",
+                "menu_gerente": "painel/elementos/menu/menu_gerente",
+                "f_admin": "painel/elementos/formularios/f_estabelecimentos_admin",
+                "f_gerente": "painel/elementos/formularios/f_estabelecimentos_gerente"
+            },
+            "variaveis": {
+                "titulo": "Adicionar estabelecimento"
+            }
+        },
+        "gerir estabelecimento": {
+            "caminho": [
+                "/painel/estabelecimentos/gerir",
+                "/painel/estabelecimentos/gerir/",
+                "/painel/estabelecimentos/gerir/apagado",
+                "/painel/estabelecimentos/gerir/apagado/"
+            ],
+            "layout": "painel/paginas/tabelas",
+            "modelo": "painel/template",
+            "scripts": ["painel/tabelas","painel/mensagens"],
+            "styles": ["painel/mobile"],
+            "controle": ["painel","estabelecimentos/listar"],
+            "type": "text/html",
+            "persistente": false,
+            "minify": false,
+            "incluir": {
+                "menu_admin": "painel/elementos/menu/menu_admin",
+                "menu_gerente": "painel/elementos/menu/menu_gerente"
+            },
+            "variaveis": {
+                "titulo": "Estabelecimentos"
+            }
+        },
+        "editar estabelecimento": {
+            "caminho": ["/painel/estabelecimentos/gerir/id","/painel/estabelecimentos/gerir/id/"],
+            "layout": "painel/paginas/formulario",
+            "modelo": "painel/template",
+            "scripts": ["painel/formularios"],
+            "styles": ["painel/mobile"],
+            "controle": ["painel","estabelecimentos/editar"],
+            "type": "text/html",
+            "persistente": true,
+            "minify": false,
+            "incluir": {
+                "menu_admin": "painel/elementos/menu/menu_admin",
+                "menu_gerente": "painel/elementos/menu/menu_gerente",
+                "f_admin": "painel/elementos/formularios/f_estabelecimentos_admin",
+                "f_gerente": "painel/elementos/formularios/f_estabelecimentos_gerente"
+            },
+            "variaveis": {
+                "titulo": "Modificar estabelecimento"
             }
         }
     }

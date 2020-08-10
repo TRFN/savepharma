@@ -17,15 +17,12 @@
         <!-- MetisMenu CSS -->
         <link href="css/metisMenu.min.css" rel="stylesheet">
 
-        <!-- Timeline CSS -->
-        <link href="css/timeline.css" rel="stylesheet">
-
         <!-- Custom CSS -->
         <link href="css/startmin.css" rel="stylesheet">
 
         <!-- Custom Fonts -->
         <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
-
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.min.css" integrity="sha512-hwwdtOTYkQwW2sedIsbuP1h0mWeJe/hFOfsvNKpRB3CkRxq8EW7QMheec1Sgd8prYxGm1OM9OZcGW7/GUud5Fw==" crossorigin="anonymous" />
         <link href="//fonts.googleapis.com/css2?family=Roboto:wght@100;300&display=swap" rel="stylesheet" type="text/css">
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -35,14 +32,19 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
 
-        <style>%stylecode%; @keyframes identifier {} </style>
+        <style>%stylecode%</style>
+
+        <style> @keyframes identifier {} </style>
+
+
+        <link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css">
     </head>
     <body>
-        <!--i style="margin: calc(50vh - 64px) auto; display: block; font-size: 128px; text-shadow: 0px 0px 2px 2px #337ab7; color: #337ab7;" class="fa fa-fw fa-pulse fa-spinner"></i-->
+        <!--i style="margin: calc(50vh - 64px) auto; display: block; font-size: 128px; text-shadow: 0px 0px 2px 2px rgb(%cortema%); color: rgb(%cortema%);" class="fa fa-fw fa-pulse fa-spinner"></i-->
         <div id="wrapper">
 
             <!-- Navigation -->
-            <nav style="background-color: #337ab7;" class="navbar navbar-fixed-top" role="navigation">
+            <nav style="background-color: rgb(%cortema%);" class="navbar navbar-fixed-top" role="navigation">
                 <div class="navbar-header">
                     <a class="navbar-brand" style="font-size: calc(1vw + 12px); color: #fff; background-color: transparent;" href="javascript:;"> <i class="fa fa-%icone-logo%"></i>&nbsp;</a>
                     <ul class="links">
@@ -64,7 +66,7 @@
                             <li><a href="/painel/contas/gerir/u/%meuid%"><i class="fa fa-cog fa-fw"></i> Alterar Dados</a>
                             </li>
                             <li class="divider"></li>
-                            <li><a href="/painel/logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                            <li><a href="/painel/logout"><i class="fa fa-sign-out fa-fw"></i> Sair da conta</a>
                             </li>
                         </ul>
                     </li>
@@ -95,7 +97,12 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-lg-12">
-                            <h1 class="page-header">%titulo%</h1>
+                            <h1 class="page-header text-center hidden-lg hidden-md">
+                                %titulo%
+                            </h1>
+                            <h1 class="page-header hidden-xs hidden-sm">
+                                %titulo%
+                            </h1>
                         </div>
                         <!-- /.col-lg-12 -->
                     </div>
@@ -117,41 +124,13 @@
         <!-- Metis Menu Plugin JavaScript -->
         <script src="js/metisMenu.min.js"></script>
 
+        <script src="//cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+
         <!-- Custom Theme JavaScript -->
         <script src="js/startmin.js"></script>
 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.min.js" integrity="sha512-rMGGF4wg1R73ehtnxXBt5mbUfN9JUJwbk21KMlnLZDJh7BkPmeovBuddZCENJddHYYMkCh9hPFnPmS9sspki8g==" crossorigin="anonymous"></script>
-
-        <script>
-
-            $("select").chosen({"no_results_text": 'Nenhum resultado encontrado para: <br /><br /><strong>'});
-
-            $(".chosen-container .chosen-single").addClass("form-control").css({
-                "border-radius": 0,
-                "display": "block",
-                "width": "100%",
-                "height": "34px",
-                "padding": "6px 12px",
-                "font-size": "14px",
-                "line-height": "1.42857143",
-                "color": "#555",
-                "background-color": "#fff",
-                "background-image": "none",
-                "border": "1px solid #ccc",
-                "-webkit-box-shadow": "inset 0 1px 1px rgba(0,0,0,.075)",
-                "box-shadow": "inset 0 1px 1px rgba(0,0,0,.075)",
-                "-webkit-transition": "border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s",
-                "-o-transition": "border-color ease-in-out .15s,box-shadow ease-in-out .15s",
-                "transition": "border-color ease-in-out .15s,box-shadow ease-in-out .15s",
-            });
-
-            $('.chosen-container b').css({
-                "margin-top": "4.42857143px"
-            }).closest(".chosen-container").css({width: "100%"});
-
-            $("._ca:not(.%tipo-acesso%)").remove();
-
-            $(".form-group %input-error%").closest(".form-group").addClass("has-error");
-        </script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.min.js" integrity="sha512-rMGGF4wg1R73ehtnxXBt5mbUfN9JUJwbk21KMlnLZDJh7BkPmeovBuddZCENJddHYYMkCh9hPFnPmS9sspki8g==" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.min.js" integrity="sha512-MqEDqB7me8klOYxXXQlB4LaNf9V9S0+sG1i8LtPOYmHqICuEZ9ZLbyV3qIfADg2UJcLyCm4fawNiFvnYbcBJ1w==" crossorigin="anonymous"></script>
+        <script>%scriptcode% %mensagem-aviso%</script>
     </body>
 </html>

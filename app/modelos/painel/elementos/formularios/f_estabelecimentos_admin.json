@@ -1,0 +1,119 @@
+{
+    "contem": {
+        "campo1": {
+            "layout": "painel/partes/formularios/input",
+            "vars": {
+                "valorpadrao": "%input-%id%%",
+
+                "classes": "",
+                "tamanho": "col-md-6",
+                "titulo": "Nome do estabelecimento",
+                "tipo": "text",
+                "id": "nome",
+                "ajuda": ""
+            }
+        },
+        "campo2": {
+            "layout": "painel/partes/formularios/input",
+            "vars": {
+                "valorpadrao": "%input-%id%%",
+
+                "classes": "",
+                "tamanho": "col-md-6",
+                "titulo": "Email comercial",
+                "tipo": "email",
+                "id": "email",
+                "ajuda": ""
+            }
+        },
+        "campo3": {
+            "layout": "painel/partes/formularios/input",
+            "vars": {
+                "valorpadrao": "%input-%id%%",
+
+                "classes": "",
+                "tamanho": "col-md-8",
+                "titulo": "Endereço",
+                "tipo": "text",
+                "id": "endereco",
+                "ajuda": ""
+            }
+        },
+        "campo4": {
+            "layout": "painel/partes/formularios/input",
+            "vars": {
+                "valorpadrao": "%input-%id%%",
+
+                "classes": "",
+                "tamanho": "col-md-4",
+                "titulo": "Telefone",
+                "tipo": "text",
+                "id": "telefone",
+                "ajuda": ""
+            }
+        },
+        "campo5": {
+            "layout": "painel/partes/formularios/select",
+            "vars": {
+                "valorpadrao": "%input-%id%%",
+
+                "classes": "",
+                "tamanho": "col-md-4",
+                "titulo": "Estabelecimento gerenciado por?",
+                "id": "vinculo",
+                "ajuda": "",
+                "dados": "%gerentes%"
+            }
+        },
+        "campo6": {
+            "layout": "painel/partes/formularios/input",
+            "vars": {
+                "valorpadrao": "%input-%id%%",
+
+                "classes": "",
+                "tamanho": "col-md-3",
+                "titulo": "Pontos",
+                "id": "pontos",
+                "ajuda": ""
+            }
+        },
+        "campo7": {
+            "layout": "painel/partes/formularios/empty",
+            "vars": {
+                "tamanho": "col-md-4",
+                "conteudo": "&nbsp;"
+            }
+        },
+        "campo8": {
+            "layout": "painel/partes/formularios/empty",
+            "vars": {
+                "tamanho": "col-md-3",
+                "conteudo": "&nbsp;"
+            }
+        },
+        "campo9": {
+            "layout": "painel/partes/formularios/input",
+            "vars": {
+                "valorpadrao": "%input-%id%%",
+
+                "classes": "",
+                "tamanho": "col-md-5",
+                "titulo": "Site ou Rede Social",
+                "id": "web",
+                "ajuda": ""
+            }
+        },
+        "botao1": {
+            "layout": "painel/partes/formularios/button",
+            "vars": {
+                "classes": "",
+                "tamanho": "col-md-4",
+                "escala": "md",
+                "estilo": "success",
+                "texto": "%textosubmit%",
+                "acao": "$(this).closest('form').submit()"
+            }
+        }
+    },
+    "montagem": ["campo1","campo2","campo3","campo4","campo9","campo5","campo6","campo7","botao1"]
+}

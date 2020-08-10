@@ -1,5 +1,5 @@
 <?php
-    function ctrl_formularios_editar_usuario($ctx){
+    function ctrl_contas_editar($ctx){
         # MAIN FAKE
 
         $estabelecimentos = array(
@@ -18,17 +18,32 @@
         $ctx->regVar("textosubmit", "<i class='fa fa-floppy-o'></i>&nbsp;Alterar Dados");
         $ctx->regVar("estabelecimentos", json_encode($estabelecimentos));
         $ctx->regVar("mensagem-erro", "");
+        $ctx->regVar("painel-titulo", "Dados da conta");
+        $ctx->regVar("painel-icone", "user");
 
-        foreach( $ctx->sessao->listar_contas() as $conta ){
-            if($conta["id"] == (int)$ctx->urlParams[4]){
-                unset($conta["id"]);
-                foreach($conta as $chave => $valor){
-                    $ctx->regVar("input-{$chave}",$valor);
+
+        $existe = false;
+
+        if(isset($ctx->urlParams[4])):
+            foreach( $ctx->sessao->listar_contas() as $conta ){
+                if((int)$conta["id"] == (int)$ctx->urlParams[4]){
+                    unset($conta["id"]);
+                    foreach($conta as $chave => $valor){
+                        $ctx->regVar("input-{$chave}",$valor);
+                    }
+                    $existe = true;
+                    break;
                 }
-                break;
             }
-        }
+        endif;
 
+        if(!$existe){
+            header("Location: /painel/contas/gerir");
+        }
+        if(isset($ctx->urlParams[5]) && $ctx->urlParams[5]=="apagar"){
+            $ctx->sessao->apagar_conta((int)$ctx->urlParams[4]);
+            header("Location: /painel/contas/gerir/apagado");
+        }
         if(isset($_POST["nome"])){
             $dados = (object)$_POST;
 
@@ -53,6 +68,11 @@
                 foreach($_POST as $chave=>$valor){
                     $ctx->regVar("input-{$chave}",$valor);
                 }
+
+                $ctx->regVar("mensagem-aviso", '
+                    swal("\n","Conta modificada com sucesso!","success");
+                    history.pushState(null, null, "/painel/contas/gerir/u/'.$ctx->urlParams[4].'/");
+                ');
             }
         }
     }

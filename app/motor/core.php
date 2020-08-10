@@ -19,6 +19,7 @@
         }
 
         private function appLoad($app="app"){
+            $this->jsmin = new jsmin();
             $this->app = json_decode(file_get_contents(__DIR__ . "/{$app}.json"));
             if($this->app->https && $_SERVER["HTTPS"] != "on"){
                 header("Location: https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]);
@@ -30,7 +31,7 @@
             $this->app->appDir = dirname(__DIR__);
             $this->app->publicDir = dirname($this->app->appDir) . "/public_html";
             $this->app->page = $_SERVER['REQUEST_URI'];
-            $this->app->vars = array();
+            $this->app->vars = isset($this->app->vars) ? (array)$this->app->vars : array();
             $this->urlParams = explode("/", $this->app->page);
             array_shift($this->urlParams);
         }
@@ -41,6 +42,8 @@
 
         private function loadPage($index){
             $pagina = $this->app->paginas->{"$index"};
+
+            $this->app->minify = $pagina->minify && $this->app->minify;
 
             $exec = array();
 
@@ -112,6 +115,8 @@
                     $scripts .= file_get_contents("{$this->app->appDir}/scripts/{$script}.js") . "\n";
                 }
 
+                $scripts = $this->jsmin->minify($scripts);
+
                 $this->regVar("scriptcode", $scripts);
 
                 $styles = "";
@@ -120,7 +125,7 @@
                     $styles .= file_get_contents("{$this->app->appDir}/styles/{$style}.css") . "\n";
                 }
 
-                $this->regVar("stylecode", $styles);
+                $this->regVar("stylecode", preg_replace(['/\>[^\S ]+/s','/[^\S ]+\</s','/(\s)+/s','/\n/'],['>','<','\\1',''],$styles));
 
                 $this->app->modelo = $modelo;
             }
@@ -209,6 +214,8 @@
             $this->app->vars = array();
 
             $this->regVar("layout", $vars_backup["layout"]);
+            $this->regVar("scriptcode", $vars_backup["scriptcode"]);
+            $this->regVar("stylecode", $vars_backup["stylecode"]);
 
             $this->regVar($var, $val);
 

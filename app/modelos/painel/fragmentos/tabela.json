@@ -1,0 +1,10 @@
+{
+    "contem": {
+        "html": {
+                "layout": "painel/paginas/tabelas",
+                "vars": {}
+            }
+    },
+
+    "montagem": ["html"]
+}
