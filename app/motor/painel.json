@@ -2,7 +2,7 @@
     "versao": "desenvolvimento",
     "https": false,
     "404": "home",
-    "minify": "true",
+    "minify": true,
     "vars": {
         "layout": "",
         "stylecode": "",
@@ -25,7 +25,7 @@
             "controle": "painel",
             "type": "text/html",
             "persistente": true,
-            "minify": false,
+            "minify": true,
             "incluir": {
                 "menu_admin": "painel/elementos/menu/menu_admin",
                 "menu_gerente": "painel/elementos/menu/menu_gerente",
@@ -44,7 +44,7 @@
             "controle": "login",
             "type": "text/html",
             "persistente": false,
-            "minify": false,
+            "minify": true,
             "incluir": {
 
             },
@@ -78,7 +78,7 @@
             "controle": ["painel","contas/adicionar"],
             "type": "text/html",
             "persistente": false,
-            "minify": false,
+            "minify": true,
             "incluir": {
                 "menu_admin": "painel/elementos/menu/menu_admin",
                 "menu_gerente": "painel/elementos/menu/menu_gerente",
@@ -98,7 +98,7 @@
             "controle": ["painel","contas/listar"],
             "type": "text/html",
             "persistente": false,
-            "minify": false,
+            "minify": true,
             "incluir": {
                 "menu_admin": "painel/elementos/menu/menu_admin",
                 "menu_gerente": "painel/elementos/menu/menu_gerente"
@@ -116,7 +116,7 @@
             "controle": ["painel","contas/editar"],
             "type": "text/html",
             "persistente": true,
-            "minify": false,
+            "minify": true,
             "incluir": {
                 "menu_admin": "painel/elementos/menu/menu_admin",
                 "menu_gerente": "painel/elementos/menu/menu_gerente",
@@ -162,7 +162,7 @@
             "controle": ["painel","estabelecimentos/listar"],
             "type": "text/html",
             "persistente": false,
-            "minify": false,
+            "minify": true,
             "incluir": {
                 "menu_admin": "painel/elementos/menu/menu_admin",
                 "menu_gerente": "painel/elementos/menu/menu_gerente"
@@ -180,7 +180,7 @@
             "controle": ["painel","estabelecimentos/editar"],
             "type": "text/html",
             "persistente": true,
-            "minify": false,
+            "minify": true,
             "incluir": {
                 "menu_admin": "painel/elementos/menu/menu_admin",
                 "menu_gerente": "painel/elementos/menu/menu_gerente",
