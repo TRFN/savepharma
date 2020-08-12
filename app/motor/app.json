@@ -2,6 +2,11 @@
     "versao": "1.0.0.0",
     "https": false,
     "404": "homepage",
+    "minify": true,
+    "vars": {
+        "menu": "site/elementos/menu",
+        "footer": "site/elementos/footer"
+    },
     "paginas": {
         "homepage": {
             "caminho": ["/"],
@@ -12,14 +17,10 @@
             "controle": "principal",
             "type": "text/html",
             "persistente": false,
-            "minify": false,
-            "incluir": {
-                "menu": "site/elementos/menu",
-                "footer": "site/elementos/footer",
-                "slidehome": "site/elementos/slide-home"
-            },
+            "minify": true,
             "variaveis": {
-                "titulo": "SavePharma | Pagina Inicial"
+                "titulo": "SavePharma | Pagina Inicial",
+                "slidehome": "site/elementos/slide-home"
             }
         }
     }

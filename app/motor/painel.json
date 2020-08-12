@@ -4,16 +4,15 @@
     "404": "home",
     "minify": true,
     "vars": {
-        "layout": "",
-        "stylecode": "",
-        "scriptcode": "",
         "cortema": "51, 122, 183",
         "titulo-logo": "SavePharma",
         "icone-logo": "hospital-o",
         "input-error": "_none_",
         "debug": "",
         "mensagem-aviso": "",
-        "mensagem-erro": ""
+        "mensagem-erro": "",
+        "menu_admin": "painel/elementos/menu/menu_admin",
+        "menu_gerente": "painel/elementos/menu/menu_gerente"
     },
     "paginas": {
         "home": {
@@ -26,13 +25,9 @@
             "type": "text/html",
             "persistente": true,
             "minify": true,
-            "incluir": {
-                "menu_admin": "painel/elementos/menu/menu_admin",
-                "menu_gerente": "painel/elementos/menu/menu_gerente",
-                "tabela_produtos": "painel/fragmentos/tabela"
-            },
             "variaveis": {
-                "titulo": "Início"
+                "titulo": "Início",
+                "tabela_produtos": "painel/fragmentos/tabela"
             }
         },
         "login": {
@@ -45,9 +40,6 @@
             "type": "text/html",
             "persistente": false,
             "minify": true,
-            "incluir": {
-
-            },
             "variaveis": {
 
             }
@@ -62,9 +54,6 @@
             "type": "text/html",
             "persistente": false,
             "minify": false,
-            "incluir": {
-
-            },
             "variaveis": {
 
             }
@@ -79,14 +68,10 @@
             "type": "text/html",
             "persistente": false,
             "minify": true,
-            "incluir": {
-                "menu_admin": "painel/elementos/menu/menu_admin",
-                "menu_gerente": "painel/elementos/menu/menu_gerente",
-                "f_admin": "painel/elementos/formularios/f_usuarios_admin",
-                "f_gerente": "painel/elementos/formularios/f_usuarios_gerente"
-            },
             "variaveis": {
-                "titulo": "Adicionar Conta"
+                "titulo": "Adicionar Conta",
+                "f_admin": "painel/elementos/formularios/contas/f_admin",
+                "f_gerente": "painel/elementos/formularios/contas/f_gerente"
             }
         },
         "gerir usuarios": {
@@ -99,10 +84,6 @@
             "type": "text/html",
             "persistente": false,
             "minify": true,
-            "incluir": {
-                "menu_admin": "painel/elementos/menu/menu_admin",
-                "menu_gerente": "painel/elementos/menu/menu_gerente"
-            },
             "variaveis": {
                 "titulo": "Usuários"
             }
@@ -117,14 +98,10 @@
             "type": "text/html",
             "persistente": true,
             "minify": true,
-            "incluir": {
-                "menu_admin": "painel/elementos/menu/menu_admin",
-                "menu_gerente": "painel/elementos/menu/menu_gerente",
-                "f_admin": "painel/elementos/formularios/f_usuarios_admin",
-                "f_gerente": "painel/elementos/formularios/f_usuarios_gerente"
-            },
             "variaveis": {
-                "titulo": "Modificar Conta"
+                "titulo": "Modificar Conta",
+                "f_admin": "painel/elementos/formularios/contas/f_admin",
+                "f_gerente": "painel/elementos/formularios/contas/f_gerente"
             }
         },
 
@@ -138,14 +115,10 @@
             "type": "text/html",
             "persistente": false,
             "minify": true,
-            "incluir": {
-                "menu_admin": "painel/elementos/menu/menu_admin",
-                "menu_gerente": "painel/elementos/menu/menu_gerente",
-                "f_admin": "painel/elementos/formularios/f_estabelecimentos_admin",
-                "f_gerente": "painel/elementos/formularios/f_estabelecimentos_gerente"
-            },
             "variaveis": {
-                "titulo": "Adicionar estabelecimento"
+                "titulo": "Adicionar estabelecimento",
+                "f_admin": "painel/elementos/formularios/estabelecimentos/f_admin",
+                "f_gerente": "painel/elementos/formularios/estabelecimentos/f_gerente"
             }
         },
         "gerir estabelecimento": {
@@ -163,10 +136,6 @@
             "type": "text/html",
             "persistente": false,
             "minify": true,
-            "incluir": {
-                "menu_admin": "painel/elementos/menu/menu_admin",
-                "menu_gerente": "painel/elementos/menu/menu_gerente"
-            },
             "variaveis": {
                 "titulo": "Estabelecimentos"
             }
@@ -181,14 +150,10 @@
             "type": "text/html",
             "persistente": true,
             "minify": true,
-            "incluir": {
-                "menu_admin": "painel/elementos/menu/menu_admin",
-                "menu_gerente": "painel/elementos/menu/menu_gerente",
-                "f_admin": "painel/elementos/formularios/f_estabelecimentos_admin",
-                "f_gerente": "painel/elementos/formularios/f_estabelecimentos_gerente"
-            },
             "variaveis": {
-                "titulo": "Modificar estabelecimento"
+                "titulo": "Modificar estabelecimento",
+                "f_admin": "painel/elementos/formularios/estabelecimentos/f_admin",
+                "f_gerente": "painel/elementos/formularios/estabelecimentos/f_gerente"
             }
         }
     }

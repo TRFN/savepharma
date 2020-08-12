@@ -9,7 +9,6 @@
 
         $ctx->regVar("email-conectado", $ctx->sessao->conexao()->email);
         $ctx->regVar("meuid", $ctx->sessao->conexao()->id);
-        $ctx->regVarPersistent("menu-carregamento", "%menu_{$tipo_acesso}%");
         $ctx->regVarPersistent("tipo-acesso", $ctx->sessao->conexao()->nivelacesso);
     }
 ?>

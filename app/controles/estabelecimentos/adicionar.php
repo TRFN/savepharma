@@ -8,63 +8,61 @@
 
         $gerentes["-1"] = "Não especificado (em branco)";
 
-        $ctx->regVar("input-nome","");
-        $ctx->regVar("input-email","");
-        $ctx->regVar("input-pontos","100");
-        $ctx->regVar("input-telefone","");
-        $ctx->regVar("input-endereco","");
-        $ctx->regVar("input-web","");
-        $ctx->regVar("input-vinculo", "-1");
-        $ctx->regVar("textosubmit", "<i class='fa fa-plus'></i>&nbsp;Criar Estabelecimento");
-        $ctx->regVar("gerentes", json_encode($gerentes));
-        $ctx->regVar("painel-titulo", "Dados do estabelecimento");
-        $ctx->regVar("painel-icone", "shopping-basket");
+        $ctx->regVarStrict("input-nome","");
+        $ctx->regVarStrict("input-email","");
+        $ctx->regVarStrict("input-pontos","100");
+        $ctx->regVarStrict("input-telefone","");
+        $ctx->regVarStrict("input-endereco","");
+        $ctx->regVarStrict("input-web","");
+        $ctx->regVarStrict("input-vinculo", "-1");
+        $ctx->regVarStrict("textosubmit", "<i class='fa fa-plus'></i>&nbsp;Criar Estabelecimento");
+        $ctx->regVarStrict("gerentes", json_encode($gerentes));
+        $ctx->regVarStrict("painel-titulo", "Dados do estabelecimento");
+        $ctx->regVarStrict("painel-icone", "shopping-basket");
 
-        // if(isset($_POST["nome"])){
-        //     $dados = (object)$_POST;
-        //
-        //     if(empty($dados->nome)){
-        //         $ctx->regVar("mensagem-erro", "<i class='fa fa-exclamation-triangle'></i>&nbsp;&nbsp;O nome é obrigatório.");
-        //         $ctx->regVar("textosubmit", "<i class='fa fa-refresh'></i>&nbsp;Tentar Novamente");
-        //         foreach($_POST as $chave=>$valor){
-        //             $ctx->regVar("input-{$chave}",$valor);
-        //         }
-        //         $ctx->regVar("input-error","#nome");
-        //     }
-        //
-        //     elseif(empty($dados->email)){
-        //         $ctx->regVar("mensagem-erro", "<i class='fa fa-exclamation-triangle'></i>&nbsp;&nbsp;O email é obrigatório.");
-        //         $ctx->regVar("textosubmit", "<i class='fa fa-refresh'></i>&nbsp;Tentar Novamente");
-        //         foreach($_POST as $chave=>$valor){
-        //             $ctx->regVar("input-{$chave}",$valor);
-        //         }
-        //         $ctx->regVar("input-error","#email");
-        //     }
-        //
-        //     elseif(empty($dados->senha)){
-        //         $ctx->regVar("mensagem-erro", "<i class='fa fa-exclamation-triangle'></i>&nbsp;&nbsp;A senha é obrigatória.");
-        //         $ctx->regVar("textosubmit", "<i class='fa fa-refresh'></i>&nbsp;Tentar Novamente");
-        //         foreach($_POST as $chave=>$valor){
-        //             $ctx->regVar("input-{$chave}",$valor);
-        //         }
-        //         $ctx->regVar("input-error","#senha");
-        //     }
-        //
-        //     elseif($dados->senha !== $dados->senhaconf){
-        //         $ctx->regVar("mensagem-erro", "<i class='fa fa-exclamation-triangle'></i>&nbsp;&nbsp;As senhas não conferem! Insira novamente a confirmação da senha.");
-        //         $ctx->regVar("textosubmit", "<i class='fa fa-refresh'></i>&nbsp;Tentar Novamente");
-        //         foreach($_POST as $chave=>$valor){
-        //             $ctx->regVar("input-{$chave}",$valor);
-        //         }
-        //         $ctx->regVar("input-senhaconf","");
-        //         $ctx->regVar("input-error","#senhaconf");
-        //     } else {
-        //         unset($_POST["senhaconf"]);
-        //         $ctx->sessao->criar_conta($_POST);
-        //         $ctx->regVar("mensagem-aviso", '
-        //             swal("\n","O usuário foi adicionado com sucesso!","success");
-        //         ');
-        //     }
-        // }
+        $erro = -1;
+
+        if(isset($_POST["nome"])){
+            $dados = (object)$_POST;
+
+            if(empty($dados->nome)){
+                $erro = "O nome é obrigatório.";
+                $ctx->regVarStrict("input-error","#nome");
+            }
+
+            elseif(empty($dados->email)){
+                $erro = "O email é obrigatório.";
+                $ctx->regVarStrict("input-error","#email");
+            }
+
+            elseif(empty($dados->telefone)){
+                $erro = "O telefone é obrigatório.";
+                $ctx->regVarStrict("input-error","#email");
+            }
+
+            elseif(empty($dados->endereco)){
+                $erro = "O endereço é obrigatório.";
+                $ctx->regVarStrict("input-error","#email");
+            }
+
+            else {
+                // Ação de criar estabelecimento
+
+                $ctx->regVarStrict("mensagem-aviso", '
+                    swal("\n","O estabelecimento foi criado com sucesso!","success");
+                ');
+            }
+
+            if($erro !== -1){
+                foreach($_POST as $chave=>$valor){
+                    $ctx->regVarStrict("input-{$chave}",$valor);
+                }
+                $ctx->regVarStrict("mensagem-erro", "<i class='fa fa-exclamation-triangle'></i>&nbsp;&nbsp;{$erro}");
+                $ctx->regVarStrict("textosubmit", "<i class='fa fa-refresh'></i>&nbsp;Tentar Novamente");
+                // $ctx->regVarStrict("mensagem-aviso", '
+                //     swal("\n","'.$erro.'","error");
+                // ');
+            }
+        }
     }
 ?>

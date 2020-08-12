@@ -1,25 +1,22 @@
 <?php
     function ctrl_contas_editar($ctx){
         # MAIN FAKE
-
-        $estabelecimentos = array(
-            "araujo" => "Araujo Farmacia",
-            "rede" => "Rede Farmacia"
-        );
+        $estabelecimentos["null"] = "Não especificado";
+        $estabelecimentos["araujo"] = "Araujo Farmacia";
 
         # END FAKE
 
-        $ctx->regVar("input-nome","");
-        $ctx->regVar("input-email","");
-        $ctx->regVar("input-senha","");
-        $ctx->regVar("input-senhaconf","");
-        $ctx->regVar("input-nivelacesso","gerente");
-        $ctx->regVar("input-vinculo",array_keys($estabelecimentos)[0]);
-        $ctx->regVar("textosubmit", "<i class='fa fa-floppy-o'></i>&nbsp;Alterar Dados");
-        $ctx->regVar("estabelecimentos", json_encode($estabelecimentos));
-        $ctx->regVar("mensagem-erro", "");
-        $ctx->regVar("painel-titulo", "Dados da conta");
-        $ctx->regVar("painel-icone", "user");
+        $ctx->regVarStrict("input-nome","");
+        $ctx->regVarStrict("input-email","");
+        $ctx->regVarStrict("input-senha","");
+        $ctx->regVarStrict("input-senhaconf","");
+        $ctx->regVarStrict("input-nivelacesso","gerente");
+        $ctx->regVarStrict("input-vinculo",array_keys($estabelecimentos)[0]);
+        $ctx->regVarStrict("textosubmit", "<i class='fa fa-floppy-o'></i>&nbsp;Alterar Dados");
+        $ctx->regVarStrict("estabelecimentos", json_encode($estabelecimentos));
+        $ctx->regVarStrict("mensagem-erro", "");
+        $ctx->regVarStrict("painel-titulo", "Dados da conta");
+        $ctx->regVarStrict("painel-icone", "user");
 
 
         $existe = false;
@@ -29,7 +26,7 @@
                 if((int)$conta["id"] == (int)$ctx->urlParams[4]){
                     unset($conta["id"]);
                     foreach($conta as $chave => $valor){
-                        $ctx->regVar("input-{$chave}",$valor);
+                        $ctx->regVarStrict("input-{$chave}",$valor);
                     }
                     $existe = true;
                     break;
@@ -48,13 +45,13 @@
             $dados = (object)$_POST;
 
             if(!empty($dados->senha) && $dados->senha !== $dados->senhaconf){
-                $ctx->regVar("mensagem-erro", "<i class='fa fa-exclamation-triangle'></i>&nbsp;&nbsp;As senhas não conferem! Insira novamente a confirmação da senha.");
-                $ctx->regVar("textosubmit", "<i class='fa fa-refresh'></i>&nbsp;Tentar Novamente");
+                $ctx->regVarStrict("mensagem-erro", "<i class='fa fa-exclamation-triangle'></i>&nbsp;&nbsp;As senhas não conferem! Insira novamente a confirmação da senha.");
+                $ctx->regVarStrict("textosubmit", "<i class='fa fa-refresh'></i>&nbsp;Tentar Novamente");
                 foreach($_POST as $chave=>$valor){
-                    $ctx->regVar("input-{$chave}",$valor);
+                    $ctx->regVarStrict("input-{$chave}",$valor);
                 }
-                $ctx->regVar("input-senhaconf","");
-                $ctx->regVar("input-error","#senhaconf");
+                $ctx->regVarStrict("input-senhaconf","");
+                $ctx->regVarStrict("input-error","#senhaconf");
             } else {
                 if(empty($dados->senha)){
                     unset($_POST["senha"]);
@@ -66,10 +63,10 @@
                 if(isset($_POST["senha"])): unset($_POST["senha"]); endif;
 
                 foreach($_POST as $chave=>$valor){
-                    $ctx->regVar("input-{$chave}",$valor);
+                    $ctx->regVarStrict("input-{$chave}",$valor);
                 }
 
-                $ctx->regVar("mensagem-aviso", '
+                $ctx->regVarStrict("mensagem-aviso", '
                     swal("\n","Conta modificada com sucesso!","success");
                     history.pushState(null, null, "/painel/contas/gerir/u/'.$ctx->urlParams[4].'/");
                 ');

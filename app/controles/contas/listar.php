@@ -16,7 +16,8 @@
             switch($conta["nivelacesso"]){
                 case "admin": $dado[] = "Administrador"; break;
                 case "gerente": $dado[] = "Gerente/Proprietário"; break;
-                default: $dado[] = "Indefinido"; break;
+                case "farmaceutico": $dado[] = "Farmaceutico"; break;
+                default: $dado[] = $conta["nivelacesso"]; break;
             }
             $dado[] = '
                 <a href="/painel/contas/gerir/u/'.$conta["id"].'" class="btn btn-primary btn-circle"><i class="fa fa-pencil"></i></a>
@@ -28,21 +29,21 @@
         }
 
         if($ctx->urlParams[3]=="apagado"){
-            $ctx->regVar("mensagem-aviso", '
+            $ctx->regVarStrict("mensagem-aviso", '
                 swal("\n","O usuário foi apagado.","success");
                 history.pushState(null, null, "/painel/contas/gerir/");
             ');
         }
 
-        $ctx->regVar("tabela", "tContas");
+        $ctx->regVarStrict("tabela", "tContas");
 
-        $ctx->regVar("painel-titulo", "Contas de usuário");
-        $ctx->regVar("painel-icone", "users");
+        $ctx->regVarStrict("painel-titulo", "Contas de usuário");
+        $ctx->regVarStrict("painel-icone", "users");
 
-        $ctx->regVar("tabela", "tContas");
-        $ctx->regVar("qtdRes", min(25,count($dados)));
-        $ctx->regVar("dados", json_encode($dados));
-        $ctx->regVar("titulos", json_encode(array(
+        $ctx->regVarStrict("tabela", "tContas");
+        $ctx->regVarStrict("qtdRes", min(25,count($dados)));
+        $ctx->regVarStrict("dados", json_encode($dados));
+        $ctx->regVarStrict("titulos", json_encode(array(
             array("title"=>"Nome"),
             array("title"=>"Email"),
             array("title"=>"Tipo"),

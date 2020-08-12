@@ -74,6 +74,7 @@
                 "tamanho": "col-md-3",
                 "titulo": "Pontos",
                 "id": "pontos",
+                "tipo": "number",
                 "ajuda": ""
             }
         },

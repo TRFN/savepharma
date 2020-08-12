@@ -31,7 +31,7 @@
             $this->app->appDir = dirname(__DIR__);
             $this->app->publicDir = dirname($this->app->appDir) . "/public_html";
             $this->app->page = $_SERVER['REQUEST_URI'];
-            $this->app->vars = isset($this->app->vars) ? (array)$this->app->vars : array();
+            $this->applyDefaultVars();
             $this->urlParams = explode("/", $this->app->page);
             array_shift($this->urlParams);
         }
@@ -57,55 +57,22 @@
                 }
             }
 
-            $this->regVar("layout", $pagina->layout
-                ? file_get_contents("{$this->app->appDir}/layouts/{$pagina->layout}.html")
+            $this->regVarStrict("layout", $pagina->layout
+                ? $pagina->layout
                 : ""
             );
 
-            $modelo = (
+            $modelo = $this->str2res(
                 $pagina->modelo
-                    ? file_get_contents("{$this->app->appDir}/modelos/{$pagina->modelo}.html")
+                    ? $pagina->modelo
                     : "%layout%"
             );
 
             foreach($pagina->variaveis as $chave => $variavel){
-                $this->regVar($chave, $variavel);
+                $this->regVarSuper($chave, $variavel);
             }
 
-            foreach($pagina->incluir as $chave => $variavel){
-                if(file_exists($html = "{$this->app->appDir}/modelos/{$variavel}.html")){
-                    $this->regVar($chave, file_get_contents($html));
-                } elseif(file_exists($json = "{$this->app->appDir}/modelos/{$variavel}.json")){
-                    $json = file_get_contents($json);
-                    $json = json_decode($json,true);
-                    $finalcontent = "";
-                    if(is_string($json["contem"])){
-                        $json["contem"] = file_get_contents("{$this->app->appDir}/modelos/{$json["contem"]}.json");
-                        $json["contem"] = json_decode($json["contem"],true);
-                        $json["contem"] = $json["contem"]["contem"];
-                    }
-                    foreach($json["montagem"] as $busca){
-                        $elemento = isset($json["contem"][$busca])?$json["contem"][$busca]:-1;
-
-                        if($elemento!==-1){
-                            $e_layout = file_get_contents("{$this->app->appDir}/layouts/{$elemento["layout"]}.html");
-
-                            foreach($elemento["vars"] as $var=>$value){
-                                if(is_object($value) || is_array($value)){
-                                    $value = json_encode($value);
-                                }
-                                $e_layout = implode($value,explode("%{$var}%",$e_layout));
-                            }
-
-                            $finalcontent .= ($e_layout);
-                        }
-                    }
-
-                    $this->regVar($chave, $finalcontent);
-                }
-            }
-
-            if(empty($this->app->vars["layout"]) && $modelo = "%layout%"){
+            if(empty($this->app->vars["layout"]["val"]) && $modelo = "%layout%"){
                 $this->app->modelo = "";
                 unset($this->app->vars["layout"]);
             } else {
@@ -117,7 +84,7 @@
 
                 $scripts = $this->jsmin->minify($scripts);
 
-                $this->regVar("scriptcode", $scripts);
+                $this->regVarStrict("scriptcode", $scripts);
 
                 $styles = "";
 
@@ -125,7 +92,7 @@
                     $styles .= file_get_contents("{$this->app->appDir}/styles/{$style}.css") . "\n";
                 }
 
-                $this->regVar("stylecode", preg_replace(['/\>[^\S ]+/s','/[^\S ]+\</s','/(\s)+/s','/\n/'],['>','<','\\1',''],$styles));
+                $this->regVarStrict("stylecode", preg_replace(['/\>[^\S ]+/s','/[^\S ]+\</s','/(\s)+/s','/\n/'],['>','<','\\1',''],$styles));
 
                 $this->app->modelo = $modelo;
             }
@@ -139,12 +106,56 @@
             }
         }
 
+        private function str2res($str){
+            if(file_exists($html = "{$this->app->appDir}/modelos/{$str}.html")){
+                return file_get_contents($html);
+            } elseif(file_exists($html = "{$this->app->appDir}/layouts/{$str}.html")){
+                return file_get_contents($html);
+            } elseif(file_exists($json = "{$this->app->appDir}/modelos/{$str}.json")){
+                $json = file_get_contents($json);
+                $json = json_decode($json,true);
+                $finalcontent = "";
+                if(is_string($json["contem"])){
+                    $json["contem"] = file_get_contents("{$this->app->appDir}/modelos/{$json["contem"]}.json");
+                    $json["contem"] = json_decode($json["contem"],true);
+                    $json["contem"] = $json["contem"]["contem"];
+                }
+                foreach($json["montagem"] as $busca){
+                    $elemento = isset($json["contem"][$busca])?$json["contem"][$busca]:-1;
+
+                    if($elemento!==-1){
+                        $e_layout = file_get_contents("{$this->app->appDir}/layouts/{$elemento["layout"]}.html");
+
+                        foreach($elemento["vars"] as $var=>$value){
+                            if(is_object($value) || is_array($value)){
+                                $value = json_encode($value);
+                            }
+                            $e_layout = implode($value,explode("%{$var}%",$e_layout));
+                        }
+
+                        $finalcontent .= ($e_layout);
+                    }
+                }
+
+                return $finalcontent;
+            } else {
+                return $str;
+            }
+        }
+
         private function makePage(){
             header("Content-Type: {$this->app->contentType}");
             $output = $this->app->modelo;
-            foreach($this->app->vars as $var=>$value){
-                $output = implode($value,explode("%{$var}%",$output));
+            for($i = 0; $i < 3; $i++ ){
+                foreach($this->app->vars as $param){
+                    $output = implode($param["val"], explode("%{$param["var"]}%",$output));
+                }
+
+                foreach($this->app->globVars as $var => $val){
+                    $output = implode($val, explode("%{$var}%",$output));
+                }
             }
+
             echo $this->app->minify ? $this->minifyCode($output):$output;
         }
 
@@ -200,27 +211,49 @@
             }
         }
 
+        private function applyDefaultVars(){
+            $this->app->globVars = isset($this->app->vars)?(array)$this->app->vars:array();
+            foreach($this->app->globVars as $chave=>$valor){
+                $this->app->globVars[$chave] = $this->str2res($valor);
+            }
+            $this->app->vars = array();
+        }
+
         /* Funções publicas */
 
         public function regVar($var, $val){
-            $this->app->vars[(string)$var] = (string)$val;
+            $this->app->vars[] =  array("var" => (string)$var, "val" => $this->str2res((string)$val));
+        }
+
+        public function regVarStrict($var, $val){
+            $this->app->vars[$var] =  array("var" => (string)$var, "val" => $this->str2res((string)$val));
         }
 
         public function regVarPersistent($var, $val){
-            $this->regVar($var, $val);
+            $this->app->globVars[(string)$var] = $this->str2res((string)$val);
+        }
 
+        public function regVarSuper($var, $val){
             $vars_backup = $this->app->vars;
 
             $this->app->vars = array();
 
-            $this->regVar("layout", $vars_backup["layout"]);
-            $this->regVar("scriptcode", $vars_backup["scriptcode"]);
-            $this->regVar("stylecode", $vars_backup["stylecode"]);
+            $this->regVar($var, $val);
+            $this->regVarPersistent($var, $val);
+
+            $this->regVarStrict("layout", $vars_backup["layout"]["val"]);
+            $this->regVarStrict("scriptcode", $vars_backup["scriptcode"]["val"]);
+            $this->regVarStrict("stylecode", $vars_backup["stylecode"]["val"]);
+
+            unset($vars_backup["layout"]);
+            unset($vars_backup["scriptcode"]);
+            unset($vars_backup["stylecode"]);
 
             $this->regVar($var, $val);
 
-            foreach($vars_backup as $_var => $_val){
-                $this->regVar($_var, $_val);
+            foreach($vars_backup as $_var){
+                $this->regVar($_var["var"], $_var["val"]);
+                $this->regVar($var, $val);
             }
         }
 

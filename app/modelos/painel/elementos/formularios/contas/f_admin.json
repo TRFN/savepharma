@@ -92,7 +92,7 @@
         "campo8": {
             "layout": "painel/partes/formularios/empty",
             "vars": {
-                "tamanho": "col-md-0",
+                "tamanho": "col-md-1",
                 "conteudo": "&nbsp;"
             }
         },
@@ -101,6 +101,17 @@
             "vars": {
                 "classes": "",
                 "tamanho": "col-md-4",
+                "escala": "md",
+                "estilo": "success",
+                "texto": "%textosubmit%",
+                "acao": "$(this).closest('form').submit()"
+            }
+        },
+        "botao2": {
+            "layout": "painel/partes/formularios/button",
+            "vars": {
+                "classes": "",
+                "tamanho": "col-md-3",
                 "escala": "md",
                 "estilo": "success",
                 "texto": "%textosubmit%",

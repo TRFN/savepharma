@@ -21,18 +21,6 @@
                 "link2": "/painel/contas/gerir"
             }
         },
-        "menu8": {
-            "layout": "painel/partes/menu/sub2",
-            "vars": {
-                "classes": "",
-                "icone": "user",
-                "texto": "Farmaceuticos",
-                "sub_texto1": "Adicionar Farmaceutico",
-                "sub_texto2": "Gerir Farmaceuticos",
-                "link1": "/painel/contas/adicionar",
-                "link2": "/painel/contas/gerir"
-            }
-        },
         "menu3": {
             "layout": "painel/partes/menu/sub2",
             "vars": {
@@ -50,7 +38,7 @@
             "vars": {
                 "classes": "",
                 "icone": "star",
-                "texto": "Gerir Pontos",
+                "texto": "Administrar Site",
                 "link": "/painel/pontos"
             }
         },
@@ -67,12 +55,15 @@
             }
         },
         "menu6": {
-            "layout": "painel/partes/menu/unico",
+            "layout": "painel/partes/menu/sub2",
             "vars": {
                 "classes": "",
-                "icone": "globe",
-                "texto": "Textos do site",
-                "link": "/painel/admin-site"
+                "icone": "gavel",
+                "texto": "Regras dos Pontos",
+                "sub_texto1": "Adicionar Regra",
+                "sub_texto2": "Gerir Regras",
+                "link1": "/painel/regras/adicionar",
+                "link2": "/painel/regras/gerir"
             }
         },
         "menu7": {
@@ -83,7 +74,19 @@
                 "texto": "Meu Estabelecimento",
                 "link": "/painel/gerenciar-meu-estabelecimento"
             }
+        },
+        "menu8": {
+            "layout": "painel/partes/menu/sub2",
+            "vars": {
+                "classes": "",
+                "icone": "user",
+                "texto": "Farmaceuticos",
+                "sub_texto1": "Adicionar Farmaceutico",
+                "sub_texto2": "Gerir Farmaceuticos",
+                "link1": "/painel/contas/adicionar",
+                "link2": "/painel/contas/gerir"
+            }
         }
     },
-    "montagem": ["menu1","menu2","menu5","menu3","menu4"]
+    "montagem": ["menu1","menu2","menu5","menu3","menu6"]
 }
