@@ -11,14 +11,17 @@
         $ctx->regVarStrict("input-senha","");
         $ctx->regVarStrict("input-senhaconf","");
         $ctx->regVarStrict("input-nivelacesso","gerente");
-        $ctx->regVarStrict("input-vinculo",array_keys($estabelecimentos)[0]);
+        $ctx->regVarStrict("input-vinculo", array_keys($estabelecimentos)[0]);
         $ctx->regVarStrict("textosubmit", "<i class='fa fa-check'></i>&nbsp;Cadastrar");
         $ctx->regVarStrict("estabelecimentos", json_encode($estabelecimentos));
         $ctx->regVarStrict("mensagem-erro", "");
         $ctx->regVarStrict("painel-titulo", "Dados da conta");
         $ctx->regVarStrict("painel-icone", "user");
 
-        if(isset($_POST["nome"])){
+
+
+
+        if(isset($_POST["nome"]) && !$ctx->app->aviso_criar_estabelecimento){
             $dados = (object)$_POST;
 
             if(empty($dados->nome)){

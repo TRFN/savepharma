@@ -89,7 +89,7 @@
             }
         },
         "editar usuario": {
-            "caminho": ["/painel/contas/gerir/u","/painel/contas/gerir/u/"],
+            "caminho": ["/painel/contas/gerir/u","/painel/contas/gerir/u/","/painel/meus-dados","/painel/meus-dados/"],
             "layout": "painel/paginas/formulario",
             "modelo": "painel/template",
             "scripts": ["painel/formularios","painel/contas/helper"],

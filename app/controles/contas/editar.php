@@ -34,6 +34,16 @@
             }
         endif;
 
+        if($ctx->urlParams[1] == "meus-dados"):
+            $conta = $ctx->sessao->conexao();
+            unset($conta->id);
+            unset($conta->senha);
+            foreach($conta as $chave => $valor){
+                $ctx->regVarStrict("input-{$chave}",$valor);
+            }
+            $existe = true;
+        endif;
+
         if(!$existe){
             header("Location: /painel/contas/gerir");
         }
@@ -58,7 +68,7 @@
                 }
                 unset($_POST["senhaconf"]);
 
-                $ctx->sessao->alterar_dado($_POST, (string)$ctx->urlParams[4]);
+                $ctx->sessao->alterar_dado($_POST, (string)($ctx->urlParams[1] == "meus-dados" ? $ctx->sessao->conexao()->id:$ctx->urlParams[4]));
 
                 if(isset($_POST["senha"])): unset($_POST["senha"]); endif;
 
@@ -68,7 +78,6 @@
 
                 $ctx->regVarStrict("mensagem-aviso", '
                     swal("\n","Conta modificada com sucesso!","success");
-                    history.pushState(null, null, "/painel/contas/gerir/u/'.$ctx->urlParams[4].'/");
                 ');
             }
         }

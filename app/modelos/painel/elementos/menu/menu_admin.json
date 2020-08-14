@@ -72,7 +72,7 @@
                 "classes": "",
                 "icone": "shopping-basket",
                 "texto": "Meu Estabelecimento",
-                "link": "/painel/gerenciar-meu-estabelecimento"
+                "link": "/painel/estabelecimentos/%id-estabelecimento%"
             }
         },
         "menu8": {
