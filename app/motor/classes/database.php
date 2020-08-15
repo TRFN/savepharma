@@ -56,8 +56,10 @@
         public function escrever($chave, $valor){
             if($chave==-1){
                 $this->dados[] = $valor;
+                return count($this->dados) - 1;
             } else {
                 $this->dados[$chave] = $valor;
+                return $chave;
             }
         }
 
@@ -65,7 +67,7 @@
             if($reload){
                 $this->atualizar();
             }
-            return $obj ? ($chave=="*"?(object)$this->dados:(is_array($this->dados[$chave])?(object)$this->dados[$chave]:$this->dados[$chave])):($chave=="*"?$this->dados:$this->dados[$chave]);
+            return $obj ? ($chave=="*"?(object)$this->dados:(is_array($this->dados[$chave])?(object)$this->dados[$chave]:$this->dados[$chave])):($chave=="*"?(empty($this->dados)?array():$this->dados):$this->dados[$chave]);
         }
 
         public function gravar(){

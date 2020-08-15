@@ -12,6 +12,7 @@
         $ctx->regVarStrict("input-email","");
         $ctx->regVarStrict("input-pontos","100");
         $ctx->regVarStrict("input-telefone","");
+        $ctx->regVarStrict("input-cnpj","");
         $ctx->regVarStrict("input-endereco","");
         $ctx->regVarStrict("input-web","");
         $ctx->regVarStrict("input-vinculo", "-1");
@@ -45,11 +46,36 @@
                 $ctx->regVarStrict("input-error","#email");
             }
 
+            elseif(empty($dados->cnpj)){
+                $erro = "O CNPJ é obrigatório.";
+                $ctx->regVarStrict("input-error","#cnpj");
+            }
+
             else {
-                // Ação de criar estabelecimento
+                $estabelecimento = array();
+                $estabelecimento["id"] = (string)(count($ctx->estabelecimentos->ler()));
+                $estabelecimento["pontos"] = "100";
+                $vinculo = isset($_POST["vinculo"])?$_POST["vinculo"]:-1;
+                unset($_POST["vinculo"]);
+
+                foreach($_POST as $chave => $valor){
+                    $estabelecimento[$chave] = $valor;
+                }
+
+                $alteracoes = (array(
+                    "vinculo" => (string)$ctx->estabelecimentos->escrever((string)$estabelecimento["id"], $estabelecimento)
+                ));
+
+                if((int)$vinculo != -1 && $ctx->sessao->conexao()->nivelacesso == "admin"):
+                    $ctx->sessao->alterar_dado($alteracoes, (string)($vinculo));
+                elseif($ctx->sessao->conexao()->nivelacesso == "gerente"):
+                     $ctx->sessao->alterar_dado($alteracoes);
+                endif;
+
+                $ctx->estabelecimentos->gravar();
 
                 $ctx->regVarStrict("mensagem-aviso", '
-                    swal("\n","O estabelecimento foi criado com sucesso!","success");
+                    swal({title:"\n",text:"O estabelecimento foi cadastrado com sucesso!",type:"success",showCancelButton:false,confirmButtonClass:"btn-primary",confirmButtonText:"OK",closeOnConfirm:true},function(){window.top.location.href="/painel/estabelecimentos/gerir/id/' . (string)$estabelecimento["id"] . '"});
                 ');
             }
 

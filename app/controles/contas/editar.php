@@ -1,17 +1,18 @@
 <?php
     function ctrl_contas_editar($ctx){
-        # MAIN FAKE
-        $estabelecimentos["null"] = "Não especificado";
-        $estabelecimentos["araujo"] = "Araujo Farmacia";
-
-        # END FAKE
+        $estabelecimentos = array("null" => "Não especificado");
+        foreach($ctx->estabelecimentos->ler() as $estabelecimentoId=>$estabelecimento){
+            if($estabelecimento!=="0"):
+                $estabelecimentos[(string)$estabelecimentoId] = $estabelecimento["nome"];
+            endif;
+        }
 
         $ctx->regVarStrict("input-nome","");
         $ctx->regVarStrict("input-email","");
         $ctx->regVarStrict("input-senha","");
         $ctx->regVarStrict("input-senhaconf","");
         $ctx->regVarStrict("input-nivelacesso","gerente");
-        $ctx->regVarStrict("input-vinculo",array_keys($estabelecimentos)[0]);
+        $ctx->regVarStrict("input-vinculo", "null");
         $ctx->regVarStrict("textosubmit", "<i class='fa fa-floppy-o'></i>&nbsp;Alterar Dados");
         $ctx->regVarStrict("estabelecimentos", json_encode($estabelecimentos));
         $ctx->regVarStrict("mensagem-erro", "");

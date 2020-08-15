@@ -1,34 +1,24 @@
 <?php
     function ctrl_estabelecimentos_editar($ctx){
-        # MAIN FAKE
-
-        $estabelecimentos = array(
-            "araujo" => "Araujo Farmacia",
-            "rede" => "Rede Farmacia"
-        );
-
-        # END FAKE
-
         $ctx->regVarStrict("input-nome","");
         $ctx->regVarStrict("input-email","");
-        $ctx->regVarStrict("input-senha","");
-        $ctx->regVarStrict("input-senhaconf","");
-        $ctx->regVarStrict("input-nivelacesso","gerente");
-        $ctx->regVarStrict("input-vinculo",array_keys($estabelecimentos)[0]);
-        $ctx->regVarStrict("textosubmit", "<i class='fa fa-floppy-o'></i>&nbsp;Alterar Dados");
-        $ctx->regVarStrict("estabelecimentos", json_encode($estabelecimentos));
-        $ctx->regVarStrict("mensagem-erro", "");
-        $ctx->regVarStrict("painel-titulo", "Dados da conta");
-        $ctx->regVarStrict("painel-icone", "user");
-
+        $ctx->regVarStrict("input-pontos","100");
+        $ctx->regVarStrict("input-telefone","");
+        $ctx->regVarStrict("input-cnpj","");
+        $ctx->regVarStrict("input-endereco","");
+        $ctx->regVarStrict("input-web","");
+        $ctx->regVarStrict("textosubmit", "<i class='fa fa-floppy-o'></i>&nbsp;Modificar Estabelecimento");
+        $ctx->regVarStrict("painel-titulo", "Dados do estabelecimento");
+        $ctx->regVarStrict("painel-icone", "shopping-basket");
 
         $existe = false;
 
         if(isset($ctx->urlParams[4])):
-            foreach( $ctx->sessao->listar_contas() as $conta ){
-                if((int)$conta["id"] == (int)$ctx->urlParams[4]){
-                    unset($conta["id"]);
-                    foreach($conta as $chave => $valor){
+            foreach($ctx->estabelecimentos->ler() as $estabelecimentoId=>$estabelecimento){
+                if((int)$estabelecimentoId == (int)$ctx->urlParams[4] && $estabelecimento !== "0"){
+                    $idEstabelecimento = $estabelecimentoId;
+                    unset($estabelecimento["id"]);
+                    foreach($estabelecimento as $chave => $valor){
                         $ctx->regVarStrict("input-{$chave}",$valor);
                     }
                     $existe = true;
@@ -38,41 +28,99 @@
         endif;
 
         if(!$existe){
-            header("Location: /painel/contas/gerir");
+            header("Location: /painel/estabelecimentos/" . ($ctx->sessao->conexao()->nivelacesso == "admin"?"gerir":"adicionar"));
         }
+
+        $ctx->regVarStrict("input-vinculo", "null");
+
+        $gerentes["null"] = "Não especificado (em branco)";
+
+        foreach($ctx->sessao->listar_contas() as $conta){
+            $idConta = $conta["id"];
+            if($conta["nivelacesso"] == "gerente"){
+                $gerentes["{$idConta}"] = $conta["nome"];
+                if((int)$conta["vinculo"] === $idEstabelecimento && (string)$conta["vinculo"] !== "null"){
+                    $ctx->regVarStrict("input-vinculo", "{$idConta}");
+                }
+            }
+        }
+
+        $ctx->regVarStrict("gerentes", json_encode($gerentes));
+
         if(isset($ctx->urlParams[5]) && $ctx->urlParams[5]=="apagar"){
-            $ctx->sessao->apagar_conta((int)$ctx->urlParams[4]);
-            header("Location: /painel/contas/gerir/apagado");
+            $ctx->estabelecimentos->escrever((int)$ctx->urlParams[4], "0");
+            $ctx->estabelecimentos->gravar();
+            header("Location: /painel/estabelecimentos/gerir/apagado");
         }
+
         if(isset($_POST["nome"])){
+            $erro = -1;
+
             $dados = (object)$_POST;
 
-            if(!empty($dados->senha) && $dados->senha !== $dados->senhaconf){
-                $ctx->regVarStrict("mensagem-erro", "<i class='fa fa-exclamation-triangle'></i>&nbsp;&nbsp;As senhas não conferem! Insira novamente a confirmação da senha.");
-                $ctx->regVarStrict("textosubmit", "<i class='fa fa-refresh'></i>&nbsp;Tentar Novamente");
+            if(empty($dados->nome)){
+                $erro = "O nome é obrigatório.";
+                $ctx->regVarStrict("input-error","#nome");
+            }
+
+            elseif(empty($dados->email)){
+                $erro = "O email é obrigatório.";
+                $ctx->regVarStrict("input-error","#email");
+            }
+
+            elseif(empty($dados->telefone)){
+                $erro = "O telefone é obrigatório.";
+                $ctx->regVarStrict("input-error","#email");
+            }
+
+            elseif(empty($dados->endereco)){
+                $erro = "O endereço é obrigatório.";
+                $ctx->regVarStrict("input-error","#email");
+            }
+
+            elseif(empty($dados->cnpj)){
+                $erro = "O CNPJ é obrigatório.";
+                $ctx->regVarStrict("input-error","#cnpj");
+            }
+
+            else {
+                $dados = $ctx->estabelecimentos->ler((int)$ctx->urlParams[4])[0];
+
+                if($ctx->sessao->conexao()->nivelacesso == "admin"){
+                    $vinculo = $_POST["vinculo"];
+                    $ctx->regVarStrict("input-vinculo", $vinculo);
+                    unset($_POST["vinculo"]);
+
+                    foreach($ctx->sessao->listar_contas() as $idConta => $conta){
+                        if($conta["nivelacesso"] == "gerente" && (string)$conta["vinculo"] == $idEstabelecimento){
+                            $ctx->sessao->alterar_dado(array("vinculo" => "null"), (int)$idConta);
+                        }
+                    }
+
+                    if((string)$vinculo !== "null"):
+                        $ctx->sessao->alterar_dado(array("vinculo" => (string)$idEstabelecimento), (int)$vinculo);
+                    endif;
+                }
+
                 foreach($_POST as $chave=>$valor){
                     $ctx->regVarStrict("input-{$chave}",$valor);
+                    $dados[$chave] = $valor;
                 }
-                $ctx->regVarStrict("input-senhaconf","");
-                $ctx->regVarStrict("input-error","#senhaconf");
-            } else {
-                if(empty($dados->senha)){
-                    unset($_POST["senha"]);
-                }
-                unset($_POST["senhaconf"]);
 
-                $ctx->sessao->alterar_dado($_POST, (string)$ctx->urlParams[4]);
-
-                if(isset($_POST["senha"])): unset($_POST["senha"]); endif;
-
-                foreach($_POST as $chave=>$valor){
-                    $ctx->regVarStrict("input-{$chave}",$valor);
-                }
+                $ctx->estabelecimentos->escrever((int)$ctx->urlParams[4], $dados);
+                $ctx->estabelecimentos->gravar();
 
                 $ctx->regVarStrict("mensagem-aviso", '
-                    swal("\n","Conta modificada com sucesso!","success");
-                    history.pushState(null, null, "/painel/contas/gerir/u/'.$ctx->urlParams[4].'/");
+                    swal("\n","Estabelecimento modificado com sucesso!","success");
                 ');
+            }
+
+            if($erro !== -1){
+                foreach($_POST as $chave=>$valor){
+                    $ctx->regVarStrict("input-{$chave}",$valor);
+                }
+                $ctx->regVarStrict("mensagem-erro", "<i class='fa fa-exclamation-triangle'></i>&nbsp;&nbsp;{$erro}");
+                $ctx->regVarStrict("textosubmit", "<i class='fa fa-refresh'></i>&nbsp;Tentar Novamente");
             }
         }
     }

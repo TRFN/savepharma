@@ -22,7 +22,7 @@
         public function criar_conta($dados){
             if($this->conta_disponivel($dados[$this->u_name])){
                 $dados[$this->u_pass] = md5($dados[$this->u_pass]);
-                $dados["hash"] = sha1(json_encode($dados) . uniqid() . mt_rand(1000,10000));
+                $dados["hash"] = sha1(json_encode($dados) . uniqid() . mt_rand(1000,10000) . date("dmYHis"));
                 $this->db->escrever(-1,$dados);
                 $this->db->gravar();
 

@@ -12,7 +12,18 @@
         $dados = array();
 
         foreach($ctx->sessao->listar_contas() as $conta){
-            if((string)$conta["id"] != (string)$ctx->sessao->conexao()->id){
+            if(
+                (string)$conta["id"] != (string)$ctx->sessao->conexao()->id &&
+                (
+                    $ctx->sessao->conexao()->nivelacesso=="admin" ||
+                    (
+                        $ctx->sessao->conexao()->nivelacesso=="gerente" &&
+                        $conta["nivelacesso"] == "farmaceutico" &&
+                        isset($conta["vinculo"]) &&
+                        (string)$conta["vinculo"] == (string)$ctx->sessao->conexao()->vinculo
+                    )
+                )
+            ){
                 $dado = array($conta["nome"],$conta["email"]);
                 switch($conta["nivelacesso"]){
                     case "admin": $dado[] = "Administrador"; break;
