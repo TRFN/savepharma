@@ -13,6 +13,8 @@
         $ctx->regVarStrict("input-senhaconf","");
         $ctx->regVarStrict("input-nivelacesso","gerente");
         $ctx->regVarStrict("input-vinculo", "null");
+        $ctx->regVarStrict("input-cpf","");
+        $ctx->regVarStrict("input-crf","");
         $ctx->regVarStrict("textosubmit", "<i class='fa fa-floppy-o'></i>&nbsp;Alterar Dados");
         $ctx->regVarStrict("estabelecimentos", json_encode($estabelecimentos));
         $ctx->regVarStrict("mensagem-erro", "");
@@ -24,7 +26,20 @@
 
         if(isset($ctx->urlParams[4])):
             foreach( $ctx->sessao->listar_contas() as $conta ){
-                if((int)$conta["id"] == (int)$ctx->urlParams[4]){
+                if(
+                    $ctx->sessao->conexao()->nivelacesso !== "farmaceutico" &&
+                    (int)$conta["id"] == (int)$ctx->urlParams[4] &&
+                    (string)$conta["id"] != (string)$ctx->sessao->conexao()->id &&
+                    (
+                        $ctx->sessao->conexao()->nivelacesso=="admin" ||
+                        (
+                            $ctx->sessao->conexao()->nivelacesso=="gerente" &&
+                            $conta["nivelacesso"] == "farmaceutico" &&
+                            isset($conta["vinculo"]) &&
+                            (string)$conta["vinculo"] == (string)$ctx->sessao->conexao()->vinculo
+                        )
+                    )
+                ){
                     unset($conta["id"]);
                     foreach($conta as $chave => $valor){
                         $ctx->regVarStrict("input-{$chave}",$valor);
@@ -46,9 +61,9 @@
         endif;
 
         if(!$existe){
-            header("Location: /painel/contas/gerir");
+            header("Location: /painel/" . ($ctx->sessao->conexao()->nivelacesso == "farmaceutico" ? "":"contas/gerir"));
         }
-        if(isset($ctx->urlParams[5]) && $ctx->urlParams[5]=="apagar"){
+        if(isset($ctx->urlParams[5]) && $ctx->urlParams[5]=="apagar" && $ctx->sessao->conexao()->nivelacesso !== "farmaceutico"){
             $ctx->sessao->apagar_conta((int)$ctx->urlParams[4]);
             header("Location: /painel/contas/gerir/apagado");
         }

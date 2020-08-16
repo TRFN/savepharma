@@ -1,5 +1,10 @@
 <?php
     function ctrl_estabelecimentos_adicionar($ctx){
+        if($ctx->sessao->conexao()->nivelacesso == "farmaceutico"){
+            header("Location: /painel/home/");
+            exit;
+        }
+
         foreach($ctx->sessao->listar_contas() as $conta){
             if($conta["nivelacesso"] == "gerente"){
                 $gerentes[$conta["id"]] = $conta["nome"];

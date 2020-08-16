@@ -39,6 +39,19 @@
                 "ajuda": ""
             }
         },
+        "campo2.2": {
+            "layout": "painel/partes/formularios/input",
+            "vars": {
+                "valorpadrao": "%input-%id%%",
+
+                "classes": "",
+                "tamanho": "col-md-4",
+                "titulo": "CRF",
+                "tipo": "text",
+                "id": "crf",
+                "ajuda": ""
+            }
+        },
         "campo3": {
             "layout": "painel/partes/formularios/input",
             "vars": {

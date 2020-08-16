@@ -1,5 +1,9 @@
 <?php
     function ctrl_contas_adicionar($ctx){
+        if($ctx->sessao->conexao()->nivelacesso == "farmaceutico"){
+            header("Location: /painel/home/");
+            exit;
+        }
 
         $estabelecimentos = array("null" => "Não especificado");
         foreach($ctx->estabelecimentos->ler() as $estabelecimentoId=>$estabelecimento){
@@ -14,6 +18,8 @@
         $ctx->regVarStrict("input-senhaconf","");
         $ctx->regVarStrict("input-nivelacesso","gerente");
         $ctx->regVarStrict("input-vinculo", "null");
+        $ctx->regVarStrict("input-cpf","");
+        $ctx->regVarStrict("input-crf","");
         $ctx->regVarStrict("textosubmit", "<i class='fa fa-check'></i>&nbsp;Cadastrar");
         $ctx->regVarStrict("estabelecimentos", json_encode($estabelecimentos));
         $ctx->regVarStrict("mensagem-erro", "");

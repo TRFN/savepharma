@@ -29,8 +29,8 @@
                 "texto": "Produtos",
                 "sub_texto1": "Adicionar Produto",
                 "sub_texto2": "Gerir produtos",
-                "link1": "/painel/adicionar-produto",
-                "link2": "/painel/gerir-produtos"
+                "link1": "/painel/produtos/adicionar",
+                "link2": "/painel/produtos/gerir"
             }
         },
         "menu4": {
@@ -86,7 +86,16 @@
                 "link1": "/painel/contas/adicionar",
                 "link2": "/painel/contas/gerir"
             }
+        },
+        "menu9": {
+            "layout": "painel/partes/menu/unico",
+            "vars": {
+                "classes": "",
+                "icone": "file",
+                "texto": "Relatórios",
+                "link": "/painel/relatorios"
+            }
         }
     },
-    "montagem": ["menu1","menu2","menu5","menu3","menu6"]
+    "montagem": ["menu1","menu2","menu5","menu3","menu6","menu9"]
 }

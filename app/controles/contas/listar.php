@@ -1,18 +1,15 @@
 <?php
     function ctrl_contas_listar($ctx){
-        # MAIN FAKE
-
-        $estabelecimentos = array(
-            "araujo" => "Araujo Farmacia",
-            "rede" => "Rede Farmacia"
-        );
-
-        # END FAKE
+        if($ctx->sessao->conexao()->nivelacesso == "farmaceutico"){
+            header("Location: /painel/home/");
+            exit;
+        }
 
         $dados = array();
 
         foreach($ctx->sessao->listar_contas() as $conta){
             if(
+                $ctx->sessao->conexao()->nivelacesso !== "farmaceutico" &&
                 (string)$conta["id"] != (string)$ctx->sessao->conexao()->id &&
                 (
                     $ctx->sessao->conexao()->nivelacesso=="admin" ||

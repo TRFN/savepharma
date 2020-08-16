@@ -1,33 +1,29 @@
 <?php
-
-    // class registro {
-    //     private $db = null;
-    //     public $debug = false;
-    //
-    //     function __construct($nome = null, $debug = true){
-    //         if($nome !== null){
-    //             $this->definir()
-    //         }
-    //     }
-    //
-    //     public function definir($nome){
-    //         $this->db = new database($id,$debug?-1:md5($id));
-    //     }
-    // }
-
     function ctrl_painel($ctx){
         $ctx->sessao = new sessoes("contas-painel", $ctx->app->versao == "desenvolvimento");
 
-        // $ctx->sessao->alterar_dado(array("vinculo"=>"null"));
-
-        $ctx->estabelecimentos = new database("estabelecimentos",-1);
+        $ctx->estabelecimentos = new database("estabelecimentos", $ctx->app->versao == "desenvolvimento" ? -1 : "estabelecimentos");
+        $ctx->produtos = new database("produtos", $ctx->app->versao == "desenvolvimento" ? -1 : "produtos");
+        $ctx->regras = new database("regras", $ctx->app->versao == "desenvolvimento" ? -1 : "regras");
+        $ctx->relatorios = new database("relatorios", $ctx->app->versao == "desenvolvimento" ? -1 : "relatorios");
 
         if(!$ctx->sessao->conectado()){
             header("Location: /painel/login");
             exit();
         }
 
+        $pontosdisponiveis = "";
+        $ctx->estabelecimentoAtual = null;
+
+        if($ctx->sessao->conexao()->nivelacesso !== "admin"){
+            if(isset($ctx->sessao->conexao()->vinculo) && $ctx->sessao->conexao()->vinculo !== "null"){
+                $ctx->estabelecimentoAtual = $ctx->estabelecimentos->ler($ctx->sessao->conexao()->vinculo, true);
+                $pontosdisponiveis = "<strong style='text-transform: captalize;'>Pontos disponíveis</strong>:  {$ctx->estabelecimentoAtual->pontos} pts";
+            }
+        }
+
         $ctx->regVar("email-conectado", $ctx->sessao->conexao()->email);
+        $ctx->regVar("pontosdisponiveis", $pontosdisponiveis);
         $ctx->regVar("meuid", $ctx->sessao->conexao()->id);
         $ctx->regVarPersistent("tipo-acesso", $ctx->sessao->conexao()->nivelacesso);
 

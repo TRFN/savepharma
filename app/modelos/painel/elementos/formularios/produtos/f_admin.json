@@ -1,0 +1,121 @@
+{
+    "contem": {
+        "campo1": {
+            "layout": "painel/partes/formularios/input",
+            "vars": {
+                "valorpadrao": "%input-%id%%",
+
+                "classes": "",
+                "tamanho": "col-md-6",
+                "titulo": "Nome do produto",
+                "tipo": "text",
+                "id": "nome",
+                "ajuda": ""
+            }
+        },
+        "campo2": {
+            "layout": "painel/partes/formularios/input",
+            "vars": {
+                "valorpadrao": "%input-%id%%",
+
+                "classes": "",
+                "tamanho": "col-md-3",
+                "titulo": "LOTE",
+                "tipo": "text",
+                "id": "lote",
+                "ajuda": ""
+            }
+        },
+        "campo3.1": {
+            "layout": "painel/partes/formularios/input",
+            "vars": {
+                "valorpadrao": "%input-%id%%",
+
+                "classes": "",
+                "tamanho": "col-md-3",
+                "titulo": "Validade",
+                "tipo": "date",
+                "id": "validade",
+                "ajuda": ""
+            }
+        },
+        "campo3": {
+            "layout": "painel/partes/formularios/input",
+            "vars": {
+                "valorpadrao": "%input-%id%%",
+
+                "classes": "",
+                "tamanho": "col-md-5",
+                "titulo": "Marca",
+                "tipo": "text",
+                "id": "marca",
+                "ajuda": ""
+            }
+        },
+        "campo4": {
+            "layout": "painel/partes/formularios/input",
+            "vars": {
+                "valorpadrao": "%input-%id%%",
+
+                "classes": "",
+                "tamanho": "col-md-3",
+                "titulo": "Prazo para Devolução",
+                "tipo": "date",
+                "id": "prazo",
+                "ajuda": ""
+            }
+        },
+        "campo5": {
+            "layout": "painel/partes/formularios/select",
+            "vars": {
+                "valorpadrao": "%input-%id%%",
+
+                "classes": "",
+                "tamanho": "col-md-4",
+                "titulo": "Quantidade em Estoque (max: 99)",
+                "id": "quantidade",
+                "ajuda": "",
+                "dados": "%qtdproduto%"
+            }
+        },
+        "campo7": {
+            "layout": "painel/partes/formularios/empty",
+            "vars": {
+                "tamanho": "col-md-4",
+                "conteudo": "&nbsp;"
+            }
+        },
+        "campo8": {
+            "layout": "painel/partes/formularios/empty",
+            "vars": {
+                "tamanho": "col-md-2",
+                "conteudo": "&nbsp;"
+            }
+        },
+        "campo9": {
+            "layout": "painel/partes/formularios/select",
+            "vars": {
+                "valorpadrao": "%input-%id%%",
+
+                "classes": "",
+                "tamanho": "col-md-6",
+                "titulo": "Disponibilizado por qual estabelecimento?",
+                "id": "vinculo",
+                "ajuda": "",
+                "dados": "%estabelecimentos%"
+            }
+        },
+        "botao1": {
+            "layout": "painel/partes/formularios/button",
+            "vars": {
+                "classes": "",
+                "tamanho": "col-md-4",
+                "escala": "md",
+                "estilo": "success",
+                "texto": "%textosubmit%",
+                "acao": "$(this).closest('form').submit()"
+            }
+        }
+    },
+    "montagem": ["campo1","campo2","campo3.1","campo3","campo4","campo5","campo9","campo8","botao1"]
+}

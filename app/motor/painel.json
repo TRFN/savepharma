@@ -11,8 +11,11 @@
         "debug": "",
         "mensagem-aviso": "",
         "mensagem-erro": "",
+        "scriptextra": "",
+        "onchange": "",
         "menu_admin": "painel/elementos/menu/menu_admin",
-        "menu_gerente": "painel/elementos/menu/menu_gerente"
+        "menu_gerente": "painel/elementos/menu/menu_gerente",
+        "menu_farmaceutico": "painel/elementos/menu/menu_farmaceutico"
     },
     "paginas": {
         "home": {
@@ -30,6 +33,7 @@
                 "tabela_produtos": "painel/fragmentos/tabela"
             }
         },
+
         "login": {
             "caminho": ["/painel/login","/painel/login/"],
             "layout": "painel/paginas/login",
@@ -58,6 +62,7 @@
 
             }
         },
+
         "adicionar usuario": {
             "caminho": ["/painel/contas/adicionar","/painel/contas/adicionar/"],
             "layout": "painel/paginas/formulario",
@@ -101,7 +106,8 @@
             "variaveis": {
                 "titulo": "Modificar Conta",
                 "f_admin": "painel/elementos/formularios/contas/f_admin",
-                "f_gerente": "painel/elementos/formularios/contas/f_gerente"
+                "f_gerente": "painel/elementos/formularios/contas/f_gerente",
+                "f_farmaceutico": "painel/elementos/formularios/contas/f_farmaceutico"
             }
         },
 
@@ -154,6 +160,59 @@
                 "titulo": "Modificar estabelecimento",
                 "f_admin": "painel/elementos/formularios/estabelecimentos/f_admin",
                 "f_gerente": "painel/elementos/formularios/estabelecimentos/f_gerente"
+            }
+        },
+
+        "adicionar produto": {
+            "caminho": ["/painel/produtos/adicionar","/painel/produtos/adicionar/"],
+            "layout": "painel/paginas/formulario",
+            "modelo": "painel/template",
+            "scripts": ["painel/formularios"],
+            "styles": ["painel/mobile"],
+            "controle": ["painel","produtos/adicionar"],
+            "type": "text/html",
+            "persistente": false,
+            "minify": true,
+            "variaveis": {
+                "titulo": "Adicionar produto",
+                "f_admin": "painel/elementos/formularios/produtos/f_admin",
+                "f_gerente": "painel/elementos/formularios/produtos/f_gerente",
+                "f_farmaceutico": "painel/elementos/formularios/produtos/f_gerente"
+            }
+        },
+        "gerir produto": {
+            "caminho": [
+                "/painel/produtos/gerir",
+                "/painel/produtos/gerir/",
+                "/painel/produtos/gerir/apagado",
+                "/painel/produtos/gerir/apagado/"
+            ],
+            "layout": "painel/paginas/tabelas",
+            "modelo": "painel/template",
+            "scripts": ["painel/tabelas","painel/mensagens"],
+            "styles": ["painel/mobile"],
+            "controle": ["painel","produtos/listar"],
+            "type": "text/html",
+            "persistente": false,
+            "minify": true,
+            "variaveis": {
+                "titulo": "Estabelecimentos"
+            }
+        },
+        "editar produto": {
+            "caminho": ["/painel/produtos/gerir/id","/painel/produtos/gerir/id/"],
+            "layout": "painel/paginas/formulario",
+            "modelo": "painel/template",
+            "scripts": ["painel/formularios"],
+            "styles": ["painel/mobile"],
+            "controle": ["painel","produtos/editar"],
+            "type": "text/html",
+            "persistente": true,
+            "minify": true,
+            "variaveis": {
+                "titulo": "Modificar produto",
+                "f_admin": "painel/elementos/formularios/produtos/f_admin",
+                "f_gerente": "painel/elementos/formularios/produtos/f_gerente"
             }
         }
     }
