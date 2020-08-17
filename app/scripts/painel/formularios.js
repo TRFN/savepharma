@@ -26,3 +26,5 @@ $('.chosen-container b').css({
 $("._ca:not(.%tipo-acesso%)").remove();
 
 $(".form-group %input-error%").closest(".form-group").addClass("has-error");
+
+$(".form-group input.data").datepicker({"language":"pt-BR"});

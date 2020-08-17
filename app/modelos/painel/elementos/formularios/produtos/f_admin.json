@@ -18,7 +18,7 @@
             "vars": {
                 "valorpadrao": "%input-%id%%",
 
-                "classes": "",
+                "classes": " text-center",
                 "tamanho": "col-md-3",
                 "titulo": "LOTE",
                 "tipo": "text",
@@ -31,10 +31,10 @@
             "vars": {
                 "valorpadrao": "%input-%id%%",
 
-                "classes": "",
+                "classes": "data text-center",
                 "tamanho": "col-md-3",
                 "titulo": "Validade",
-                "tipo": "date",
+                "tipo": "text",
                 "id": "validade",
                 "ajuda": ""
             }
@@ -57,10 +57,10 @@
             "vars": {
                 "valorpadrao": "%input-%id%%",
 
-                "classes": "",
+                "classes": "data text-center",
                 "tamanho": "col-md-3",
                 "titulo": "Prazo para Devolução",
-                "tipo": "date",
+                "tipo": "text",
                 "id": "prazo",
                 "ajuda": ""
             }

@@ -14,13 +14,25 @@
             $qtdproduto[$i] = "{$i} units. disponíveis";
         }
 
-        $_1_mes_a_frente = (date("Y-") . (($m=(int)date("m") + 1)<10?"0{$m}":"{$m}") . date("-d"));
+        $mes = (string)(($m=((int)date("m") + 1)>12?(int)date("m")-11:(int)date("m") + 1)<10?"0{$m}":"{$m}");
+        $ano = ((int)date("m") + 1) > 12 ? (string)((int)date("Y") + 1) : date("Y");
 
-        $ctx->regVarStrict("input-nome","");
-        $ctx->regVarStrict("input-lote","");
-        $ctx->regVarStrict("input-validade",$_1_mes_a_frente);
-        $ctx->regVarStrict("input-prazo",date("Y-m-d"));
-        $ctx->regVarStrict("input-marca","");
+        $attr_validade = array(
+            "minDate" => "{$ano}-{$mes}-".date("d")
+        );
+
+        $attr_prazo = array(
+            "minDate" => "{$ano}-{$mes}-".date("d"),
+            "maxDate" => (string)((int)$ano+1)."-{$mes}-".date("d")            
+        );
+
+        $ctx->regVarStrict("input-nome", "");
+        $ctx->regVarStrict("input-lote", "");
+        $ctx->regVarStrict("input-validade", "");
+        $ctx->regVarStrict("attr-validade", json_encode($attr_validade));
+        $ctx->regVarStrict("input-prazo", "");
+        $ctx->regVarStrict("attr-prazo", json_encode($attr_prazo));
+        $ctx->regVarStrict("input-marca", "");
         $ctx->regVarStrict("input-quantidade", "1");
         $ctx->regVarStrict("input-vinculo", "null");
         $ctx->regVarStrict("textosubmit", "<i class='fa fa-plus'></i>&nbsp;Cadastrar Produto");
@@ -29,7 +41,9 @@
         $ctx->regVarStrict("painel-titulo", "Dados do produto");
         $ctx->regVarStrict("painel-icone", "shopping-cart");
 
-        $ctx->regVarStrict("scriptextra","$('#validade').attr('min','{$_1_mes_a_frente}');");
+        // $ctx->regVarStrict("scriptextra","$('#validade').attr('min','{$_1_mes_a_frente}');");
+
+
 
         $erro = -1;
 
@@ -41,13 +55,13 @@
                 $ctx->regVarStrict("input-error","#nome");
             }
 
-            elseif(empty($dados->email)){
-                $erro = "O email é obrigatório.";
-                $ctx->regVarStrict("input-error","#email");
+            elseif(empty($dados->lote)){
+                $erro = "O lote é obrigatório.";
+                $ctx->regVarStrict("input-error","#lote");
             }
 
-            elseif(empty($dados->telefone)){
-                $erro = "O telefone é obrigatório.";
+            elseif(empty($dados->validade)){
+                $erro = "A validade é obrigatório.";
                 $ctx->regVarStrict("input-error","#email");
             }
 

@@ -21,7 +21,6 @@
         $ctx->regVarStrict("painel-titulo", "Dados da conta");
         $ctx->regVarStrict("painel-icone", "user");
 
-
         $existe = false;
 
         if(isset($ctx->urlParams[4])):
