@@ -6,6 +6,7 @@
         id="%id%"
         type="%tipo%"
         value="%valorpadrao%"
+        autocomplete="off"
         />
     <p class="help-block">%ajuda%</p>
 </div>
@@ -19,11 +20,14 @@
             json_attr = false;
         }
         if(json_attr !== false){
-            dataInputs = ["minDate","maxDate","startDate","currentDate"];
+            dataInputs = ["minDate","maxDate","currentDate"]; /* Configurações de inputs de data */
             for(i in json_attr){
                 dataInputs.indexOf(i) != -1
                     ? (ob={},ob[i]=(new Date(json_attr[i] + " 00:00:00 GMT-0300")),$(".form-group #%id%.form-control").data("datepicker").update(ob))
                     : $(".form-group #%id%.form-control").attr(i, json_attr[i]);
+                if(i=="currentDate"){
+                    $(".form-group #%id%.form-control").data('datepicker').selectDate(new Date(json_attr[i] + " 00:00:00 GMT-0300"));
+                }
             }
         }
     });

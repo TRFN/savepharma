@@ -20,7 +20,9 @@
 
         if(isset($ctx->urlParams[4])):
             foreach($ctx->estabelecimentos->ler() as $estabelecimentoId=>$estabelecimento){
-                if((int)$estabelecimentoId == (int)$ctx->urlParams[4] && $estabelecimento !== "0"){
+                if((int)$estabelecimentoId == (int)$ctx->urlParams[4] && $estabelecimento !== "0" &&
+                    ($ctx->sessao->conexao()->nivelacesso == "admin" ||
+                    ((string)$estabelecimentoId === (string)$ctx->sessao->conexao()->vinculo))){
                     $idEstabelecimento = $estabelecimentoId;
                     unset($estabelecimento["id"]);
                     foreach($estabelecimento as $chave => $valor){
@@ -33,7 +35,7 @@
         endif;
 
         if(!$existe){
-            header("Location: /painel/estabelecimentos/" . ($ctx->sessao->conexao()->nivelacesso == "admin"?"gerir":"adicionar"));
+            header("Location: /painel/estabelecimentos/" . ($ctx->sessao->conexao()->nivelacesso == "admin"?"gerir":$ctx->sessao->conexao()->vinculo == "null" ? "adicionar" : "gerir/id/{$ctx->sessao->conexao()->vinculo}"));
         }
 
         $ctx->regVarStrict("input-vinculo", "null");

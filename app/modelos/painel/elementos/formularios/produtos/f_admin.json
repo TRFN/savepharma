@@ -46,7 +46,7 @@
 
                 "classes": "",
                 "tamanho": "col-md-5",
-                "titulo": "Marca",
+                "titulo": "Marca / Laboratório",
                 "tipo": "text",
                 "id": "marca",
                 "ajuda": ""
@@ -105,6 +105,18 @@
                 "dados": "%estabelecimentos%"
             }
         },
+        "campo10": {
+            "layout": "painel/partes/formularios/image",
+            "vars": {
+                "valorpadrao": "%input-%id%%",
+
+                "classes": "",
+                "tamanho": "col-md-6",
+                "titulo": "Nota Fiscal",
+                "id": "notafiscal",
+                "ajuda": ""
+            }
+        },
         "botao1": {
             "layout": "painel/partes/formularios/button",
             "vars": {
@@ -117,5 +129,5 @@
             }
         }
     },
-    "montagem": ["campo1","campo2","campo3.1","campo3","campo4","campo5","campo9","campo8","botao1"]
+    "montagem": ["campo1","campo2","campo3.1","campo3","campo4","campo5","campo10","campo9","campo7","botao1"]
 }

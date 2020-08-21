@@ -17,21 +17,24 @@
         $mes = (string)(($m=((int)date("m") + 1)>12?(int)date("m")-11:(int)date("m") + 1)<10?"0{$m}":"{$m}");
         $ano = ((int)date("m") + 1) > 12 ? (string)((int)date("Y") + 1) : date("Y");
 
-        $attr_validade = array(
+        $attr = array();
+
+        $attr["validade"] = array(
             "minDate" => "{$ano}-{$mes}-".date("d")
         );
 
-        $attr_prazo = array(
+        $attr["prazo"] = array(
             "minDate" => "{$ano}-{$mes}-".date("d"),
-            "maxDate" => (string)((int)$ano+1)."-{$mes}-".date("d")            
+            "maxDate" => (string)((int)$ano+1)."-{$mes}-".date("d")
         );
 
         $ctx->regVarStrict("input-nome", "");
         $ctx->regVarStrict("input-lote", "");
         $ctx->regVarStrict("input-validade", "");
-        $ctx->regVarStrict("attr-validade", json_encode($attr_validade));
+        $ctx->regVarStrict("input-notafiscal", "Carregar Imagem ou PDF");
+        $ctx->regVarStrict("attr-validade", json_encode($attr["validade"]));
         $ctx->regVarStrict("input-prazo", "");
-        $ctx->regVarStrict("attr-prazo", json_encode($attr_prazo));
+        $ctx->regVarStrict("attr-prazo", json_encode($attr["prazo"]));
         $ctx->regVarStrict("input-marca", "");
         $ctx->regVarStrict("input-quantidade", "1");
         $ctx->regVarStrict("input-vinculo", "null");
@@ -61,24 +64,29 @@
             }
 
             elseif(empty($dados->validade)){
-                $erro = "A validade é obrigatório.";
-                $ctx->regVarStrict("input-error","#email");
+                $erro = "A validade é obrigatória.";
+                $ctx->regVarStrict("input-error","#validade");
             }
 
-            elseif(empty($dados->endereco)){
-                $erro = "O endereço é obrigatório.";
-                $ctx->regVarStrict("input-error","#email");
+            elseif(empty($dados->marca)){
+                $erro = "A marca é obrigatória.";
+                $ctx->regVarStrict("input-error","#marca");
             }
 
-            elseif(empty($dados->cnpj)){
-                $erro = "O CNPJ é obrigatório.";
-                $ctx->regVarStrict("input-error","#cnpj");
+            elseif(empty($dados->prazo)){
+                $erro = "O Prazo para devolução é obrigatório.";
+                $ctx->regVarStrict("input-error","#prazo");
+            }
+
+            elseif(isset($dados->vinculo)&&$dados->vinculo=="null"&&$ctx->sessao->conexao()->nivelacesso == "admin"){
+                $erro = "É obrigatório especificar qual estabelecimento está disponibiizando o produto.";
+                $ctx->regVarStrict("input-error","#vinculo");
             }
 
             else {
                 $produto = array();
                 $produto["id"] = (string)(count($ctx->produtos->ler()));
-                $produto["pontos"] = "100";
+
                 $vinculo = isset($_POST["vinculo"])?$_POST["vinculo"]:-1;
                 unset($_POST["vinculo"]);
 
@@ -86,17 +94,21 @@
                     $produto[$chave] = $valor;
                 }
 
-                $alteracoes = (array(
-                    "vinculo" => (string)$ctx->produtos->escrever((string)$produto["id"], $produto)
-                ));
+                // $alteracoes = (array(
+                //     "vinculo" => (string)$ctx->produtos->escrever((string)$produto["id"], $produto)
+                // ));
 
                 if((int)$vinculo != -1 && $ctx->sessao->conexao()->nivelacesso == "admin"):
-                    $ctx->sessao->alterar_dado($alteracoes, (string)($vinculo));
-                elseif($ctx->sessao->conexao()->nivelacesso == "gerente"):
-                     $ctx->sessao->alterar_dado($alteracoes);
+                    $produto["vinculo"] = $vinculo;
+                else:
+                    $produto["vinculo"] = $ctx->sessao->conexao()->vinculo;
                 endif;
 
+                $ctx->produtos->escrever((string)$produto["id"], $produto);
                 $ctx->produtos->gravar();
+
+                // print_r($produto);
+                // exit;
 
                 $ctx->regVarStrict("mensagem-aviso", '
                     swal({title:"\n",text:"O produto foi cadastrado com sucesso!",type:"success",showCancelButton:false,confirmButtonClass:"btn-primary",confirmButtonText:"OK",closeOnConfirm:true},function(){window.top.location.href="/painel/produtos/gerir/id/' . (string)$produto["id"] . '"});
@@ -105,7 +117,11 @@
 
             if($erro !== -1){
                 foreach($_POST as $chave=>$valor){
-                    $ctx->regVarStrict("input-{$chave}",$valor);
+                    if(($chave == "prazo" || $chave == "validade") && !empty($valor) && strlen($valor)==10){
+                        $d = explode("/", $valor);
+                        $attr[$chave]["currentDate"] = "{$d[2]}-{$d[1]}-{$d[0]}";
+                        $ctx->regVarStrict("attr-{$chave}", json_encode($attr[$chave]));
+                    } else $ctx->regVarStrict("input-{$chave}",$valor);
                 }
                 $ctx->regVarStrict("mensagem-erro", "<i class='fa fa-exclamation-triangle'></i>&nbsp;&nbsp;{$erro}");
                 $ctx->regVarStrict("textosubmit", "<i class='fa fa-refresh'></i>&nbsp;Tentar Novamente");

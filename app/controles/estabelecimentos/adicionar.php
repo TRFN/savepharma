@@ -5,6 +5,10 @@
             exit;
         }
 
+        if($ctx->sessao->conexao()->nivelacesso != "admin" && $ctx->sessao->conexao()->vinculo != "null"){
+            header("Location: /painel/estabelecimentos/gerir/id/{$ctx->sessao->conexao()->vinculo}");
+        }
+
         foreach($ctx->sessao->listar_contas() as $conta){
             if($conta["nivelacesso"] == "gerente"){
                 $gerentes[$conta["id"]] = $conta["nome"];

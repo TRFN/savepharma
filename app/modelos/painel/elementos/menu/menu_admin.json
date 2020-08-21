@@ -92,7 +92,7 @@
             "vars": {
                 "classes": "",
                 "icone": "file",
-                "texto": "Relatórios",
+                "texto": "Relatórios & Recibos",
                 "link": "/painel/relatorios"
             }
         }

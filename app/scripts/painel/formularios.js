@@ -27,4 +27,15 @@ $("._ca:not(.%tipo-acesso%)").remove();
 
 $(".form-group %input-error%").closest(".form-group").addClass("has-error");
 
-$(".form-group input.data").datepicker({"language":"pt-BR"});
+$(".form-group .form-control.data").datepicker({"language":"pt-BR"}).blur(function(){
+    if(!/^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/.test(this.value)){
+        this.value = "";
+        $(this).closest(".form-group").addClass("has-error");
+    }
+});
+
+$(".form-group .form-control").on("keydown keyup change focus",function(){
+    if($(this).closest(".form-group").hasClass("has-error")){
+        $(this).closest(".form-group").removeClass("has-error");
+    }
+});

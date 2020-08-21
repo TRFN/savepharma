@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
         data: (dados=%dados%),
         columns: %titulos%,
         lengthMenu: [[%qtdRes%], ["Todos"]]
-    } );
+    });
 
     bl_start = "<div style='margin: 2px;padding: 2px;'>";
     st_start = "<div style='padding: 8px; font-size: 16px; letter-spacing: -0.2px; font-weight: 600;' class='resultado col-sm-6 col-xs-12 text-center'>";
@@ -51,6 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         $("#%tabela%-mobile #mensagem").text(!achou?"Nenhum resultado encontrado.":"");
     });
-
+    $("span.ellipsis:first").next().next().remove();
+    $("span.ellipsis").remove();
     $(".dataTables_wrapper input").addClass("form-control").css({"width": "21vw","display": "inline-block","margin-bottom": "16px"});
 }, !1);
