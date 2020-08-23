@@ -5,6 +5,8 @@
         private $exts = array();
         private $id = null;
         private $dir = "";
+        private $valido = false;
+        private $iext = "";
 
         function __construct($security=-1){
             $this->db = new database("uploader-control", $security);
@@ -43,7 +45,8 @@
             mkdir("{$this->dir}/{$dir}");
 
             $this->iext = $iext;
-
+            // die(print_r($_FILES,true));
+            // die(print_r($this,true));
             return ($this->valido=move_uploaded_file($_FILES[$this->param]["tmp_name"], ($this->arquivosalvo="{$this->dir}/{$dir}/{$myid}.{$iext}")));
         }
 
@@ -51,11 +54,13 @@
             if($this->valido){
                 $this->db->escrever($this->id, array(
                     "mime" => $_FILES[$this->param]["type"],
-                    "ext" => $this->$iext,
+                    "ext" => $this->iext,
                     "arquivo" => $this->arquivosalvo,
                     "data" => array(date("d"),date("m"),date("Y"))
                 ));
                 $this->db->gravar();
+            } else {
+                // die(print_r($_FILES,true));
             }
 
             $this->valido = false;
@@ -72,6 +77,14 @@
 
         public function dados($id,$obj = true){
             return $this->db->ler($id, $obj);
+        }
+
+        public function apagar($id){
+            if($this->existe($id)){
+                unlink($this->dados($id)->arquivo);
+                $this->db->escrever($id, null);
+                $this->db->gravar();
+            }
         }
 
         public function display($id){

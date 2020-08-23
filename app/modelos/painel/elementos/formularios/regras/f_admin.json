@@ -1,0 +1,198 @@
+{
+    "contem": {
+        "campo1": {
+            "layout": "painel/partes/formularios/input",
+            "vars": {
+                "valorpadrao": "%input-%id%%",
+
+                "classes": "",
+                "tamanho": "col-md-10",
+                "titulo": "Título da regra",
+                "tipo": "text",
+                "id": "nome",
+                "ajuda": ""
+            }
+        },
+        "campo2": {
+            "layout": "painel/partes/formularios/select",
+            "vars": {
+                "valorpadrao": "%input-%id%%",
+
+                "classes": "text-center",
+                "tamanho": "col-md-2",
+                "titulo": "Regra ativa?",
+                "id": "ativa",
+                "ajuda": "",
+                "dados": {
+                    "0": "Não",
+                    "1": "Sim"
+                }
+            }
+        },
+        "campo3": {
+            "layout": "painel/partes/formularios/select",
+            "vars": {
+                "valorpadrao": "%input-%id%%",
+
+                "classes": "text-center",
+                "tamanho": "col-md-4",
+                "titulo": "Se o prazo de validade for,",
+                "id": "condicao",
+                "ajuda": "",
+                "dados": {
+                    "0": "Equivalente ou maior que",
+                    "1": "Equivalente ou menor que"
+                }
+            }
+        },
+        "campo4": {
+            "layout": "painel/partes/formularios/select",
+            "vars": {
+                "valorpadrao": "%input-%id%%",
+
+                "classes": "text-center",
+                "tamanho": "col-md-3",
+                "titulo": "(Quantidade de meses)",
+                "id": "mes",
+                "ajuda": "",
+                "dados": {
+                    "1": "1 mês",
+                    "2": "2 meses",
+                    "3": "3 meses",
+                    "4": "4 meses",
+                    "5": "5 meses",
+                    "6": "6 meses",
+                    "7": "7 meses",
+                    "8": "8 meses",
+                    "9": "9 meses",
+                    "10": "10 meses",
+                    "11": "11 meses",
+                    "12": "12 meses"
+                }
+            }
+        },
+        "campo5": {
+            "layout": "painel/partes/formularios/select",
+            "vars": {
+                "valorpadrao": "%input-%id%%",
+
+                "classes": "text-center",
+                "tamanho": "col-md-5",
+                "titulo": "(Quantidade de dias)",
+                "id": "dia",
+                "ajuda": "",
+                "dados": {
+                    "0": "para vencimento (sem considerar dias)",
+                    "1": "e 1 dia para vencimento",
+                    "2": "e 2 dias para vencimento",
+                    "3": "e 3 dias para vencimento",
+                    "4": "e 4 dias para vencimento",
+                    "5": "e 5 dias para vencimento",
+                    "6": "e 6 dias para vencimento",
+                    "7": "e 7 dias para vencimento",
+                    "8": "e 8 dias para vencimento",
+                    "9": "e 9 dias para vencimento",
+                    "10": "e 10 dias para vencimento",
+                    "11": "e 11 dias para vencimento",
+                    "12": "e 12 dias para vencimento",
+                    "13": "e 13 dias para vencimento",
+                    "14": "e 14 dias para vencimento",
+                    "15": "e 15 dias para vencimento",
+                    "16": "e 16 dias para vencimento",
+                    "17": "e 17 dias para vencimento",
+                    "18": "e 18 dias para vencimento",
+                    "19": "e 19 dias para vencimento",
+                    "20": "e 20 dias para vencimento",
+                    "21": "e 21 dias para vencimento",
+                    "22": "e 22 dias para vencimento",
+                    "23": "e 23 dias para vencimento",
+                    "24": "e 24 dias para vencimento",
+                    "25": "e 25 dias para vencimento",
+                    "26": "e 26 dias para vencimento",
+                    "27": "e 27 dias para vencimento",
+                    "28": "e 28 dias para vencimento",
+                    "29": "e 29 dias para vencimento",
+                    "30": "e 30 dias para vencimento",
+                    "31": "e 31 dias para vencimento"
+                }
+            }
+        },
+        "campo6": {
+            "layout": "painel/partes/formularios/select",
+            "vars": {
+                "valorpadrao": "%input-%id%%",
+
+                "classes": "text-center",
+                "tamanho": "col-md-3",
+                "titulo": "Quem disponibilizou",
+                "id": "acao1",
+                "ajuda": "",
+                "dados": {
+                    "0": "Perde",
+                    "1": "Ganha"
+                }
+            }
+        },
+        "campo7": {
+            "layout": "painel/partes/formularios/input",
+            "vars": {
+                "valorpadrao": "%input-%id%%",
+
+                "classes": "",
+                "tamanho": "col-md-3",
+                "titulo": "Quantidade de pontos",
+                "tipo": "number",
+                "id": "dado1",
+                "ajuda": ""
+            }
+        },
+        "campo8": {
+            "layout": "painel/partes/formularios/select",
+            "vars": {
+                "valorpadrao": "%input-%id%%",
+
+                "classes": "text-center",
+                "tamanho": "col-md-3",
+                "titulo": "Quem pegou emprestado",
+                "id": "acao2",
+                "ajuda": "",
+                "dados": {
+                    "0": "Perde",
+                    "1": "Ganha"
+                }
+            }
+        },
+        "campo9": {
+            "layout": "painel/partes/formularios/input",
+            "vars": {
+                "valorpadrao": "%input-%id%%",
+
+                "classes": "",
+                "tamanho": "col-md-3",
+                "titulo": "Quantidade de pontos",
+                "tipo": "number",
+                "id": "dado2",
+                "ajuda": ""
+            }
+        },
+        "espaco": {
+            "layout": "painel/partes/formularios/empty",
+            "vars": {
+                "tamanho": "col-md-4",
+                "conteudo": "&nbsp;"
+            }
+        },
+        "botao1": {
+            "layout": "painel/partes/formularios/button",
+            "vars": {
+                "classes": "",
+                "tamanho": "col-md-4",
+                "escala": "md",
+                "estilo": "success",
+                "texto": "%textosubmit%",
+                "acao": "$(this).closest('form').submit()"
+            }
+        }
+    },
+    "montagem": ["campo1","campo2","campo3","campo4","campo5","campo6","campo7","campo8","campo9","espaco","botao1"]
+}

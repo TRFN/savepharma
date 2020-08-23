@@ -1,5 +1,5 @@
 <?php
-    function ctrl_produtos_listar($ctx){
+    function ctrl_regras_listar($ctx){
         $dados = array();
 
         $estabelecimentos = array("null" => "Não especificado");
@@ -9,9 +9,9 @@
             endif;
         }
 
-        foreach($ctx->produtos->ler() as $produtoId=>$produto){
-            if($produto !== "0" && ($ctx->sessao->conexao()->nivelacesso == "admin" || (int)$produto["vinculo"] == $ctx->sessao->conexao()->vinculo)){
-                $quantidade = (int)$produto["quantidade"];
+        foreach($ctx->regras->ler() as $regraId=>$regra){
+            if($regra !== "0" && ($ctx->sessao->conexao()->nivelacesso == "admin" || (int)$regra["vinculo"] == $ctx->sessao->conexao()->vinculo)){
+                $quantidade = (int)$regra["quantidade"];
                 if($quantidade == 0):
                     $quantidade = "Nenhum / Indisponível";
                 elseif($quantidade == 1):
@@ -19,16 +19,16 @@
                 else:
                     $quantidade = $quantidade < 10 ? "0{$quantidade} Unidades":"{$quantidade} Unidades";
                 endif;
-                $nf = "<a href='/painel/notasfiscais/{$produto["notafiscal"]}' class='btn btn-success btn-circle' target=_blank><i class='fa fa-file-o fa-fw'></i></a>
+                $nf = "<a href='/painel/notasfiscais/{$regra["notafiscal"]}' class='btn btn-success btn-circle' target=_blank><i class='fa fa-file-o fa-fw'></i></a>
                     &nbsp;
-                <a href='/painel/notasfiscais/{$produto["notafiscal"]}/download' class='btn btn-info btn-circle' target=_blank><i class='fa fa-download fa-fw'></i></a>";
+                <a href='/painel/notasfiscais/{$regra["notafiscal"]}/download' class='btn btn-info btn-circle' target=_blank><i class='fa fa-download fa-fw'></i></a>";
                 $dado = $ctx->sessao->conexao()->nivelacesso == "admin"
-                    ? array($produto["nome"],$produto["validade"],$estabelecimentos[(String)$produto["vinculo"]],$nf)
-                    : array($produto["nome"],$produto["validade"],$quantidade,$nf);
+                    ? array($regra["nome"],$regra["validade"],$estabelecimentos[(String)$regra["vinculo"]],$nf)
+                    : array($regra["nome"],$regra["validade"],$quantidade,$nf);
                 $dado[] = '
-                    <a href="/painel/produtos/gerir/id/'.$produtoId.'" class="btn btn-primary btn-circle"><i class="fa fa-pencil"></i></a>
+                    <a href="/painel/regras/gerir/id/'.$regraId.'" class="btn btn-primary btn-circle"><i class="fa fa-pencil"></i></a>
                         &nbsp;
-                    <a href="javascript:;" onclick=\'msg_confirmacao(["","Você tem certeza que deseja\napagar esse produto?\n\nEssa ação é irreversível.","warning","Sim, eu tenho","danger"],()=>{location.href="/painel/produtos/gerir/id/'.$produtoId.'/apagar/"})\' class="btn btn-danger btn-circle"><i class="fa fa-trash-o"></i></a>
+                    <a href="javascript:;" onclick=\'msg_confirmacao(["","Você tem certeza que deseja\napagar esse regra?\n\nEssa ação é irreversível.","warning","Sim, eu tenho","danger"],()=>{location.href="/painel/regras/gerir/id/'.$regraId.'/apagar/"})\' class="btn btn-danger btn-circle"><i class="fa fa-trash-o"></i></a>
                 ';
 
                 $dados[] = $dado;
@@ -37,8 +37,8 @@
 
         if($ctx->urlParams[3]=="apagado"){
             $ctx->regVarStrict("mensagem-aviso", '
-                swal("\n","O produto foi apagado.","success");
-                history.pushState(null, null, "/painel/produtos/gerir/");
+                swal("\n","O regra foi apagado.","success");
+                history.pushState(null, null, "/painel/regras/gerir/");
             ');
         }
 

@@ -101,10 +101,10 @@
                     $produto["vinculo"] = $ctx->sessao->conexao()->vinculo;
                 endif;
 
-                $nf_id = "{$produto["vinculo"]}/".sha1(uniqid());
+                $nf_id = "id_{$produto["vinculo"]}/".sha1(uniqid());
 
                 while($ctx->uploader->existe("nfs/{$nf_id}")){
-                    $nf_id = "{$produto["vinculo"]}/".sha1(uniqid());
+                    $nf_id = "id_{$produto["vinculo"]}/".sha1(uniqid());
                 }
 
 

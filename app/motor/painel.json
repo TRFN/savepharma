@@ -32,6 +32,7 @@
 
             }
         },
+
         "home": {
             "caminho": ["/painel/","/painel","/painel/home","/painel/home/"],
             "layout": "painel/paginas/index",
@@ -226,8 +227,60 @@
             "variaveis": {
                 "titulo": "Modificar produto",
                 "f_admin": "painel/elementos/formularios/produtos/f_admin",
-                "f_gerente": "painel/elementos/formularios/produtos/f_gerente"
+                "f_gerente": "painel/elementos/formularios/produtos/f_gerente",
+                "f_farmaceutico": "painel/elementos/formularios/produtos/f_gerente"
+            }
+        },
+
+        "adicionar regra": {
+            "caminho": ["/painel/regras/adicionar","/painel/regras/adicionar/"],
+            "layout": "painel/paginas/formulario",
+            "modelo": "painel/template",
+            "scripts": ["painel/formularios"],
+            "styles": ["painel/mobile"],
+            "controle": ["painel","regras/adicionar"],
+            "type": "text/html",
+            "persistente": false,
+            "minify": true,
+            "variaveis": {
+                "titulo": "Adicionar regra",
+                "f_admin": "painel/elementos/formularios/regras/f_admin"
+            }
+        },
+        "gerir regras": {
+            "caminho": [
+                "/painel/regras/gerir",
+                "/painel/regras/gerir/",
+                "/painel/regras/gerir/apagado",
+                "/painel/regras/gerir/apagado/"
+            ],
+            "layout": "painel/paginas/tabelas",
+            "modelo": "painel/template",
+            "scripts": ["painel/tabelas","painel/mensagens"],
+            "styles": ["painel/mobile"],
+            "controle": ["painel","regras/listar"],
+            "type": "text/html",
+            "persistente": false,
+            "minify": true,
+            "variaveis": {
+                "titulo": "Estabelecimentos"
+            }
+        },
+        "editar regra": {
+            "caminho": ["/painel/regras/gerir/id","/painel/regras/gerir/id/"],
+            "layout": "painel/paginas/formulario",
+            "modelo": "painel/template",
+            "scripts": ["painel/formularios"],
+            "styles": ["painel/mobile"],
+            "controle": ["painel","regras/editar"],
+            "type": "text/html",
+            "persistente": true,
+            "minify": true,
+            "variaveis": {
+                "titulo": "Modificar regra",
+                "f_admin": "painel/elementos/formularios/regras/f_admin"
             }
         }
+
     }
 }

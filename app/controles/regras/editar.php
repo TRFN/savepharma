@@ -1,5 +1,5 @@
 <?php
-    function ctrl_produtos_editar($ctx){
+    function ctrl_regras_editar($ctx){
 
         $estabelecimentos = array("null" => "Não especificado");
         foreach($ctx->estabelecimentos->ler() as $estabelecimentoId=>$estabelecimento){
@@ -8,10 +8,10 @@
             endif;
         }
 
-        $qtdproduto = array("Sem quantidade disponível", "1 unit. disponível");
+        $qtdregra = array("Sem quantidade disponível", "1 unit. disponível");
 
         for($i = 2; $i < 100; $i++){
-            $qtdproduto[$i] = "{$i} units. disponíveis";
+            $qtdregra[$i] = "{$i} units. disponíveis";
         }
 
         $mes = (string)(($m=((int)date("m") + 1)>12?(int)date("m")-11:(int)date("m") + 1)<10?"0{$m}":"{$m}");
@@ -40,21 +40,21 @@
         $ctx->regVarStrict("input-quantidade", "1");
         $ctx->regVarStrict("input-vinculo", "null");
         $ctx->regVarStrict("textosubmit", "<i class='fa fa-floppy-o'></i>&nbsp;Modificar Produto");
-        $ctx->regVarStrict("qtdproduto", json_encode($qtdproduto));
+        $ctx->regVarStrict("qtdregra", json_encode($qtdregra));
         $ctx->regVarStrict("estabelecimentos", json_encode($estabelecimentos));
-        $ctx->regVarStrict("painel-titulo", "Dados do produto");
+        $ctx->regVarStrict("painel-titulo", "Dados do regra");
         $ctx->regVarStrict("painel-icone", "shopping-cart");
 
         $existe = false;
 
         if(isset($ctx->urlParams[4])):
-            foreach($ctx->produtos->ler() as $produtoId=>$produto){
-                if((int)$produtoId == (int)$ctx->urlParams[4] && $produto !== "0"){
-                    unset($produto["id"]);
-                    if(!isset($produto["notafiscal"])){
+            foreach($ctx->regras->ler() as $regraId=>$regra){
+                if((int)$regraId == (int)$ctx->urlParams[4] && $regra !== "0"){
+                    unset($regra["id"]);
+                    if(!isset($regra["notafiscal"])){
                         $ctx->regVarStrict("input-textonotafiscal", "&nbsp;");
                     }
-                    foreach($produto as $chave => $valor){
+                    foreach($regra as $chave => $valor){
                         if(($chave == "prazo" || $chave == "validade") && !empty($valor) && strlen($valor)==10){
                             $d = explode("/", $valor);
                             $attr[$chave]["currentDate"] = "{$d[2]}-{$d[1]}-{$d[0]}";
@@ -68,13 +68,13 @@
         endif;
 
         if(!$existe){
-            header("Location: /painel/produtos/" . ($ctx->sessao->conexao()->nivelacesso == "admin"?"gerir":"adicionar"));
+            header("Location: /painel/regras/" . ($ctx->sessao->conexao()->nivelacesso == "admin"?"gerir":"adicionar"));
         }
 
         if(isset($ctx->urlParams[5]) && $ctx->urlParams[5]=="apagar"){
-            $ctx->produtos->escrever((string)$ctx->urlParams[4], "0");
-            $ctx->produtos->gravar();
-            header("Location: /painel/produtos/gerir/apagado");
+            $ctx->regras->escrever((int)$ctx->urlParams[4], "0");
+            $ctx->regras->gravar();
+            header("Location: /painel/regras/gerir/apagado");
         }
 
         if(isset($_POST["nome"])){
@@ -115,31 +115,31 @@
             }
 
             elseif(isset($dados->vinculo)&&$dados->vinculo=="null"&&$ctx->sessao->conexao()->nivelacesso == "admin"){
-                $erro = "É obrigatório especificar qual estabelecimento está disponibiizando o produto.";
+                $erro = "É obrigatório especificar qual estabelecimento está disponibiizando o regra.";
                 $ctx->regVarStrict("input-error","#vinculo");
             }
 
             else {
 
-                $produto = $ctx->produtos->ler((string)$ctx->urlParams[4]);
+                $regra = $ctx->regras->ler((string)$ctx->urlParams[4]);
 
                 $vinculo = isset($_POST["vinculo"])?$_POST["vinculo"]:-1;
                 unset($_POST["vinculo"]);
 
                 foreach($_POST as $chave => $valor){
-                    $produto[$chave] = $valor;
+                    $regra[$chave] = $valor;
                 }
 
                 if((int)$vinculo != -1 && $ctx->sessao->conexao()->nivelacesso == "admin"):
-                    $produto["vinculo"] = $vinculo;
+                    $regra["vinculo"] = $vinculo;
                 else:
-                    $produto["vinculo"] = $ctx->sessao->conexao()->vinculo;
+                    $regra["vinculo"] = $ctx->sessao->conexao()->vinculo;
                 endif;
 
-                $nf_id = "id_{$produto["vinculo"]}/".sha1(uniqid());
+                $nf_id = "{$regra["vinculo"]}/".sha1(uniqid());
 
                 while($ctx->uploader->existe("nfs/{$nf_id}")){
-                    $nf_id = "id_{$produto["vinculo"]}/".sha1(uniqid());
+                    $nf_id = "{$regra["vinculo"]}/".sha1(uniqid());
                 }
 
                 $ctx->uploader->ler("notafiscal");
@@ -148,24 +148,24 @@
 
                 if($ctx->uploader->valido()){
 
-                    if(isset($produto["notafiscal"]) && $ctx->uploader->existe("nfs/{$produto["notafiscal"]}")){
-                        $ctx->uploader->apagar("nfs/{$produto["notafiscal"]}");
+                    if(isset($regra["notafiscal"]) && $ctx->uploader->existe("nfs/{$regra["notafiscal"]}")){
+                        unlink($ctx->uploader->dados("nfs/{$regra["notafiscal"]}")->arquivo);
                     }
 
-                    $produto["notafiscal"] = $nf_id;
+                    $regra["notafiscal"] = $nf_id;
                     $ctx->regVarStrict("input-notafiscal", $nf_id);
                     $ctx->uploader->upload();
 
                 }
 
-                $ctx->produtos->escrever((string)$ctx->urlParams[4], $produto);
-                $ctx->produtos->gravar();
+                $ctx->regras->escrever((string)$ctx->urlParams[4], $regra);
+                $ctx->regras->gravar();
 
-                // print_r($produto);
+                // print_r($regra);
                 // exit;
 
                 $ctx->regVarStrict("mensagem-aviso", '
-                    swal({title:"\n",text:"O produto foi modificado!",type:"success",showCancelButton:false,confirmButtonClass:"btn-primary",confirmButtonText:"OK",closeOnConfirm:true});
+                    swal({title:"\n",text:"O regra foi modificado!",type:"success",showCancelButton:false,confirmButtonClass:"btn-primary",confirmButtonText:"OK",closeOnConfirm:true});
                 ');
             }
 
