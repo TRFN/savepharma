@@ -31,7 +31,8 @@
         $ctx->regVarStrict("input-nome", "");
         $ctx->regVarStrict("input-lote", "");
         $ctx->regVarStrict("input-validade", "");
-        $ctx->regVarStrict("input-notafiscal", "Carregar Imagem ou PDF");
+        $ctx->regVarStrict("input-notafiscal", "");
+        $ctx->regVarStrict("input-textonotafiscal", "Abrir/baixar <strong>nota fiscal</strong> atual");
         $ctx->regVarStrict("attr-validade", json_encode($attr["validade"]));
         $ctx->regVarStrict("input-prazo", "");
         $ctx->regVarStrict("attr-prazo", json_encode($attr["prazo"]));
@@ -50,6 +51,9 @@
             foreach($ctx->produtos->ler() as $produtoId=>$produto){
                 if((int)$produtoId == (int)$ctx->urlParams[4] && $produto !== "0"){
                     unset($produto["id"]);
+                    if(!isset($produto["notafiscal"])){
+                        $ctx->regVarStrict("input-textonotafiscal", "&nbsp;");
+                    }
                     foreach($produto as $chave => $valor){
                         if(($chave == "prazo" || $chave == "validade") && !empty($valor) && strlen($valor)==10){
                             $d = explode("/", $valor);
@@ -81,6 +85,7 @@
                     $ctx->regVarStrict("attr-{$chave}", json_encode($attr[$chave]));
                 } else $ctx->regVarStrict("input-{$chave}",$valor);
             }
+
             $erro = -1;
             $dados = (object)$_POST;
 
@@ -115,7 +120,30 @@
             }
 
             else {
+
                 $produto = $ctx->produtos->ler((int)$ctx->urlParams[4])[0];
+
+                $nf_id = sha1(uniqid());
+
+                while($ctx->uploader->existe("nfs/{$nf_id}")){
+                    $nf_id = sha1(uniqid());
+                }
+
+                $ctx->uploader->ler("notafiscal");
+                $ctx->uploader->ext(array("png","pdf","jpg","jpeg"));
+                $ctx->uploader->id("nfs/{$nf_id}");
+
+                if($ctx->uploader->valido()){
+
+                    if(isset($produto["notafiscal"]) && $ctx->uploader->existe("nfs/{$produto["notafiscal"]}")){
+                        unlink($ctx->uploader->dados("nfs/{$produto["notafiscal"]}")->arquivo);
+                    }
+
+                    $produto["notafiscal"] = $nf_id;
+                    $ctx->regVarStrict("input-notafiscal", $nf_id);
+                    $ctx->uploader->upload();
+
+                }
 
                 $vinculo = isset($_POST["vinculo"])?$_POST["vinculo"]:-1;
                 unset($_POST["vinculo"]);

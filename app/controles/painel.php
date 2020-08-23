@@ -7,6 +7,8 @@
         $ctx->regras = new database("regras", $ctx->app->versao == "desenvolvimento" ? -1 : "regras");
         $ctx->relatorios = new database("relatorios", $ctx->app->versao == "desenvolvimento" ? -1 : "relatorios");
 
+        $ctx->uploader = new uploader($ctx->app->versao == "desenvolvimento" ? -1 : "uploader");
+
         if(!$ctx->sessao->conectado()){
             header("Location: /painel/login");
             exit();

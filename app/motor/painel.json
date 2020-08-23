@@ -18,6 +18,20 @@
         "menu_farmaceutico": "painel/elementos/menu/menu_farmaceutico"
     },
     "paginas": {
+        "notafiscal": {
+            "caminho": ["/painel/notasfiscais"],
+            "layout": false,
+            "modelo": false,
+            "scripts": [],
+            "styles": [],
+            "controle": ["painel","nfs"],
+            "type": "text/plain",
+            "persistente": true,
+            "minify": false,
+            "variaveis": {
+
+            }
+        },
         "home": {
             "caminho": ["/painel/","/painel","/painel/home","/painel/home/"],
             "layout": "painel/paginas/index",

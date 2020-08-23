@@ -67,7 +67,31 @@
             if($reload){
                 $this->atualizar();
             }
-            return $obj ? ($chave=="*"?(object)$this->dados:(is_array($this->dados[$chave])?(object)$this->dados[$chave]:$this->dados[$chave])):($chave=="*"?(empty($this->dados)?array():$this->dados):$this->dados[$chave]);
+            return $obj
+                ? (
+                    $chave=="*"
+                        ? (object)$this->dados
+                        : (
+                            is_array($this->dados[$chave])
+                                ? (object)$this->dados[$chave]
+                                : $this->dados[$chave]
+                        )
+                )
+
+                : (
+                    $chave=="*"
+                    ? (
+                        empty($this->dados)
+                            ? array()
+                            : $this->dados
+                    )
+
+                    : (
+                        isset($this->dados[$chave])
+                            ? $this->dados[$chave]
+                            : null
+                    )
+                );
         }
 
         public function gravar(){

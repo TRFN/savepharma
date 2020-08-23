@@ -31,7 +31,8 @@
         $ctx->regVarStrict("input-nome", "");
         $ctx->regVarStrict("input-lote", "");
         $ctx->regVarStrict("input-validade", "");
-        $ctx->regVarStrict("input-notafiscal", "Carregar Imagem ou PDF");
+        $ctx->regVarStrict("input-notafiscal", "");
+        $ctx->regVarStrict("input-textonotafiscal", "&nbsp;");
         $ctx->regVarStrict("attr-validade", json_encode($attr["validade"]));
         $ctx->regVarStrict("input-prazo", "");
         $ctx->regVarStrict("attr-prazo", json_encode($attr["prazo"]));

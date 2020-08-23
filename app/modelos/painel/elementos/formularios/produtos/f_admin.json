@@ -109,6 +109,7 @@
             "layout": "painel/partes/formularios/image",
             "vars": {
                 "valorpadrao": "%input-%id%%",
+                "textovalorpadrao": "%input-texto%id%%",
 
                 "classes": "",
                 "tamanho": "col-md-6",
@@ -129,5 +130,5 @@
             }
         }
     },
-    "montagem": ["campo1","campo2","campo3.1","campo3","campo4","campo5","campo10","campo9","campo7","botao1"]
+    "montagem": ["campo1","campo2","campo3.1","campo3","campo4","campo5","campo10","campo9","campo7","campo7","botao1"]
 }
