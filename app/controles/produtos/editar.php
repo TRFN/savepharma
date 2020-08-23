@@ -121,12 +121,25 @@
 
             else {
 
-                $produto = $ctx->produtos->ler((int)$ctx->urlParams[4])[0];
+                $produto = $ctx->produtos->ler((string)$ctx->urlParams[4]);
 
-                $nf_id = sha1(uniqid());
+                $vinculo = isset($_POST["vinculo"])?$_POST["vinculo"]:-1;
+                unset($_POST["vinculo"]);
+
+                foreach($_POST as $chave => $valor){
+                    $produto[$chave] = $valor;
+                }
+
+                if((int)$vinculo != -1 && $ctx->sessao->conexao()->nivelacesso == "admin"):
+                    $produto["vinculo"] = $vinculo;
+                else:
+                    $produto["vinculo"] = $ctx->sessao->conexao()->vinculo;
+                endif;
+
+                $nf_id = "{$produto["vinculo"]}/".sha1(uniqid());
 
                 while($ctx->uploader->existe("nfs/{$nf_id}")){
-                    $nf_id = sha1(uniqid());
+                    $nf_id = "{$produto["vinculo"]}/".sha1(uniqid());
                 }
 
                 $ctx->uploader->ler("notafiscal");
@@ -145,20 +158,7 @@
 
                 }
 
-                $vinculo = isset($_POST["vinculo"])?$_POST["vinculo"]:-1;
-                unset($_POST["vinculo"]);
-
-                foreach($_POST as $chave => $valor){
-                    $produto[$chave] = $valor;
-                }
-
-                if((int)$vinculo != -1 && $ctx->sessao->conexao()->nivelacesso == "admin"):
-                    $produto["vinculo"] = $vinculo;
-                else:
-                    $produto["vinculo"] = $ctx->sessao->conexao()->vinculo;
-                endif;
-
-                $ctx->produtos->escrever((int)$ctx->urlParams[4], $produto);
+                $ctx->produtos->escrever((string)$ctx->urlParams[4], $produto);
                 $ctx->produtos->gravar();
 
                 // print_r($produto);

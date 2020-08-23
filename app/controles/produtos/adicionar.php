@@ -95,15 +95,30 @@
                     $produto[$chave] = $valor;
                 }
 
-                // $alteracoes = (array(
-                //     "vinculo" => (string)$ctx->produtos->escrever((string)$produto["id"], $produto)
-                // ));
-
                 if((int)$vinculo != -1 && $ctx->sessao->conexao()->nivelacesso == "admin"):
                     $produto["vinculo"] = $vinculo;
                 else:
                     $produto["vinculo"] = $ctx->sessao->conexao()->vinculo;
                 endif;
+
+                $nf_id = "{$produto["vinculo"]}/".sha1(uniqid());
+
+                while($ctx->uploader->existe("nfs/{$nf_id}")){
+                    $nf_id = "{$produto["vinculo"]}/".sha1(uniqid());
+                }
+
+
+
+                $ctx->uploader->ler("notafiscal");
+                $ctx->uploader->ext(array("png","pdf","jpg","jpeg"));
+                $ctx->uploader->id("nfs/{$nf_id}");
+
+                if($ctx->uploader->valido()){
+                    $produto["notafiscal"] = $nf_id;
+                    $ctx->regVarStrict("input-notafiscal", $nf_id);
+                    $ctx->uploader->upload();
+
+                }
 
                 $ctx->produtos->escrever((string)$produto["id"], $produto);
                 $ctx->produtos->gravar();
