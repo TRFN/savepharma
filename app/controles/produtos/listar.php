@@ -42,7 +42,7 @@
             ');
         }
 
-        $ctx->regVarStrict("tabela", "tEstabelecimentos");
+        $ctx->regVarStrict("tabela", "tProdutos");
 
         $ctx->regVarStrict("painel-titulo", "Lista de Produtos");
         $ctx->regVarStrict("painel-icone", "shopping-cart");

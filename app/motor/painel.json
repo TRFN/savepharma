@@ -1,6 +1,6 @@
 {
     "versao": "desenvolvimento",
-    "https": false,
+    "https": true,
     "404": "home",
     "minify": true,
     "vars": {
@@ -37,9 +37,9 @@
             "caminho": ["/painel/","/painel","/painel/home","/painel/home/"],
             "layout": "painel/paginas/index",
             "modelo": "painel/template",
-            "scripts": [],
+            "scripts": ["painel/tabelas","painel/mensagens"],
             "styles": ["painel/mobile"],
-            "controle": "painel",
+            "controle": ["painel","produtos/vitrine"],
             "type": "text/html",
             "persistente": true,
             "minify": true,
@@ -211,7 +211,7 @@
             "persistente": false,
             "minify": true,
             "variaveis": {
-                "titulo": "Estabelecimentos"
+                "titulo": "Produtos"
             }
         },
         "editar produto": {
@@ -263,7 +263,7 @@
             "persistente": false,
             "minify": true,
             "variaveis": {
-                "titulo": "Estabelecimentos"
+                "titulo": "Gestão das Regras"
             }
         },
         "editar regra": {

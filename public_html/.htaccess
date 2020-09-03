@@ -3,6 +3,13 @@ RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
 
+# Set REQUEST_SCHEME (standard environment variable in Apache 2.4)
+RewriteCond %{HTTPS} off
+RewriteRule .* - [E=REQUEST_SCHEME:http]
+
+RewriteCond %{HTTPS} on
+RewriteRule .* - [E=REQUEST_SCHEME:https]
+
 RewriteRule (.*) index.php [L]
 
 <IfModule mod_headers.c>

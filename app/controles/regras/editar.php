@@ -1,49 +1,18 @@
 <?php
     function ctrl_regras_editar($ctx){
 
-        $estabelecimentos = array("null" => "Não especificado");
-        foreach($ctx->estabelecimentos->ler() as $estabelecimentoId=>$estabelecimento){
-            if($estabelecimento!=="0"):
-                $estabelecimentos[(string)$estabelecimentoId] = $estabelecimento["nome"];
-            endif;
-        }
-
-        $qtdregra = array("Sem quantidade disponível", "1 unit. disponível");
-
-        for($i = 2; $i < 100; $i++){
-            $qtdregra[$i] = "{$i} units. disponíveis";
-        }
-
-        $mes = (string)(($m=((int)date("m") + 1)>12?(int)date("m")-11:(int)date("m") + 1)<10?"0{$m}":"{$m}");
-        $ano = ((int)date("m") + 1) > 12 ? (string)((int)date("Y") + 1) : date("Y");
-
-        $attr = array();
-
-        $attr["validade"] = array(
-            "minDate" => "{$ano}-{$mes}-".date("d")
-        );
-
-        $attr["prazo"] = array(
-            "minDate" => "{$ano}-{$mes}-".date("d"),
-            "maxDate" => (string)((int)$ano+1)."-{$mes}-".date("d")
-        );
-
         $ctx->regVarStrict("input-nome", "");
-        $ctx->regVarStrict("input-lote", "");
-        $ctx->regVarStrict("input-validade", "");
-        $ctx->regVarStrict("input-notafiscal", "");
-        $ctx->regVarStrict("input-textonotafiscal", "Abrir ou baixar <strong>nota fiscal</strong> atual");
-        $ctx->regVarStrict("attr-validade", json_encode($attr["validade"]));
-        $ctx->regVarStrict("input-prazo", "");
-        $ctx->regVarStrict("attr-prazo", json_encode($attr["prazo"]));
-        $ctx->regVarStrict("input-marca", "");
-        $ctx->regVarStrict("input-quantidade", "1");
-        $ctx->regVarStrict("input-vinculo", "null");
-        $ctx->regVarStrict("textosubmit", "<i class='fa fa-floppy-o'></i>&nbsp;Modificar Produto");
-        $ctx->regVarStrict("qtdregra", json_encode($qtdregra));
-        $ctx->regVarStrict("estabelecimentos", json_encode($estabelecimentos));
-        $ctx->regVarStrict("painel-titulo", "Dados do regra");
-        $ctx->regVarStrict("painel-icone", "shopping-cart");
+        $ctx->regVarStrict("input-ativa", "0");
+        $ctx->regVarStrict("input-condicao", "0");
+        $ctx->regVarStrict("input-mes", "1");
+        $ctx->regVarStrict("input-dia", "0");
+        $ctx->regVarStrict("input-acao1", "1");
+        $ctx->regVarStrict("input-dado1", "100");
+        $ctx->regVarStrict("input-acao2", "0");
+        $ctx->regVarStrict("input-dado2", "100");
+        $ctx->regVarStrict("textosubmit", "<i class='fa fa-floppy-o'></i>&nbsp;Modificar Regra");
+        $ctx->regVarStrict("painel-titulo", "Dados da regra");
+        $ctx->regVarStrict("painel-icone", "gavel");
 
         $existe = false;
 
@@ -51,15 +20,8 @@
             foreach($ctx->regras->ler() as $regraId=>$regra){
                 if((int)$regraId == (int)$ctx->urlParams[4] && $regra !== "0"){
                     unset($regra["id"]);
-                    if(!isset($regra["notafiscal"])){
-                        $ctx->regVarStrict("input-textonotafiscal", "&nbsp;");
-                    }
                     foreach($regra as $chave => $valor){
-                        if(($chave == "prazo" || $chave == "validade") && !empty($valor) && strlen($valor)==10){
-                            $d = explode("/", $valor);
-                            $attr[$chave]["currentDate"] = "{$d[2]}-{$d[1]}-{$d[0]}";
-                            $ctx->regVarStrict("attr-{$chave}", json_encode($attr[$chave]));
-                        } else $ctx->regVarStrict("input-{$chave}",$valor);
+                        $ctx->regVarStrict("input-{$chave}",$valor);
                     }
                     $existe = true;
                     break;
@@ -68,7 +30,7 @@
         endif;
 
         if(!$existe){
-            header("Location: /painel/regras/" . ($ctx->sessao->conexao()->nivelacesso == "admin"?"gerir":"adicionar"));
+            header("Location: /painel/regras/gerir");
         }
 
         if(isset($ctx->urlParams[5]) && $ctx->urlParams[5]=="apagar"){
@@ -79,97 +41,40 @@
 
         if(isset($_POST["nome"])){
             foreach($_POST as $chave=>$valor){
-                if(($chave == "prazo" || $chave == "validade") && !empty($valor) && strlen($valor)==10){
-                    $d = explode("/", $valor);
-                    $attr[$chave]["currentDate"] = "{$d[2]}-{$d[1]}-{$d[0]}";
-                    $ctx->regVarStrict("attr-{$chave}", json_encode($attr[$chave]));
-                } else $ctx->regVarStrict("input-{$chave}",$valor);
+                $ctx->regVarStrict("input-{$chave}",$valor);
             }
 
             $erro = -1;
             $dados = (object)$_POST;
 
+            $dados = (object)$_POST;
+
             if(empty($dados->nome)){
-                $erro = "O nome é obrigatório.";
+                $erro = "Um título é obrigatório.";
                 $ctx->regVarStrict("input-error","#nome");
-            }
-
-            elseif(empty($dados->lote)){
-                $erro = "O lote é obrigatório.";
-                $ctx->regVarStrict("input-error","#lote");
-            }
-
-            elseif(empty($dados->validade)){
-                $erro = "A validade é obrigatória.";
-                $ctx->regVarStrict("input-error","#validade");
-            }
-
-            elseif(empty($dados->marca)){
-                $erro = "A marca é obrigatória.";
-                $ctx->regVarStrict("input-error","#marca");
-            }
-
-            elseif(empty($dados->prazo)){
-                $erro = "O Prazo para devolução é obrigatório.";
-                $ctx->regVarStrict("input-error","#prazo");
-            }
-
-            elseif(isset($dados->vinculo)&&$dados->vinculo=="null"&&$ctx->sessao->conexao()->nivelacesso == "admin"){
-                $erro = "É obrigatório especificar qual estabelecimento está disponibiizando o regra.";
-                $ctx->regVarStrict("input-error","#vinculo");
-            }
-
-            else {
-
-                $regra = $ctx->regras->ler((string)$ctx->urlParams[4]);
-
-                $vinculo = isset($_POST["vinculo"])?$_POST["vinculo"]:-1;
-                unset($_POST["vinculo"]);
+            } else {
+                $regra = array();
+                $regra["id"] = (string)$regraId;
 
                 foreach($_POST as $chave => $valor){
                     $regra[$chave] = $valor;
                 }
 
-                if((int)$vinculo != -1 && $ctx->sessao->conexao()->nivelacesso == "admin"):
-                    $regra["vinculo"] = $vinculo;
-                else:
-                    $regra["vinculo"] = $ctx->sessao->conexao()->vinculo;
-                endif;
-
-                $nf_id = "{$regra["vinculo"]}/".sha1(uniqid());
-
-                while($ctx->uploader->existe("nfs/{$nf_id}")){
-                    $nf_id = "{$regra["vinculo"]}/".sha1(uniqid());
-                }
-
-                $ctx->uploader->ler("notafiscal");
-                $ctx->uploader->ext(array("png","pdf","jpg","jpeg"));
-                $ctx->uploader->id("nfs/{$nf_id}");
-
-                if($ctx->uploader->valido()){
-
-                    if(isset($regra["notafiscal"]) && $ctx->uploader->existe("nfs/{$regra["notafiscal"]}")){
-                        unlink($ctx->uploader->dados("nfs/{$regra["notafiscal"]}")->arquivo);
-                    }
-
-                    $regra["notafiscal"] = $nf_id;
-                    $ctx->regVarStrict("input-notafiscal", $nf_id);
-                    $ctx->uploader->upload();
-
-                }
-
-                $ctx->regras->escrever((string)$ctx->urlParams[4], $regra);
+                $ctx->regras->escrever((string)$regraId, $regra);
                 $ctx->regras->gravar();
 
                 // print_r($regra);
                 // exit;
 
                 $ctx->regVarStrict("mensagem-aviso", '
-                    swal({title:"\n",text:"O regra foi modificado!",type:"success",showCancelButton:false,confirmButtonClass:"btn-primary",confirmButtonText:"OK",closeOnConfirm:true});
+                    swal({title:"\n",text:"A regra foi modificada com exito!",type:"success",showCancelButton:false,confirmButtonClass:"btn-primary",confirmButtonText:"OK",closeOnConfirm:true},function(){window.top.location.href="/painel/regras/gerir/id/' . (string)$regra["id"] . '"});
                 ');
             }
 
             if($erro !== -1){
+                foreach($_POST as $chave=>$valor){
+                    $ctx->regVarStrict("input-{$chave}",$valor);
+                }
                 $ctx->regVarStrict("mensagem-erro", "<i class='fa fa-exclamation-triangle'></i>&nbsp;&nbsp;{$erro}");
                 $ctx->regVarStrict("textosubmit", "<i class='fa fa-refresh'></i>&nbsp;Tentar Novamente");
                 // $ctx->regVarStrict("mensagem-aviso", '

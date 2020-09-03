@@ -4,6 +4,9 @@
         /* Inicialização */
 
         function __construct(){
+            ini_set('memory_limit', '-1');
+            date_default_timezone_set('America/Sao_Paulo');
+
             $this->classLoader();
             $this->appLoad();
             $this->render();
@@ -18,16 +21,30 @@
             spl_autoload_register("my_autoload");
         }
 
+        private function https(){
+            $https = [
+                (isset($this->app->https) && $this->app->https && $_SERVER['SERVER_ADDR'] != "127.0.0.1"),
+                ((! empty($_SERVER['REQUEST_SCHEME']) && $_SERVER['REQUEST_SCHEME'] == 'https') ||
+                (! empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') ||
+                (! empty($_SERVER['SERVER_PORT']) && $_SERVER['SERVER_PORT'] == '443'))
+            ];
+
+            if($https[0] && !$https[1]){
+                header("Location: https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]);
+                exit;
+                // die("https: {$_SERVER['SERVER_ADDR']} {$this->app->https}\n".print_r($this->app, true));
+            } elseif(!$https[0] && $https[1]){
+                header("Location: http://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]);
+                exit;
+                // die("http: {$_SERVER['SERVER_ADDR']} {$this->app->https}\n".print_r($this->app, true));
+            } else {
+                return $https[0] == $https[1];
+            }
+        }
+
         private function appLoad($app="app"){
             $this->jsmin = new jsmin();
             $this->app = json_decode(file_get_contents(__DIR__ . "/{$app}.json"));
-            if($this->app->https && $_SERVER["HTTPS"] != "on"){
-                header("Location: https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]);
-                exit();
-            } elseif(!$this->app->https && $_SERVER["HTTPS"] == "on"){
-                header("Location: http://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]);
-                exit();
-            }
             $this->app->appDir = dirname(__DIR__);
             $this->app->publicDir = dirname($this->app->appDir) . "/public_html";
             $this->app->page = $_SERVER['REQUEST_URI'];
@@ -206,7 +223,7 @@
                     $this->loadPage($this->app->{"404"});
                     $this->makePage();
                 }
-            } elseif($ready != 2) {
+            } elseif($ready != 2 && $this->https()) {
                 $this->makePage();
             }
         }
@@ -241,13 +258,14 @@
             $this->regVar($var, $val);
             $this->regVarPersistent($var, $val);
 
-            $this->regVarStrict("layout", $vars_backup["layout"]["val"]);
-            $this->regVarStrict("scriptcode", $vars_backup["scriptcode"]["val"]);
-            $this->regVarStrict("stylecode", $vars_backup["stylecode"]["val"]);
+            $protected = ["layout","scriptcode", "stylecode"];
 
-            unset($vars_backup["layout"]);
-            unset($vars_backup["scriptcode"]);
-            unset($vars_backup["stylecode"]);
+            foreach($protected as $processo){
+                if(isset($vars_backup[$processo])):
+                    $this->regVarStrict($processo, $vars_backup[$processo]["val"]);
+                    unset($vars_backup[$processo]);
+                endif;
+            }
 
             $this->regVar($var, $val);
 
