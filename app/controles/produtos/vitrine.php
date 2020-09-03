@@ -44,7 +44,7 @@
                     $quantidade = $quantidade < 10 ? "0{$quantidade} Unidades":"{$quantidade} Unidades";
                 endif;
 
-                $acoes = '<div style="clear: both;"><a href="/painel/home/' . substr(sha1(json_encode($transacao)),10,8) . '!' . implode(":",$transacao) . '" class="btn btn-primary btn-block"><i class="fa fa-shopping-cart"></i> PEGAR EMPRESTADO</a>';
+                $acoes = '<div style="clear: both;"><a href="/painel/home/' . substr(sha1(json_encode($transacao)),10,8) . '!' . implode(":", $transacao) . '" class="btn btn-primary btn-block"><i class="fa fa-shopping-cart"></i> PEGAR EMPRESTADO</a>';
 
                 $acoes .= "<a href='/painel/notasfiscais/{$produto["notafiscal"]}/download' class='btn btn-success btn-block' target=_blank><i class='fa fa-file fa-fw'></i> NOTA FISCAL</a></div>";
 
