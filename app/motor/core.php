@@ -8,8 +8,41 @@
             date_default_timezone_set('America/Sao_Paulo');
 
             $this->classLoader();
+            $this->rescheck();
             $this->appLoad();
             $this->render();
+        }
+
+        private function rescheck(){
+            $www = realpath(dirname(dirname(__DIR__)) . "/public_html" . $_SERVER["REQUEST_URI"]);
+
+            $ext = pathinfo($www,PATHINFO_EXTENSION);
+
+            $code = "";
+
+            if(file_exists($www) && !is_dir($www)){
+                switch($ext){
+                    case "css":
+                        $code = file_get_contents($www);
+                        $code = (preg_replace(['/\>[^\S ]+/s','/[^\S ]+\</s','/(\s)+/s','/\n/'],['>','<','\\1',''],$code));
+                        $mime = "text/css";
+                    break;
+
+                    case "js":
+                        $jsmin = new jsmin();
+                        $code = $jsmin->minify(file_get_contents($www));
+                        $mime = "application/x-javascript";
+                    break;
+
+                    case "json":
+                        $code = file_get_contents($www);
+                        $mime = "application/json";
+                    break;
+                }
+
+                header("Content-Type: {$mime}");
+                exit($code);
+            }
         }
 
         /* Funções internas */
