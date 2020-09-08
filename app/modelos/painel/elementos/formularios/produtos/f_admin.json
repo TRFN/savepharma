@@ -72,7 +72,7 @@
 
                 "classes": "",
                 "tamanho": "col-md-4",
-                "titulo": "Quantidade em Estoque (max: 99)",
+                "titulo": "Quantidade em Estoque (max: 999)",
                 "id": "quantidade",
                 "ajuda": "",
                 "dados": "%qtdproduto%"

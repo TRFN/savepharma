@@ -19,10 +19,15 @@
         // exit;
 
         foreach($ctx->produtos->ler() as $produtoId=>$produto){
+
+            if(is_array($produto) && $produto != "0" && $produto != 0){
+                $quantidade = (int)$produto["quantidade"];
+            } else {
+                $quantidade = 0;
+            }
+            
             if(
-                $produto !== 0
-                &&
-                $produto !== "0"
+                $quantidade > 0
                 &&
                 f_datas::diferenca(date("d/m/Y"), $produto["validade"]) > f_datas::diferenca(date("d/m/Y"), $produto["prazo"])
                 &&
@@ -31,6 +36,7 @@
                 f_datas::diferenca(date("d/m/Y"), $produto["validade"]) > 31
             ){
                 $meuproduto = (string)$produto["vinculo"] == (string)$ctx->sessao->conexao()->vinculo;
+                $regra_existe = false;
                 foreach($ctx->regras->ler() as $regraId=>$regra){
                     if($regra != "0" && (int)$regra["ativa"] == 1){
                         if(!(bool)(
@@ -55,11 +61,16 @@
                                 $ctx->sessao->conexao()->vinculo,
                                 (string)$ctx->sessao->conexao()->id
                             );
+
+                            $regra_existe = true;
                         }
                     }
                 }
 
-                $quantidade = (int)$produto["quantidade"];
+                if(!$regra_existe){
+                    $pontos = "&ndash;";
+                }
+
                 if($quantidade == 0):
                     $quantidade = "Nenhum / Indisponível";
                 elseif($quantidade == 1):
@@ -67,7 +78,9 @@
                 else:
                     $quantidade = $quantidade < 10 ? "0{$quantidade} Unidades":"{$quantidade} Unidades";
                 endif;
-                if($meuproduto):
+                if(!$regra_existe):
+                    $acoes = '<div style="clear: both;"><a href="#" onclick=\'swal({confirmButtonText: "ENTENDI",title: "\n",text:"Desculpe, mas este produto não se encaixa a nenhuma regra do sistema,\npor isso não é possível proceder com a transação.",type: "error"});return false;\' class="btn btn-danger btn-block"><i class="fa fa-shopping-cart"></i> PEGAR EMPRESTADO</a>';
+                elseif($meuproduto):
                     $acoes = '<div style="clear: both;"><a href="/painel/produtos/gerir/id/' . $produtoId . '" class="btn btn-primary btn-block"><i class="fa fa-edit"></i> MODIFICAR PRODUTO</a>';
                 else:
                     $acoes = '<div style="clear: both;"><a href="/painel/home/' . (transacao::criar($transacao)) . '" class="btn btn-primary btn-block"><i class="fa fa-shopping-cart"></i> PEGAR EMPRESTADO</a>';

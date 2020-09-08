@@ -10,7 +10,7 @@
 
         $qtdproduto = array("Sem quantidade disponível", "1 unit. disponível");
 
-        for($i = 2; $i < 100; $i++){
+        for($i = 2; $i < 1000; $i++){
             $qtdproduto[$i] = "{$i} units. disponíveis";
         }
 
