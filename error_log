@@ -1,0 +1,12 @@
+[07-Sep-2020 22:30:37 America/Sao_Paulo] PHP Warning:  Illegal string offset 'validade' in /home/savepharma/public_html/app/controles/produtos/vitrine.php on line 14
+[07-Sep-2020 22:30:37 America/Sao_Paulo] PHP Fatal error:  Uncaught exception 'Exception' with message 'DateTime::__construct(): Failed to parse time string (--0) at position 0 (-): Unexpected character' in /home/savepharma/public_html/app/motor/classes/f_datas.php:14
+Stack trace:
+#0 /home/savepharma/public_html/app/motor/classes/f_datas.php(14): DateTime->__construct('--0')
+#1 /home/savepharma/public_html/app/controles/produtos/vitrine.php(14): f_datas::diferenca('07/09/2020', '0')
+#2 /home/savepharma/public_html/app/motor/core.php(154): ctrl_produtos_vitrine(Object(motor))
+#3 /home/savepharma/public_html/app/motor/core.php(220): motor->loadPage('home')
+#4 /home/savepharma/public_html/app/motor/core.php(243): motor->render()
+#5 /home/savepharma/public_html/app/motor/core.php(13): motor->render()
+#6 /home/savepharma/public_html/public_html/index.php(6): motor->__construct()
+#7 {main}
+  thrown in /home/savepharma/public_html/app/motor/classes/f_datas.php on line 14

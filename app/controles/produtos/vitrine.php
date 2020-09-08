@@ -9,8 +9,21 @@
             endif;
         }
 
+        // header("Content-Type: text/plain");
+        //
+        // foreach($ctx->produtos->ler() as $produtoId=>$produto){
+        //     print_r($produto);
+        //     echo "\n\n";
+        // }
+        //
+        // exit;
+
         foreach($ctx->produtos->ler() as $produtoId=>$produto){
             if(
+                $produto !== 0
+                &&
+                $produto !== "0"
+                &&
                 f_datas::diferenca(date("d/m/Y"), $produto["validade"]) > f_datas::diferenca(date("d/m/Y"), $produto["prazo"])
                 &&
                 f_datas::diferenca(date("d/m/Y"), $produto["prazo"]) > 6
