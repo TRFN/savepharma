@@ -25,7 +25,7 @@
             } else {
                 $quantidade = 0;
             }
-            
+
             if(
                 $quantidade > 0
                 &&
@@ -93,7 +93,7 @@
                     "<br /><strong>Validade:</strong> {$produto["validade"]}</div>",
                     "<div style='float: left; text-align: left'><strong>Prazo:</strong> {$produto["prazo"]}" .
                     "<br /><strong>Quantidade:</strong> {$quantidade}" .
-                    "<br /><strong>Pontos " . ($meuproduto?"a ganhar":"a pagar") . ":</strong> {$pontos} <small>pts</small></div>",
+                    "<br /><strong>Pontos " . ($meuproduto?"a ganhar":"a pagar") . ":</strong> {$pontos} <small>" . ($pontos != "&ndash;"?"pts":"") . "</small></div>",
                     $acoes
                 );
 
