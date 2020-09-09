@@ -18,7 +18,7 @@
             return $c;
         }
 
-        public static function somar($data, $dias, $meses = 0, $anos = 0){
+        public static function somar($data, $dias, $meses = 0, $anos = 0,$padrao="d/m/Y"){
             $diasmes = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
             if($data == -1): $data = date("d/m/Y"); endif;
@@ -49,7 +49,10 @@
                 $data[2]++;
             }
 
-            return implode("/", $data);
+            $data[0] = ($data[0] < 10?"0":"") . "{$data[0]}";
+            $data[1] = ($data[1] < 10?"0":"") . "{$data[1]}";
+
+            return implode($data[2], explode("Y", implode($data[1], explode("m", implode($data[0], explode("d", $padrao))))));
 
         }
     }

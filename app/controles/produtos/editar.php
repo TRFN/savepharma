@@ -14,18 +14,18 @@
             $qtdproduto[$i] = "{$i} units. disponíveis";
         }
 
-        $mes = (string)(($m=((int)date("m") + 1)>12?(int)date("m")-11:(int)date("m") + 1)<10?"0{$m}":"{$m}");
-        $ano = ((int)date("m") + 1) > 12 ? (string)((int)date("Y") + 1) : date("Y");
+        // $mes = (string)(($m=((int)date("m") + 1)>12?(int)date("m")-11:(int)date("m") + 1)<10?"0{$m}":"{$m}");
+        // $ano = ((int)date("m") + 1) > 12 ? (string)((int)date("Y") + 1) : date("Y");
 
         $attr = array();
 
         $attr["validade"] = array(
-            "minDate" => "{$ano}-{$mes}-".date("d")
+            "minDate" => f_datas::somar("-1", 0, 1, 0, "Y-m-d")
         );
 
         $attr["prazo"] = array(
-            "minDate" => "{$ano}-{$mes}-".date("d"),
-            "maxDate" => (string)((int)$ano+1)."-{$mes}-".date("d")
+            "minDate" => f_datas::somar("-1", 7, 0, 0, "Y-m-d"),
+            "maxDate" => f_datas::somar("-1", 0, 0, 1, "Y-m-d")
         );
 
         $ctx->regVarStrict("input-nome", "");

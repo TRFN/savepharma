@@ -3,6 +3,8 @@
     "https": true,
     "404": "home",
     "minify": true,
+    "prazoMinimoDevolucao": 7,
+    "prazoMinimoValidade": 30,
     "vars": {
         "cortema": "51, 122, 183",
         "titulo-logo": "SavePharma",
@@ -280,7 +282,22 @@
                 "titulo": "Modificar regra",
                 "f_admin": "painel/elementos/formularios/regras/f_admin"
             }
-        }
+        },
 
+        "relatorios": {
+            "caminho": ["/painel/relatorios/"],
+            "layout": "painel/paginas/relatorios",
+            "modelo": "painel/template",
+            "scripts": ["painel/tabelas","painel/mensagens"],
+            "styles": ["painel/mobile"],
+            "controle": ["painel","relatorios"],
+            "type": "text/html",
+            "persistente": true,
+            "minify": true,
+            "variaveis": {
+                "titulo": "Relatórios & Comprovantes",
+                "tabela_relatorio": "painel/fragmentos/tabela"
+            }
+        }
     }
 }

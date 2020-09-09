@@ -25,8 +25,11 @@
         }
 
         $ctx->regVar("email-conectado", $ctx->sessao->conexao()->email);
+        $ctx->regVar("unome", $ctx->sessao->conexao()->nome);
         $ctx->regVar("pontosdisponiveis", $pontosdisponiveis);
         $ctx->regVar("meuid", $ctx->sessao->conexao()->id);
+        $ctx->regVar("prazoMinimoValidade", $ctx->app->prazoMinimoValidade);
+        $ctx->regVar("prazoMinimoDevolucao", $ctx->app->prazoMinimoDevolucao);
         $ctx->regVarPersistent("tipo-acesso", $ctx->sessao->conexao()->nivelacesso);
 
         $ctx->app->aviso_criar_estabelecimento = true &&  ( // DEBUG: Testes,sempre será False; Runtime, será True.

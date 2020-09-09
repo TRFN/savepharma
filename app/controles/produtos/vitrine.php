@@ -31,9 +31,9 @@
                 &&
                 f_datas::diferenca(date("d/m/Y"), $produto["validade"]) > f_datas::diferenca(date("d/m/Y"), $produto["prazo"])
                 &&
-                f_datas::diferenca(date("d/m/Y"), $produto["prazo"]) > 6
+                f_datas::diferenca(date("d/m/Y"), $produto["prazo"]) >= $ctx->app->prazoMinimoDevolucao
                 &&
-                f_datas::diferenca(date("d/m/Y"), $produto["validade"]) > 31
+                f_datas::diferenca(date("d/m/Y"), $produto["validade"]) >= $ctx->app->prazoMinimoValidade
             ){
                 $meuproduto = (string)$produto["vinculo"] == (string)$ctx->sessao->conexao()->vinculo;
                 $regra_existe = false;
@@ -43,7 +43,7 @@
                             f_datas::diferenca( // Diferença entre dias
                                 f_datas::somar( // Soma a uma data
                                     -1, // Data atual
-                                    (int)$regra["dia"], // Dias
+                                    (int)$regra["dia"]-1, // Dias
                                     (int)$regra["mes"], // Meses
                                     0 // Anos
                                 ), $produto["validade"] // Validade Produto
@@ -90,8 +90,8 @@
                 $dado = array(
                     "<div style='float: left; text-align: left'><strong>Nome:</strong> {$produto["nome"]}" .
                     "<br /><strong>Autor: </strong> " . ($meuproduto ? "Estabelecimento que sou {$ctx->sessao->conexao()->nivelacesso}":$estabelecimentos[(string)$produto["vinculo"]]) .
-                    "<br /><strong>Validade:</strong> {$produto["validade"]}</div>",
-                    "<div style='float: left; text-align: left'><strong>Prazo:</strong> {$produto["prazo"]}" .
+                    "<br /><strong>Validade:</strong> {$produto["validade"]} <small>(vence em " . f_datas::diferenca(date("d/m/Y"), $produto["validade"]) . " dias)</small></div>",
+                    "<div style='float: left; text-align: left'><strong>Prazo:</strong> {$produto["prazo"]} <small>(devolução em até " . f_datas::diferenca(date("d/m/Y"), $produto["prazo"]) . " dias)</small>" .
                     "<br /><strong>Quantidade:</strong> {$quantidade}" .
                     "<br /><strong>Pontos " . ($meuproduto?"a ganhar":"a pagar") . ":</strong> {$pontos} <small>" .  ($pontos != "&ndash;"?"pts":"") . "</small></div>",
                     $acoes
