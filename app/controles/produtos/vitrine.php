@@ -18,22 +18,27 @@
         //
         // exit;
 
-        foreach($ctx->produtos->ler() as $produtoId=>$produto){
+        // exit(print_r($ctx->produtos->ler()));
 
-            if(is_array($produto) && $produto != "0" && $produto != 0){
+        foreach($ctx->produtos->ler() as $produtoId=>$produto){
+            if($produto !== "0" && $produto !== 0){
                 $quantidade = (int)$produto["quantidade"];
             } else {
                 $quantidade = 0;
             }
 
+            // exit((string)(int)f_datas::diferenca(date("d/m/Y"), $produto["validade"]) > f_datas::diferenca(date("d/m/Y"), $produto["prazo"]));
+            // exit((string)(int)f_datas::diferenca(date("d/m/Y"), $produto["prazo"]) >= (int)$ctx->app->prazoMinimoDevolucao);
+            // exit($produto["validade"]);
+
             if(
                 $quantidade > 0
-                &&
-                f_datas::diferenca(date("d/m/Y"), $produto["validade"]) > f_datas::diferenca(date("d/m/Y"), $produto["prazo"])
-                &&
-                f_datas::diferenca(date("d/m/Y"), $produto["prazo"]) >= $ctx->app->prazoMinimoDevolucao
-                &&
-                f_datas::diferenca(date("d/m/Y"), $produto["validade"]) >= $ctx->app->prazoMinimoValidade
+                // &&
+                // f_datas::diferenca(date("d/m/Y"), $produto["validade"]) > f_datas::diferenca(date("d/m/Y"), $produto["prazo"])
+                // &&
+                // f_datas::diferenca(date("d/m/Y"), $produto["prazo"]) >= (int)$ctx->app->prazoMinimoDevolucao
+                // &&
+                // f_datas::diferenca(date("d/m/Y"), $produto["validade"]) >= (int)$ctx->app->prazoMinimoValidade
             ){
                 $meuproduto = (string)$produto["vinculo"] == (string)$ctx->sessao->conexao()->vinculo;
                 $regra_existe = false;
