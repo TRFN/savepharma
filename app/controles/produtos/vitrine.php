@@ -35,10 +35,10 @@
                 $quantidade > 0
                 // &&
                 // f_datas::diferenca(date("d/m/Y"), $produto["validade"]) > f_datas::diferenca(date("d/m/Y"), $produto["prazo"])
-                // &&
-                // f_datas::diferenca(date("d/m/Y"), $produto["prazo"]) >= (int)$ctx->app->prazoMinimoDevolucao
-                // &&
-                // f_datas::diferenca(date("d/m/Y"), $produto["validade"]) >= (int)$ctx->app->prazoMinimoValidade
+                &&
+                f_datas::diferenca(date("d/m/Y"), $produto["prazo"]) >= (int)$ctx->app->prazoMinimoDevolucao
+                &&
+                f_datas::diferenca(date("d/m/Y"), $produto["validade"]) >= (int)$ctx->app->prazoMinimoValidade
             ){
                 $meuproduto = (string)$produto["vinculo"] == (string)$ctx->sessao->conexao()->vinculo;
                 $regra_existe = false;
@@ -149,8 +149,12 @@
                                 $produto["quantidade"] -= (int)$ctx->urlParams[3];
                                 foreach($ctx->regras->ler() as $regraId=>$regra){
                                     if($regra != "0" && (int)$regra["ativa"] == 1 && (int)$regraId == (int)$transacao[0]){
+
                                         $por  = $ctx->estabelecimentos->ler($transacao[1]);
+                                        $por["id"] = $transacao[1];
+
                                         $para = $ctx->estabelecimentos->ler($transacao[3]);
+                                        $para["id"] = $transacao[3];
 
                                         $por["pontos"]  += ($pontos1=(((int)$regra["dado1"]) * ((bool)(int)$regra["acao1"]?1:-1) * (int)$ctx->urlParams[3]));
                                         $para["pontos"] += ($pontos2=(((int)$regra["dado2"]) * ((bool)(int)$regra["acao2"]?1:-1) * (int)$ctx->urlParams[3]));
@@ -172,12 +176,14 @@
                                             );
 
                                             $ctx->estabelecimentos->escrever($transacao[1], $por);
+
                                             $ctx->estabelecimentos->escrever($transacao[3], $para);
+
                                             $ctx->produtos->escrever($produtoId, $produto);
+
                                             $ctx->relatorios->escrever($relatorio["id"], $relatorio);
-                                            $ctx->estabelecimentos->gravar();
-                                            $ctx->produtos->gravar();
-                                            $ctx->relatorios->gravar();
+
+                                            $ctx->estabelecimentos->gravar(); $ctx->produtos->gravar(); $ctx->relatorios->gravar();
 
                                             $ctx->regVarStrict("mensagem-aviso",'swal({html: true,title: "\n",confirmButtonText: "FECHAR" ,text: "Operação concluída!<br /><br /><a href=\'/painel/relatorios/ver/'.$relatorio["id"].'\' class=\'btn btn-info btn-lg\'><i class=\'fa fa-text\'></i> Ver Comprovante</a>",type: "success"},function(){location.href="/painel/home/"});');
                                         }
