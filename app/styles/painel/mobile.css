@@ -6,6 +6,10 @@ html, body, * {
     content: " %titulo-logo%"
 }
 
+td {
+    vertical-align: middle!important;
+}
+
 .dataTables_wrapper .dataTables_paginate.paging_simple_numbers .paginate_button,
 .dataTables_wrapper .dataTables_paginate.paging_simple_numbers .paginate_button.previous,
 .dataTables_wrapper .dataTables_paginate.paging_simple_numbers .paginate_button.next,

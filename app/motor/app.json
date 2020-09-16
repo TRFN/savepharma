@@ -19,7 +19,7 @@
             "persistente": false,
             "minify": true,
             "variaveis": {
-                "titulo": "SavePharma | Pagina Inicial",
+                "titulo": "Save Pharma - Contribuindo para um melhor funcionamento das instituições e a preservação do meio ambiente",
                 "slidehome": "site/elementos/slide-home"
             }
         }

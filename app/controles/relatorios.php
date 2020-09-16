@@ -18,10 +18,84 @@
         // print_r($ctx->relatorios->ler());
         // exit;
         //
+
+
+        // exit(print_r($ctx->urlParams,true));
+
+        if($ctx->urlParams[2] == "t" && ($relatorio=$ctx->relatorios->ler((int)$ctx->urlParams[3])) != null){
+            // header("Content-Type: text/plain");
+            // print_r($relatorio);
+            // exit;
+            ?>
+            <style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;  width: 95vw; max-width: 800px;}
+.tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+  overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+  font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg .tg-baqh{text-align:center;vertical-align:top}
+.tg .tg-c3ow{border-color:inherit;text-align:center;vertical-align:top}
+.tg .tg-lqy6{text-align:right;vertical-align:top}
+.tg .tg-0pky{border-color:inherit;text-align:left;vertical-align:top}
+.tg .tg-dvpl{border-color:inherit;text-align:right;vertical-align:top}
+.tg-wrap {margin: 10vh auto; display: block; width: 95vw; max-width: 800px;}
+@media screen and (max-width: 767px) {.tg-wrap {overflow-x: auto;-webkit-overflow-scrolling: touch;}}</style>
+<div class="tg-wrap">
+<center>
+    <img src="/images/logo-azul.png" width="40%" /><br /><br />
+    <h4>COMPROVANTE DE EMPRESTIMO</h4></center>
+
+    <table class="tg">
+<thead>
+  <tr>
+    <th class="tg-c3ow" colspan="3">SOLICITANTE</th>
+    <th class="tg-c3ow" colspan="3">CEDENTE</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td class="tg-c3ow" colspan="3"><?=$relatorio[0]["para"]["nome"];?></td>
+    <td class="tg-c3ow" colspan="3"><?=$relatorio[0]["por"]["nome"];?></td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">DESCRIÇÃO</td>
+    <td class="tg-0pky" colspan="5"><?=$relatorio[0]["produto"]["nome"];?></td>
+  </tr>
+  <tr>
+    <td class="tg-dvpl">LOTE</td>
+    <td class="tg-c3ow"><?=$relatorio[0]["produto"]["lote"];?></td>
+    <td class="tg-dvpl">VALIDADE</td>
+    <td class="tg-c3ow"><?=$relatorio[0]["produto"]["validade"];?></td>
+    <td class="tg-dvpl">QUANTIDADE</td>
+    <td class="tg-baqh"><?=$relatorio[0]["quantidade"];?></td>
+  </tr>
+  <tr>
+    <td class="tg-lqy6">RETIRADA</td>
+    <td class="tg-baqh"><?=$relatorio["retirada"];?></td>
+    <td class="tg-lqy6">PREVISÃO</td>
+    <td class="tg-baqh"><?=$relatorio[0]["produto"]["prazo"];?></td>
+    <td class="tg-lqy6">DEVOLUÇÃO</td>
+    <td class="tg-baqh"> AINDA NÃO REALIZADA </td>
+  </tr>
+  <tr>
+    <td class="tg-lqy6">PERMUTA</td>
+    <td class="tg-baqh"> - </td>
+    <td class="tg-lqy6">ATRASO</td>
+    <td class="tg-baqh">NÃO</td>
+    <td class="tg-lqy6">DEVOLVIDO</td>
+    <td class="tg-baqh">NÃO</td>
+  </tr>
+</tbody>
+</table></div>
+            <?php
+            exit;
+        }
+
+
         foreach($ctx->relatorios->ler() as $dadoID => $dado){
             if($ctx->sessao->conexao()->nivelacesso == "admin" || (int)$dado["por"]["id"] == (int)$ctx->sessao->conexao()->vinculo || (int)$dado["para"]["id"] == (int)$ctx->sessao->conexao()->vinculo){
                 $td = array();
-                $td[] = $dadoID;
+                $td[] = "<h4># $dadoID</h4>";
 
                 $td[] = $dado["produto"]["nome"] . "<br /><small>{$dado["por"]["nome"]}</small>";
 
@@ -48,7 +122,7 @@
                             $acoes .= '<a  href="javascript:;" onclick=\'msg_confirmacao(["","Você deseja mesmo declarar que\no produto foi recebido?","warning","Sim, desejo","warning"],()=>{location.href="/painel/relatorios/t/'.$dadoID.'/recebido/"})\' class="btn btn-primary btn-block"><i class="fa fa-shopping-cart"></i> RECEBI O PRODUTO</a>';
                         break;
                         case 1:
-                            $acoes .= '<a  href="javascript:;" onclick=\'msg_confirmacao(["","Você deseja mesmo declarar que\no produto foi devolvido?","warning","Sim, desejo","warning"],()=>{location.href="/painel/relatorios/t/'.$dadoID.'/recebido/"})\' class="btn btn-primary btn-block"><i class="fa fa-shopping-cart"></i> DEVOLVI O PRODUTO</a>';
+                            $acoes .= '<a  href="javascript:;" onclick=\'msg_confirmacao(["","Você deseja mesmo declarar que\no produto foi devolvido?","warning","Sim, desejo","warning"],()=>{location.href="/painel/relatorios/t/'.$dadoID.'/devolvido/"})\' class="btn btn-primary btn-block"><i class="fa fa-shopping-cart"></i> DEVOLVI O PRODUTO</a>';
                         break;
                     }
                 }
