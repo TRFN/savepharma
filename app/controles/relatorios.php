@@ -1,4 +1,70 @@
 <?php
+    function comprovante($relatorio){
+        ?>
+        <style type="text/css">
+            .tg  {border-collapse:collapse;border-spacing:0;  width: 95vw; max-width: 800px;}
+            .tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+            overflow:hidden;padding:10px 5px;word-break:normal;}
+            .tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+            font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+            .tg .tg-baqh{text-align:center;vertical-align:top}
+            .tg .tg-c3ow{border-color:inherit;text-align:center;vertical-align:top}
+            .tg .tg-lqy6{text-align:right;vertical-align:top}
+            .tg .tg-0pky{border-color:inherit;text-align:left;vertical-align:top}
+            .tg .tg-dvpl{border-color:inherit;text-align:right;vertical-align:top}
+            .tg-wrap {margin: 10vh auto; display: block; width: 95vw; max-width: 800px;}
+            @media screen and (max-width: 767px) {.tg-wrap {overflow-x: auto;-webkit-overflow-scrolling: touch;}}</style>
+            <div class="tg-wrap">
+            <center>
+            <img src="/images/logo-azul.png" width="40%" /><br /><br />
+            <h4>COMPROVANTE DE EMPRESTIMO</h4></center>
+
+            <table class="tg">
+            <thead>
+            <tr>
+            <th class="tg-c3ow" colspan="3">SOLICITANTE</th>
+            <th class="tg-c3ow" colspan="3">CEDENTE</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <td class="tg-c3ow" colspan="3"><?=$relatorio["para"]["nome"];?></td>
+            <td class="tg-c3ow" colspan="3"><?=$relatorio["por"]["nome"];?></td>
+            </tr>
+            <tr>
+            <td class="tg-0pky">DESCRIÇÃO</td>
+            <td class="tg-0pky" colspan="5"><?=$relatorio["produto"]["nome"];?></td>
+            </tr>
+            <tr>
+            <td class="tg-dvpl">LOTE</td>
+            <td class="tg-c3ow"><?=$relatorio["produto"]["lote"];?></td>
+            <td class="tg-dvpl">VALIDADE</td>
+            <td class="tg-c3ow"><?=$relatorio["produto"]["validade"];?></td>
+            <td class="tg-dvpl">QUANTIDADE</td>
+            <td class="tg-baqh"><?=$relatorio["quantidade"];?></td>
+            </tr>
+            <tr>
+            <td class="tg-lqy6">RETIRADA</td>
+            <td class="tg-baqh"><?=$relatorio["retirada"];?></td>
+            <td class="tg-lqy6">PREVISÃO</td>
+            <td class="tg-baqh"><?=$relatorio["produto"]["prazo"];?></td>
+            <td class="tg-lqy6">ESTADO</td>
+            <td class="tg-baqh"><?=isset($relatorio["status"]) ? $relatorio["status"] == 0 ? "PRODUTO EM ENVIO" : $relatorio["status"] == 1 ? "AGUARDANDO DEVOLUÇÃO" : "PRODUTO DEVOLVIDO" : "PRODUTO EM ENVIO";?></td>
+            </tr>
+            <tr>
+            <td class="tg-lqy6">PERMUTA</td>
+            <td class="tg-baqh"> - </td>
+            <td class="tg-lqy6">ATRASO</td>
+            <td class="tg-baqh">NÃO</td>
+            <td class="tg-lqy6">DEVOLVIDO</td>
+            <td class="tg-baqh"><?=isset($relatorio["status"]) && $relatorio["status"] > 1 ? "SIM":"NÃO";?></td>
+            </tr>
+            </tbody>
+            </table></div>
+        <?php
+        exit;
+    }
+
     function ctrl_relatorios($ctx){
 
         // MODELO:
@@ -9,7 +75,8 @@
         //      "para" => Quem Adquiriu
         //      "pontos1" => Pontos relativos a quem disponibilizou
         //      "pontos2" => Pontos relativos a quem adquiriu
-        //      "quantidade" => Quantidade
+        //      "quantidade" => Quantidade,
+        //      "retirada" => Dados de data e hora de retirada.
 
         $dados = array();
         $tdg = array();
@@ -19,76 +86,54 @@
         // exit;
         //
 
+        // exit(__DIR__);
 
         // exit(print_r($ctx->urlParams,true));
 
-        if($ctx->urlParams[2] == "t" && ($relatorio=$ctx->relatorios->ler((int)$ctx->urlParams[3])) != null){
-            // header("Content-Type: text/plain");
-            // print_r($relatorio);
-            // exit;
-            ?>
-            <style type="text/css">
-.tg  {border-collapse:collapse;border-spacing:0;  width: 95vw; max-width: 800px;}
-.tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
-  overflow:hidden;padding:10px 5px;word-break:normal;}
-.tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
-  font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
-.tg .tg-baqh{text-align:center;vertical-align:top}
-.tg .tg-c3ow{border-color:inherit;text-align:center;vertical-align:top}
-.tg .tg-lqy6{text-align:right;vertical-align:top}
-.tg .tg-0pky{border-color:inherit;text-align:left;vertical-align:top}
-.tg .tg-dvpl{border-color:inherit;text-align:right;vertical-align:top}
-.tg-wrap {margin: 10vh auto; display: block; width: 95vw; max-width: 800px;}
-@media screen and (max-width: 767px) {.tg-wrap {overflow-x: auto;-webkit-overflow-scrolling: touch;}}</style>
-<div class="tg-wrap">
-<center>
-    <img src="/images/logo-azul.png" width="40%" /><br /><br />
-    <h4>COMPROVANTE DE EMPRESTIMO</h4></center>
+        if($ctx->urlParams[2] == "t"){
+            if(($relatorio=$ctx->relatorios->ler((string)$ctx->urlParams[3])) != null){
+                // print_R($ctx->relatorios->ler((string)$ctx->urlParams[3]));exit;
+                if(isset($ctx->urlParams[4]) && $ctx->urlParams[4] != "ver"){
+                    $relatorio["status"] = isset($relatorio["status"])
+                        ? (
+                            $relatorio["status"] == 0 && $ctx->urlParams[4] == "recebido"
+                                ? 1
+                                : (
+                                    $relatorio["status"] == 1 && $ctx->urlParams[4] == "devolvido"
+                                        ? 2
+                                        : 0
+                                )
+                        )
+                        : 0;
 
-    <table class="tg">
-<thead>
-  <tr>
-    <th class="tg-c3ow" colspan="3">SOLICITANTE</th>
-    <th class="tg-c3ow" colspan="3">CEDENTE</th>
-  </tr>
-</thead>
-<tbody>
-  <tr>
-    <td class="tg-c3ow" colspan="3"><?=$relatorio[0]["para"]["nome"];?></td>
-    <td class="tg-c3ow" colspan="3"><?=$relatorio[0]["por"]["nome"];?></td>
-  </tr>
-  <tr>
-    <td class="tg-0pky">DESCRIÇÃO</td>
-    <td class="tg-0pky" colspan="5"><?=$relatorio[0]["produto"]["nome"];?></td>
-  </tr>
-  <tr>
-    <td class="tg-dvpl">LOTE</td>
-    <td class="tg-c3ow"><?=$relatorio[0]["produto"]["lote"];?></td>
-    <td class="tg-dvpl">VALIDADE</td>
-    <td class="tg-c3ow"><?=$relatorio[0]["produto"]["validade"];?></td>
-    <td class="tg-dvpl">QUANTIDADE</td>
-    <td class="tg-baqh"><?=$relatorio[0]["quantidade"];?></td>
-  </tr>
-  <tr>
-    <td class="tg-lqy6">RETIRADA</td>
-    <td class="tg-baqh"><?=$relatorio["retirada"];?></td>
-    <td class="tg-lqy6">PREVISÃO</td>
-    <td class="tg-baqh"><?=$relatorio[0]["produto"]["prazo"];?></td>
-    <td class="tg-lqy6">DEVOLUÇÃO</td>
-    <td class="tg-baqh"> AINDA NÃO REALIZADA </td>
-  </tr>
-  <tr>
-    <td class="tg-lqy6">PERMUTA</td>
-    <td class="tg-baqh"> - </td>
-    <td class="tg-lqy6">ATRASO</td>
-    <td class="tg-baqh">NÃO</td>
-    <td class="tg-lqy6">DEVOLVIDO</td>
-    <td class="tg-baqh">NÃO</td>
-  </tr>
-</tbody>
-</table></div>
-            <?php
-            exit;
+                    $ctx->relatorios->escrever((int)$ctx->urlParams[3], $relatorio);
+                    $ctx->relatorios->gravar();
+
+                    switch($relatorio["status"]):
+                        case 0:
+                        $ctx->regVarStrict("mensagem-aviso", '
+                            swal("\n","Desculpe, essa operação não é permitida.","error");
+                            history.pushState(null, null, "/painel/relatorios");
+                        ');
+                        break;
+
+                        case 1:
+                            $ctx->regVarStrict("mensagem-aviso", '
+                                swal("\n","Pronto, você informou que o produto foi recebido.","success");
+                                history.pushState(null, null, "/painel/relatorios");
+                            ');
+                        break;
+
+                        case 2:
+                            $ctx->regVarStrict("mensagem-aviso", '
+                                swal("\n","Pronto, você informou que o produto foi devolvido.","success");
+                                history.pushState(null, null, "/painel/relatorios");
+                            ');
+                        break;
+                    endswitch;
+
+                } else comprovante($relatorio);
+            }
         }
 
 
@@ -102,7 +147,7 @@
                 $pontos = array(abs($dado["pontos1"]), abs($dado["pontos2"]));
 
                 $td[] = $ctx->sessao->conexao()->nivelacesso == "admin"
-                    ? "<strong>{$dado["por"]["nome"]}</strong> ganhou {$pontos[0]} pts<br /><strong>{$dado["para"]["nome"]}</strong> pagou {$pontos[1]} pts"
+                    ? "<strong>{$dado["por"]["nome"]}</strong> ganhou {$pontos} pts<br /><strong>{$dado["para"]["nome"]}</strong> pagou {$pontos[1]} pts"
                     : (
                         (int)$dado["por"]["id"] == (int)$ctx->sessao->conexao()->vinculo
                             ? "Você ganhou<br />{$pontos[0]} pontos"

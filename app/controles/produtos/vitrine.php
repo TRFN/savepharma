@@ -60,11 +60,11 @@
                                 $pontos = $regra["dado2"];
                             endif;
                             $transacao = array(
-                                (string)$regraId,
-                                (string)$produto["vinculo"],
-                                (string)$produtoId,
+                                $regraId,
+                                $produto["vinculo"],
+                                $produtoId,
                                 $ctx->sessao->conexao()->vinculo,
-                                (string)$ctx->sessao->conexao()->id
+                                $ctx->sessao->conexao()->id
                             );
 
                             $regra_existe = true;
@@ -83,6 +83,7 @@
                 else:
                     $quantidade = $quantidade < 10 ? "0{$quantidade} Unidades":"{$quantidade} Unidades";
                 endif;
+                // print_r(transacao::criar($transacao) . "<br>");
                 if(!$regra_existe):
                     $acoes = '<div style="clear: both;"><a href="#" onclick=\'swal({confirmButtonText: "ENTENDI",title: "\n",text:"Desculpe, mas este produto não se encaixa a nenhuma regra do sistema,\npor isso não é possível proceder com a transação.",type: "error"});return false;\' class="btn btn-danger btn-block"><i class="fa fa-shopping-cart"></i> PEGAR EMPRESTADO</a>';
                 elseif($meuproduto):
@@ -110,13 +111,17 @@
             }
         }
 
+        // exit;
+
         // exit((bool)f_datas::diferenca(date("d/m/Y"),"03/09/2020"));
         // exit(f_datas::somar(-1,10,2,0));
 
         if(!empty($ctx->urlParams[2])){
             if(is_array($conteudo=transacao::ler($ctx->urlParams[2]))){
+                // print_r($conteudo);
+                // exit;
                 foreach($ctx->produtos->ler() as $produtoId=>$produto){
-                    if((int)$produtoId == (int)$transacao[2] && $produto !== "0"){
+                    if((string)$produtoId == (string)$conteudo[2]){
                         $_SESSION["transacao"] = $conteudo;
 
                         $qtdmax = $produto["quantidade"];
@@ -172,7 +177,8 @@
                                                 "para" => $para, // Quem Adquiriu
                                                 "pontos1" => $pontos1, // Pontos relativos a quem disponibilizou
                                                 "pontos2" => $pontos2, // Pontos relativos a quem adquiriu
-                                                "quantidade" => (int)$ctx->urlParams[3] // Quantidade
+                                                "quantidade" => (int)$ctx->urlParams[3], // Quantidade
+                                                "retirada" => date("d/m/Y \à\s H:i") // HORARIO
                                             );
 
                                             $ctx->estabelecimentos->escrever($transacao[1], $por);
@@ -185,7 +191,7 @@
 
                                             $ctx->estabelecimentos->gravar(); $ctx->produtos->gravar(); $ctx->relatorios->gravar();
 
-                                            $ctx->regVarStrict("mensagem-aviso",'swal({html: true,title: "\n",confirmButtonText: "FECHAR" ,text: "Operação concluída!<br /><br /><a href=\'/painel/relatorios/ver/'.$relatorio["id"].'\' class=\'btn btn-info btn-lg\'><i class=\'fa fa-text\'></i> Ver Comprovante</a>",type: "success"},function(){location.href="/painel/home/"});');
+                                            $ctx->regVarStrict("mensagem-aviso",'swal({html: true,title: "\n",confirmButtonText: "FECHAR" ,text: "Operação concluída!<br /><br /><a href=\'/painel/relatorios/'.$relatorio["id"].'/ver\' target=_blank class=\'btn btn-info btn-lg\'><i class=\'fa fa-text\'></i> Ver Comprovante</a>",type: "success"},function(){location.href="/painel/home/"});');
                                         }
                                     }
                                 }

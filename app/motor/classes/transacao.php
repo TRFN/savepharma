@@ -3,6 +3,8 @@
         public static function criar($entrada){
             $entrada = str_split(json_encode($entrada));
 
+            // return print_r($entrada, true);
+
             $tabela1 = str_split('[]{}:,0123456789null"');
             $tabela2 = str_split("1234abcdef9ABCDEF5678");
 
